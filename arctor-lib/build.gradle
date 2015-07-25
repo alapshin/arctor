@@ -1,0 +1,39 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'com.github.dcendents.android-maven'
+
+group = 'com.alapshin.arctor'
+version = '1.0'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+
+dependencies {
+    compile libraries.supportappcompat
+
+    // Butterknife
+    compile libraries.butterknife
+    // Dagger
+    compile libraries.dagger
+    apt libraries.daggercompiler
+    provided libraries.javaxannotation
+    // JSR-305
+    provided libraries.jsr305
+    // RxJava
+    compile libraries.rxjava
+}
