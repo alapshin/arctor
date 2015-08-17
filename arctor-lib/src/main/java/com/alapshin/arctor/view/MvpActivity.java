@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 
 import com.alapshin.arctor.base.BaseActivity;
 import com.alapshin.arctor.presenter.Presenter;
+import com.alapshin.arctor.presenter.PresenterDelegate;
 
 import javax.inject.Inject;
 

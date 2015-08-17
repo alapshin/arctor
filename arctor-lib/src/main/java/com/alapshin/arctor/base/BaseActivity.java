@@ -23,11 +23,11 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         injectDependencies();
         setContentView(getLayoutRes());
-        ButterKnife.bind(this);
     }
 
     @Override
     public void onContentChanged() {
+        ButterKnife.bind(this);
     }
 
     @Override

@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.alapshin.arctor.base.BaseFragment;
 import com.alapshin.arctor.presenter.Presenter;
+import com.alapshin.arctor.presenter.PresenterDelegate;
 
 import javax.inject.Inject;
 

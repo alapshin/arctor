@@ -1,9 +1,10 @@
-package com.alapshin.arctor.view;
+package com.alapshin.arctor.presenter;
 
 import android.os.Bundle;
 
 import com.alapshin.arctor.presenter.Presenter;
 import com.alapshin.arctor.presenter.PresenterBundle;
+import com.alapshin.arctor.view.MvpView;
 
 import static com.alapshin.arctor.util.PresenterBundleUtil.getPresenterBundle;
 import static com.alapshin.arctor.util.PresenterBundleUtil.setPresenterBundle;
