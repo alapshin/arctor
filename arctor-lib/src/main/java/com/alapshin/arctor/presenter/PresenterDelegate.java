@@ -55,7 +55,7 @@ public class PresenterDelegate<V extends MvpView, P extends Presenter<V>> {
      */
     public  void onResume() {
         isDestroyedBySystem = false;
-        presenter.onPause();
+        presenter.onResume();
     }
 
     /**
