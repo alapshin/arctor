@@ -2,12 +2,14 @@ package com.alapshin.arctor.base;
 
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 
 import butterknife.ButterKnife;
+import icepick.Icepick;
 
 
 /**
@@ -20,6 +22,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Icepick.restoreInstanceState(this, savedInstanceState);
 
         injectDependencies();
         setContentView(getLayoutRes());
@@ -28,6 +31,13 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public void onContentChanged() {
         ButterKnife.bind(this);
+    }
+
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Icepick.saveInstanceState(this, outState);
     }
 
     @Override

@@ -4,7 +4,7 @@ apply plugin: 'com.github.dcendents.android-maven'
 
 group = 'com.github.alapshin'
 archivesBaseName = 'arctor'
-version = '0.1.4'
+version = '0.1.5'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -33,6 +33,9 @@ dependencies {
     compile libraries.dagger
     apt libraries.daggercompiler
     provided libraries.javaxannotation
+    // Icepick
+    compile libraries.icepick
+    apt libraries.icepickprocessor
     // JSR-305
     provided libraries.jsr305
     // RxJava

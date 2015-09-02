@@ -17,6 +17,9 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        maven {
+            url "https://clojars.org/repo/"
+        }
     }
 }
 
@@ -44,8 +47,8 @@ ext.libraries = [
         eventbusprocessor: 'de.greenrobot:eventbus-annotation-processor:3.0.0-beta1',
         gson: 'com.google.code.gson:gson:2.3.1',
         guava: 'com.google.guava:guava:18.0',
-        icepick: 'frankiesardo:icepick:3.0.2',
-        icepickprocessor: 'frankiesardo:icepick-processor:3.0.2',
+        icepick: 'frankiesardo:icepick:3.1.0',
+        icepickprocessor: 'frankiesardo:icepick-processor:3.1.0',
         javaxannotation: 'javax.annotation:javax.annotation-api:1.2',
         jsr305: 'com.google.code.findbugs:jsr305:3.0.0',
         leakcanary: 'com.squareup.leakcanary:leakcanary-android:1.3.1',
