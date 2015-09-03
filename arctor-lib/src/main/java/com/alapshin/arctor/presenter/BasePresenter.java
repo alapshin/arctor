@@ -23,7 +23,7 @@ public abstract class BasePresenter<V extends MvpView> implements Presenter<V> {
     protected WeakReference<V> viewRef;
 
     @Override
-    public void onCreate(@Nullable PresenterBundle bundle) {
+    public void onCreate(@Nullable PresenterBundle savedInstanceState) {
         Log.d(getClass().getSimpleName(), "onCreate");
     }
 
@@ -43,7 +43,7 @@ public abstract class BasePresenter<V extends MvpView> implements Presenter<V> {
     }
 
     @Override
-    public void onSaveInstanceState(@Nonnull PresenterBundle bundle) {
+    public void onSaveInstanceState(@Nonnull PresenterBundle outState) {
         Log.d(getClass().getSimpleName(), "onSaveInstanceState");
     }
 

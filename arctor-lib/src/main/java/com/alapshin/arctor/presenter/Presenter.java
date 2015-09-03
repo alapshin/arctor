@@ -13,11 +13,11 @@ import javax.annotation.Nullable;
  * @since 2015-04-18
  */
 public interface Presenter<V extends MvpView> {
-    void onCreate(@Nullable PresenterBundle bundle);
+    void onCreate(@Nullable PresenterBundle savedInstanceState);
     void onStart();
     void onResume();
     void onPause();
-    void onSaveInstanceState(@Nonnull PresenterBundle bundle);
+    void onSaveInstanceState(@Nonnull PresenterBundle outState);
     void onStop();
     void onDestroy();
 

@@ -3,6 +3,7 @@ package com.alapshin.arctor.presenter;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -10,6 +11,13 @@ import java.util.Set;
  */
 public class PresenterBundle {
     private HashMap<String, Object> map = new HashMap<>();
+
+    public PresenterBundle() {
+    }
+
+    public PresenterBundle(HashMap<String, Object> map) {
+        this.map = map;
+    }
 
     public HashMap<String, Object> getMap() {
         return map;
