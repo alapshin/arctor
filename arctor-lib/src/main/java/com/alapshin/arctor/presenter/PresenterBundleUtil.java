@@ -1,9 +1,7 @@
-package com.alapshin.arctor.util;
+package com.alapshin.arctor.presenter;
 
 import android.os.Bundle;
 import android.util.Log;
-
-import com.alapshin.arctor.presenter.PresenterBundle;
 
 import java.util.HashMap;
 

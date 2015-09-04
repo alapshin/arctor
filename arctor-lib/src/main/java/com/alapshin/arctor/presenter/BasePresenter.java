@@ -16,6 +16,7 @@ import javax.annotation.Nullable;
  * @since 2015-04-18
  */
 public abstract class BasePresenter<V extends MvpView> implements Presenter<V> {
+    private static final String TAG = BasePresenter.class.getSimpleName();
     /**
      * Reference to view. Using weak reference to avoid memory leaks. Before calling any view
      * methods check that view is attached with isViewAttached
@@ -24,49 +25,49 @@ public abstract class BasePresenter<V extends MvpView> implements Presenter<V> {
 
     @Override
     public void onCreate(@Nullable PresenterBundle savedInstanceState) {
-        Log.d(getClass().getSimpleName(), "onCreate");
+        Log.d(TAG, "onCreate");
     }
 
     @Override
     public void onStart() {
-        Log.d(getClass().getSimpleName(), "onStart");
+        Log.d(TAG, "onStart");
     }
 
     @Override
     public void onResume() {
-        Log.d(getClass().getSimpleName(), "onResume");
+        Log.d(TAG, "onResume");
     }
 
     @Override
     public void onPause() {
-        Log.d(getClass().getSimpleName(), "onPause");
+        Log.d(TAG, "onPause");
     }
 
     @Override
     public void onSaveInstanceState(@Nonnull PresenterBundle outState) {
-        Log.d(getClass().getSimpleName(), "onSaveInstanceState");
+        Log.d(TAG, "onSaveInstanceState");
     }
 
     @Override
     public void onStop() {
-        Log.d(getClass().getSimpleName(), "onStop");
+        Log.d(TAG, "onStop");
     }
 
     @Override
     public void onDestroy() {
-        Log.d(getClass().getSimpleName(), "onDestroy");
+        Log.d(TAG, "onDestroy");
     }
 
     @Override
     public void attachView(V view) {
+        Log.d(TAG, "attachView");
         this.viewRef = new WeakReference<V>(view);
-        Log.d(getClass().getSimpleName(), "attachView");
     }
 
     @Override
     public void detachView() {
+        Log.d(TAG, "detachView");
         viewRef = null;
-        Log.d(getClass().getSimpleName(), "detachView");
     }
 
     protected boolean isViewAttached() {

@@ -2,12 +2,10 @@ package com.alapshin.arctor.presenter;
 
 import android.os.Bundle;
 
-import com.alapshin.arctor.presenter.Presenter;
-import com.alapshin.arctor.presenter.PresenterBundle;
 import com.alapshin.arctor.view.MvpView;
 
-import static com.alapshin.arctor.util.PresenterBundleUtil.getPresenterBundle;
-import static com.alapshin.arctor.util.PresenterBundleUtil.setPresenterBundle;
+import static com.alapshin.arctor.presenter.PresenterBundleUtil.getPresenterBundle;
+import static com.alapshin.arctor.presenter.PresenterBundleUtil.setPresenterBundle;
 
 /**
  * @author alapshin
@@ -33,14 +31,8 @@ public class PresenterDelegate<V extends MvpView, P extends Presenter<V>> {
      * {@link android.app.Fragment#onViewCreated(android.view.View, android.os.Bundle)}
      * @param view
      */
-    @SuppressWarnings("unchecked")
     public void onViewCreated(V view) {
-        try {
-            presenter.attachView(view);
-        } catch (ClassCastException e) {
-            throw new RuntimeException("The view provided does not implement the view interface " +
-                    "expected by " + presenter.getClass().getSimpleName() + ".", e);
-        }
+        presenter.attachView(view);
     }
 
     /**
