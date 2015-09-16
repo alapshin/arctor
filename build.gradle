@@ -26,7 +26,7 @@ allprojects {
 ext {
     minSdkVersion = 15
     compileSdkVersion = 22
-    buildToolsVersion = '23.0.0'
+    buildToolsVersion = '23.0.1'
 }
 
 ext.libraries = [
