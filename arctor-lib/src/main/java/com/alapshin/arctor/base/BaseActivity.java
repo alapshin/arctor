@@ -67,6 +67,17 @@ public abstract class BaseActivity extends AppCompatActivity {
         ft.commit();
     }
 
+    protected void openFragment(int containerViewId, android.support.v4.app.Fragment fragment,
+                                String tag, boolean addToBackStack) {
+        android.support.v4.app.FragmentTransaction ft =
+                getSupportFragmentManager().beginTransaction();
+        ft.replace(containerViewId, fragment, tag);
+        if (addToBackStack) {
+            ft.addToBackStack(null);
+        }
+        ft.commit();
+    }
+
     protected abstract void injectDependencies();
     protected abstract @LayoutRes int getLayoutRes();
 }
