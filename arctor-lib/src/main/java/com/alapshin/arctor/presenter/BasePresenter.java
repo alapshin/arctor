@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
  * @since 2015-04-18
  */
 public abstract class BasePresenter<V extends MvpView> implements Presenter<V> {
-    private static final String TAG = BasePresenter.class.getSimpleName();
+    private final String TAG = this.getClass().getSimpleName();
     /**
      * Reference to view. Using weak reference to avoid memory leaks. Before calling any view
      * methods check that view is attached with isViewAttached
