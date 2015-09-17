@@ -14,6 +14,8 @@ import javax.annotation.Nullable;
 
 import rx.Observable;
 import rx.Subscription;
+import rx.functions.Action0;
+import rx.functions.Action1;
 import rx.subjects.BehaviorSubject;
 import rx.subscriptions.CompositeSubscription;
 
@@ -22,7 +24,7 @@ import rx.subscriptions.CompositeSubscription;
  * @since 2015-07-06
  */
 public class RxPresenter<V extends MvpView> extends BasePresenter<V> {
-    private static final String TAG = RxPresenter.class.getSimpleName();
+    private final String TAG = this.getClass().getSimpleName();
 
     private CompositeSubscription subscriptions = new CompositeSubscription();
     private BehaviorSubject<Boolean> viewSubject = BehaviorSubject.create();
@@ -40,6 +42,9 @@ public class RxPresenter<V extends MvpView> extends BasePresenter<V> {
     @Override
     public void onCreate(@Nullable PresenterBundle bundle) {
         super.onCreate(bundle);
+        if (viewSubject.hasCompleted()) {
+            viewSubject = BehaviorSubject.create();
+        }
     }
 
     /**
@@ -49,8 +54,8 @@ public class RxPresenter<V extends MvpView> extends BasePresenter<V> {
     public void onDestroy() {
         super.onDestroy();
 
-        subscriptions.unsubscribe();
         viewSubject.onCompleted();
+        subscriptions.clear();
     }
 
     @Override
@@ -101,7 +106,7 @@ public class RxPresenter<V extends MvpView> extends BasePresenter<V> {
      * @param <T> the type of source observable emissions
      */
     public <T> DeliverFirst<T> deliverFirst() {
-        return new DeliverFirst<>(viewSubject);
+        return new DeliverFirst<>(viewStatus());
     }
 
     /**
@@ -113,7 +118,7 @@ public class RxPresenter<V extends MvpView> extends BasePresenter<V> {
      * @param <T> the type of source observable emissions
      */
     public <T> DeliverLatest<T> deliverLatest() {
-        return new DeliverLatest<>(viewSubject);
+        return new DeliverLatest<>(viewStatus());
     }
 
     /**
@@ -125,6 +130,6 @@ public class RxPresenter<V extends MvpView> extends BasePresenter<V> {
      * @param <T> the type of source observable emissions
      */
     public <T> DeliverReplay<T> deliverReplay() {
-        return new DeliverReplay<>(viewSubject);
+        return new DeliverReplay<>(viewStatus());
     }
 }
