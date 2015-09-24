@@ -8,9 +8,6 @@ import javax.annotation.Nullable;
 
 /**
  * Presenter interface
- *
- * @author alapshin
- * @since 2015-04-18
  */
 public interface Presenter<V extends MvpView> {
     void onCreate(@Nullable PresenterBundle savedInstanceState);

@@ -100,11 +100,11 @@ public abstract class BasePresenter<V extends MvpView> implements Presenter<V> {
         viewRef = null;
     }
 
-    public boolean isViewAttached() {
-        return viewRef != null;
-    }
-
     public V getView() {
         return viewRef == null ? null : viewRef.get();
+    }
+
+    public boolean isViewAttached() {
+        return viewRef != null && viewRef.get() != null;
     }
 }
