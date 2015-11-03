@@ -1,6 +1,5 @@
 package com.alapshin.arctor.presenter.rx;
 
-import android.util.Log;
 
 import com.alapshin.arctor.presenter.BasePresenter;
 import com.alapshin.arctor.presenter.Presenter;

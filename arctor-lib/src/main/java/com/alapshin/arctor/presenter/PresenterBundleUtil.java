@@ -32,7 +32,7 @@ public class PresenterBundleUtil {
                     return new PresenterBundle(map);
                 }
             } catch (ClassCastException e) {
-                Log.e(TAG, "", e);
+                Log.e(TAG, "getPresenterBundle", e);
             }
         }
 
