@@ -1,5 +1,6 @@
 package com.alapshin.arctor.presenter;
 
+import android.support.annotation.CallSuper;
 import android.util.Log;
 
 import com.alapshin.arctor.BuildConfig;
@@ -25,6 +26,7 @@ public abstract class BasePresenter<V extends MvpView> implements Presenter<V> {
     protected WeakReference<V> viewRef;
 
     @Override
+    @CallSuper
     public void onCreate(@Nullable PresenterBundle savedInstanceState) {
         if (BuildConfig.DEBUG) {
             Log.d(TAG, "onCreate");
@@ -32,6 +34,7 @@ public abstract class BasePresenter<V extends MvpView> implements Presenter<V> {
     }
 
     @Override
+    @CallSuper
     public void onStart() {
         if (BuildConfig.DEBUG) {
             Log.d(TAG, "onStart");
@@ -39,6 +42,7 @@ public abstract class BasePresenter<V extends MvpView> implements Presenter<V> {
     }
 
     @Override
+    @CallSuper
     public void onResume() {
         if (BuildConfig.DEBUG) {
             Log.d(TAG, "onResume");
@@ -46,6 +50,7 @@ public abstract class BasePresenter<V extends MvpView> implements Presenter<V> {
     }
 
     @Override
+    @CallSuper
     public void onPause() {
         if (BuildConfig.DEBUG) {
             Log.d(TAG, "onPause");
@@ -53,6 +58,7 @@ public abstract class BasePresenter<V extends MvpView> implements Presenter<V> {
     }
 
     @Override
+    @CallSuper
     public void onSaveInstanceState(@Nonnull PresenterBundle outState) {
         if (BuildConfig.DEBUG) {
             Log.d(TAG, "onSaveInstanceState");
@@ -60,6 +66,7 @@ public abstract class BasePresenter<V extends MvpView> implements Presenter<V> {
     }
 
     @Override
+    @CallSuper
     public void onStop() {
         if (BuildConfig.DEBUG) {
             Log.d(TAG, "onStop");
@@ -67,6 +74,7 @@ public abstract class BasePresenter<V extends MvpView> implements Presenter<V> {
     }
 
     @Override
+    @CallSuper
     public void onDestroy() {
         if (BuildConfig.DEBUG) {
             Log.d(TAG, "onDestroy");
@@ -74,6 +82,7 @@ public abstract class BasePresenter<V extends MvpView> implements Presenter<V> {
     }
 
     @Override
+    @CallSuper
     public void attachView(V view) {
         if (BuildConfig.DEBUG) {
             Log.d(TAG, "attachView");
@@ -82,6 +91,7 @@ public abstract class BasePresenter<V extends MvpView> implements Presenter<V> {
     }
 
     @Override
+    @CallSuper
     public void detachView() {
         if (BuildConfig.DEBUG) {
             Log.d(TAG, "detachView");

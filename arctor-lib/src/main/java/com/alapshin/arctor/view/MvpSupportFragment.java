@@ -1,6 +1,7 @@
 package com.alapshin.arctor.view;
 
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
 import android.view.View;
 
@@ -22,6 +23,7 @@ public abstract class MvpSupportFragment<V extends MvpView, P extends Presenter<
     private PresenterDelegate<V, P> presenterDelegate = new PresenterDelegate<>();
 
     @Override
+    @CallSuper
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -29,6 +31,7 @@ public abstract class MvpSupportFragment<V extends MvpView, P extends Presenter<
     }
 
     @Override
+    @CallSuper
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
@@ -36,6 +39,7 @@ public abstract class MvpSupportFragment<V extends MvpView, P extends Presenter<
     }
 
     @Override
+    @CallSuper
     public void onStart() {
         super.onStart();
 
@@ -43,6 +47,7 @@ public abstract class MvpSupportFragment<V extends MvpView, P extends Presenter<
     }
 
     @Override
+    @CallSuper
     public void onResume() {
         super.onResume();
 
@@ -50,6 +55,7 @@ public abstract class MvpSupportFragment<V extends MvpView, P extends Presenter<
     }
 
     @Override
+    @CallSuper
     public void onPause() {
         super.onPause();
 
@@ -57,6 +63,7 @@ public abstract class MvpSupportFragment<V extends MvpView, P extends Presenter<
     }
 
     @Override
+    @CallSuper
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
@@ -64,6 +71,7 @@ public abstract class MvpSupportFragment<V extends MvpView, P extends Presenter<
     }
 
     @Override
+    @CallSuper
     public void onStop() {
         super.onStop();
 
@@ -71,6 +79,7 @@ public abstract class MvpSupportFragment<V extends MvpView, P extends Presenter<
     }
 
     @Override
+    @CallSuper
     public void onDestroyView() {
         super.onDestroyView();
 
@@ -78,6 +87,7 @@ public abstract class MvpSupportFragment<V extends MvpView, P extends Presenter<
     }
 
     @Override
+    @CallSuper
     public void onDestroy() {
         super.onDestroy();
 

@@ -1,6 +1,8 @@
 package com.alapshin.arctor.presenter.rx;
 
 
+import android.support.annotation.CallSuper;
+
 import com.alapshin.arctor.presenter.BasePresenter;
 import com.alapshin.arctor.presenter.Presenter;
 import com.alapshin.arctor.presenter.PresenterBundle;
@@ -13,8 +15,6 @@ import javax.annotation.Nullable;
 
 import rx.Observable;
 import rx.Subscription;
-import rx.functions.Action0;
-import rx.functions.Action1;
 import rx.subjects.BehaviorSubject;
 import rx.subscriptions.CompositeSubscription;
 
@@ -50,6 +50,7 @@ public class RxPresenter<V extends MvpView> extends BasePresenter<V> {
      * {@inheritDoc}
      */
     @Override
+    @CallSuper
     public void onDestroy() {
         super.onDestroy();
 
@@ -58,12 +59,14 @@ public class RxPresenter<V extends MvpView> extends BasePresenter<V> {
     }
 
     @Override
+    @CallSuper
     public void attachView(V view) {
         super.attachView(view);
         viewSubject.onNext(true);
     }
 
     @Override
+    @CallSuper
     public void detachView() {
         super.detachView();
         viewSubject.onNext(false);

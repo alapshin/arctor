@@ -1,6 +1,7 @@
 package com.alapshin.arctor.base;
 
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,6 +18,7 @@ import butterknife.ButterKnife;
  */
 public abstract class BaseSupportFragment extends Fragment {
     @Override
+    @CallSuper
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -24,6 +26,7 @@ public abstract class BaseSupportFragment extends Fragment {
     }
 
     @Override
+    @CallSuper
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(getLayoutRes(), container, false);
@@ -32,17 +35,20 @@ public abstract class BaseSupportFragment extends Fragment {
     }
 
     @Override
+    @CallSuper
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
     }
 
     @Override
+    @CallSuper
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
     }
 
     @Override
+    @CallSuper
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
