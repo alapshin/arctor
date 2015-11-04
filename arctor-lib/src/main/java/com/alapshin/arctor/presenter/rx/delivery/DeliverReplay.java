@@ -8,17 +8,17 @@ import rx.subjects.ReplaySubject;
 
 public class DeliverReplay<T> implements Observable.Transformer<T, T> {
 
-    private final Observable<Boolean> semaphore;
+    private final Observable<Boolean> view;
 
-    public DeliverReplay(Observable<Boolean> semaphore) {
-        this.semaphore = semaphore;
+    public DeliverReplay(Observable<Boolean> view) {
+        this.view = view;
     }
 
     @Override
     public Observable<T> call(Observable<T> observable) {
         final ReplaySubject<T> subject = ReplaySubject.create();
         final Subscription subscription = observable.subscribe(subject);
-        return semaphore
+        return view
                 .switchMap(new Func1<Boolean, Observable<T>>() {
                     @Override
                     public Observable<T> call(final Boolean flag) {

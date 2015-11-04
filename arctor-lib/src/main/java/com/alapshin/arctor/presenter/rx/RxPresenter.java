@@ -8,6 +8,7 @@ import com.alapshin.arctor.presenter.Presenter;
 import com.alapshin.arctor.presenter.PresenterBundle;
 import com.alapshin.arctor.presenter.rx.delivery.DeliverFirst;
 import com.alapshin.arctor.presenter.rx.delivery.DeliverLatest;
+import com.alapshin.arctor.presenter.rx.delivery.DeliverLatestCache;
 import com.alapshin.arctor.presenter.rx.delivery.DeliverReplay;
 import com.alapshin.arctor.view.MvpView;
 
@@ -121,6 +122,19 @@ public class RxPresenter<V extends MvpView> extends BasePresenter<V> {
      */
     public <T> DeliverLatest<T> deliverLatest() {
         return new DeliverLatest<>(viewStatus());
+    }
+
+
+    /**
+     * Returns an {@link rx.Observable.Transformer} that delays emission from the source {@link rx.Observable}.
+     *
+     * {@link #deliverLatestCache} keeps the latest onNext value and emits it each time a new view gets attached.
+     * If a new onNext value appears while a view is attached, it will be delivered immediately.
+     *
+     * @param <T> the type of source observable emissions
+     */
+    public <T> DeliverLatestCache<T> deliverLatestCache() {
+        return new DeliverLatestCache<>(viewStatus());
     }
 
     /**

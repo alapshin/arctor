@@ -1,23 +1,22 @@
 package com.alapshin.arctor.presenter.rx.delivery;
 
-import rx.Notification;
 import rx.Observable;
 import rx.functions.Func1;
 import rx.functions.Func2;
 
 public class DeliverFirst<T> implements Observable.Transformer<T, T> {
 
-    private final Observable<Boolean> semaphore;
+    private final Observable<Boolean> view;
 
-    public DeliverFirst(Observable<Boolean> semaphore) {
-        this.semaphore = semaphore;
+    public DeliverFirst(Observable<Boolean> view) {
+        this.view = view;
     }
 
     @Override
     public Observable<T> call(Observable<T> observable) {
         return Observable
                 .combineLatest(
-                        semaphore,
+                        view,
                         observable,
                         new Func2<Boolean, T, T>() {
                             @Override
