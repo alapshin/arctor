@@ -30,10 +30,9 @@ public class RxPresenter<V extends MvpView> extends BasePresenter<V> {
     private BehaviorSubject<Boolean> viewSubject = BehaviorSubject.create();
 
     /**
-     * Returns an observable that emits current status of a view.
-     * True - a view is attached, False - a view is detached.
+     * Returns an {@link rx.Observable<Boolean>} that emits current status of a view.
      *
-     * @return an observable that emits current status of a view.
+     * @return an {@link rx.Observable<Boolean>} that emits true when view attached and false when view detached.
      */
     public Observable<Boolean> viewStatus() {
         return viewSubject;
@@ -95,7 +94,7 @@ public class RxPresenter<V extends MvpView> extends BasePresenter<V> {
 
     /**
      * Removes and unsubscribes from all subscripions that has been registered with {@link #addSubscription(Subscription)} previously.
-     * Can be called from {@link Presenter#onStop()} if needed
+     * See {@link CompositeSubscription#clear() for details.}
      */
     public void clearSubscriptions() {
         subscriptions.clear();
@@ -115,8 +114,8 @@ public class RxPresenter<V extends MvpView> extends BasePresenter<V> {
     /**
      * Returns an {@link rx.Observable.Transformer} that delays emission from the source {@link rx.Observable}.
      *
-     * {@link #deliverLatest} keeps the latest onNext value and emits it each time a new view gets attached.
-     * If a new onNext value appears while a view is attached, it will be delivered immediately.
+     * {@link #deliverLatest} keeps the latest onNext value and emits it when there is attached view.
+     * Terminates when source observable completes {link rx.Observable#onCompleted()}
      *
      * @param <T> the type of source observable emissions
      */
@@ -128,8 +127,7 @@ public class RxPresenter<V extends MvpView> extends BasePresenter<V> {
     /**
      * Returns an {@link rx.Observable.Transformer} that delays emission from the source {@link rx.Observable}.
      *
-     * {@link #deliverLatestCache} keeps the latest onNext value and emits it each time a new view gets attached.
-     * If a new onNext value appears while a view is attached, it will be delivered immediately.
+     * {@link #deliverLatestCache} keeps the latest onNext value and emits it if there is * attached view. Never completes.
      *
      * @param <T> the type of source observable emissions
      */
@@ -141,7 +139,6 @@ public class RxPresenter<V extends MvpView> extends BasePresenter<V> {
      * Returns an {@link rx.Observable.Transformer} that delays emission from the source {@link rx.Observable}.
      *
      * {@link #deliverReplay} keeps all onNext values and emits them each time a new view gets attached.
-     * If a new onNext value appears while a view is attached, it will be delivered immediately.
      *
      * @param <T> the type of source observable emissions
      */

@@ -7,8 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-import butterknife.ButterKnife;
-
 
 /**
  * Базовый класс активности
@@ -25,13 +23,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         injectDependencies();
         setContentView(getLayoutRes());
     }
-
-    @Override
-    @CallSuper
-    public void onContentChanged() {
-        ButterKnife.bind(this);
-    }
-
 
     @Override
     @CallSuper

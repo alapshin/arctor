@@ -10,8 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import butterknife.ButterKnife;
-
 /**
  * @author alapshin
  * @since 2015-08-30
@@ -36,22 +34,8 @@ public abstract class BaseSupportDialogFragment extends DialogFragment {
 
     @Override
     @CallSuper
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        ButterKnife.bind(this, view);
-    }
-
-    @Override
-    @CallSuper
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    @CallSuper
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
     }
 
     protected abstract void injectDependencies();

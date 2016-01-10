@@ -4,7 +4,7 @@ apply plugin: 'com.github.dcendents.android-maven'
 
 group = 'com.github.alapshin'
 archivesBaseName = 'arctor'
-version = '0.1.7'
+version = '0.2.0'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -27,14 +27,11 @@ android {
 dependencies {
     compile libraries.supportappcompat
 
-    // Butterknife
-    compile libraries.butterknife
-    // Dagger
-    compile libraries.dagger
-    apt libraries.daggercompiler
     provided libraries.javaxannotation
     // JSR-305
     provided libraries.jsr305
+    // JSR-330
+    provided libraries.jsr330
     // RxJava
     compile libraries.rxjava
 }
