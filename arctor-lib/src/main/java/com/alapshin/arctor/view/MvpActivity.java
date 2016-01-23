@@ -45,29 +45,29 @@ public abstract class MvpActivity<V extends MvpView, P extends Presenter<V>> ext
     @Override
     @CallSuper
     protected void onPause() {
-        super.onPause();
         presenterDelegate.onPause();
+        super.onPause();
     }
 
     @Override
     @CallSuper
     protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
         presenterDelegate.onSaveInstanceState(outState);
+        super.onSaveInstanceState(outState);
     }
 
     @Override
     @CallSuper
     protected void onStop() {
-        super.onStop();
         presenterDelegate.onStop();
+        super.onStop();
     }
 
     @Override
     @CallSuper
     protected void onDestroy() {
-        super.onDestroy();
         presenterDelegate.onDestroyView();
         presenterDelegate.onDestroy();
+        super.onDestroy();
     }
 }

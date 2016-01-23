@@ -26,7 +26,6 @@ public abstract class MvpSupportFragment<V extends MvpView, P extends Presenter<
     @CallSuper
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         presenterDelegate.onCreate(presenter, savedInstanceState);
     }
 
@@ -34,7 +33,6 @@ public abstract class MvpSupportFragment<V extends MvpView, P extends Presenter<
     @CallSuper
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         presenterDelegate.onViewCreated((V) this);
     }
 
@@ -42,7 +40,6 @@ public abstract class MvpSupportFragment<V extends MvpView, P extends Presenter<
     @CallSuper
     public void onStart() {
         super.onStart();
-
         presenterDelegate.onStart();
     }
 
@@ -50,47 +47,41 @@ public abstract class MvpSupportFragment<V extends MvpView, P extends Presenter<
     @CallSuper
     public void onResume() {
         super.onResume();
-
         presenterDelegate.onResume();
     }
 
     @Override
     @CallSuper
     public void onPause() {
-        super.onPause();
-
         presenterDelegate.onPause();
+        super.onPause();
     }
 
     @Override
     @CallSuper
     public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
         presenterDelegate.onSaveInstanceState(outState);
+        super.onSaveInstanceState(outState);
     }
 
     @Override
     @CallSuper
     public void onStop() {
-        super.onStop();
-
         presenterDelegate.onStop();
+        super.onStop();
     }
 
     @Override
     @CallSuper
     public void onDestroyView() {
-        super.onDestroyView();
-
         presenterDelegate.onDestroyView();
+        super.onDestroyView();
     }
 
     @Override
     @CallSuper
     public void onDestroy() {
-        super.onDestroy();
-
         presenterDelegate.onDestroy();
+        super.onDestroy();
     }
 }
