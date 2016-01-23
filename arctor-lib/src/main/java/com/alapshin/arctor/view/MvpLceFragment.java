@@ -4,11 +4,10 @@ import com.alapshin.arctor.presenter.Presenter;
 
 /**
  * @author alapshin
- * @since 2015-07-04
+ * @since 2015-08-30
  */
 public abstract class MvpLceFragment<D, V extends MvpView, P extends Presenter<V>>
-        extends MvpFragment<V, P>
-        implements MvpLceView<D> {
+        extends MvpFragment<V, P> implements MvpLceView<D> {
     @Override
     public void setData(D data) {
     }

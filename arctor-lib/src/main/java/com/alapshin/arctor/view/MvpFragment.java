@@ -11,13 +11,14 @@ import com.alapshin.arctor.presenter.PresenterDelegate;
 
 import javax.inject.Inject;
 
-
 /**
  * @author alapshin
- * @since 2015-04-18
+ * @since 2015-08-30
  */
-public abstract class MvpFragment<V extends MvpView, P extends Presenter<V>> extends BaseFragment
-        implements MvpView {
+public abstract class MvpFragment<V extends MvpView, P extends Presenter<V>>
+        extends BaseFragment implements MvpView {
+    private final String TAG = this.getClass().getSimpleName();
+
     protected @Inject P presenter;
     private PresenterDelegate<V, P> presenterDelegate = new PresenterDelegate<>();
 
@@ -32,7 +33,6 @@ public abstract class MvpFragment<V extends MvpView, P extends Presenter<V>> ext
     @CallSuper
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         presenterDelegate.onViewCreated((V) this);
     }
 

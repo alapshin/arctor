@@ -6,9 +6,8 @@ import com.alapshin.arctor.presenter.Presenter;
  * @author alapshin
  * @since 2015-08-30
  */
-public abstract class MvpLceSupportDialog<D, V extends MvpView, P extends Presenter<V>>
-        extends MvpSupportDialog<V, P>
-        implements MvpLceView<D> {
+public abstract class MvpLceDialogFragment<D, V extends MvpView, P extends Presenter<V>>
+        extends MvpDialogFragment<V, P> implements MvpLceView<D> {
     @Override
     public void setData(D data) {
     }

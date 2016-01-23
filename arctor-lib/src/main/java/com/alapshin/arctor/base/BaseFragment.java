@@ -1,11 +1,11 @@
 package com.alapshin.arctor.base;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 
 /**
  * @author alapshin
- * @since 2015-06-14
+ * @since 2015-08-30
  */
 public abstract class BaseFragment extends Fragment {
     @Override
@@ -32,7 +32,6 @@ public abstract class BaseFragment extends Fragment {
 
         return view;
     }
-
 
     @Override
     @CallSuper

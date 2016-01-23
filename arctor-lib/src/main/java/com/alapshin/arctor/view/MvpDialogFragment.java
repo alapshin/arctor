@@ -13,10 +13,10 @@ import javax.inject.Inject;
 
 /**
  * @author alapshin
- * @since 2015-08-22
+ * @since 2015-08-30
  */
-public abstract class MvpDialog<V extends MvpView, P extends Presenter<V>> extends BaseDialogFragment
-        implements MvpView {
+public abstract class MvpDialogFragment<V extends MvpView, P extends Presenter<V>>
+        extends BaseDialogFragment implements MvpView {
     protected @Inject P presenter;
     private PresenterDelegate<V, P> presenterDelegate = new PresenterDelegate<>();
 

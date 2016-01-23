@@ -9,8 +9,7 @@ import com.alapshin.arctor.presenter.Presenter;
  * @since 2015-07-04
  */
 public abstract class MvpLceActivity<D, V extends MvpView, P extends Presenter<V>>
-        extends MvpActivity<V, P>
-        implements MvpLceView<D> {
+        extends MvpActivity<V, P> implements MvpLceView<D> {
     @Override
     public void setData(D data) {
     }

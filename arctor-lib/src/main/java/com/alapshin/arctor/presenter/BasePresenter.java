@@ -96,6 +96,7 @@ public abstract class BasePresenter<V extends MvpView> implements Presenter<V> {
         if (BuildConfig.DEBUG) {
             Log.d(TAG, "detachView");
         }
+        viewRef.clear();
         viewRef = null;
     }
 
