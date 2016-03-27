@@ -39,6 +39,7 @@ public abstract class BaseFragment extends Fragment {
         super.onSaveInstanceState(outState);
     }
 
+    @LayoutRes
+    protected abstract int getLayoutRes();
     protected abstract void injectDependencies();
-    protected abstract @LayoutRes int getLayoutRes();
 }

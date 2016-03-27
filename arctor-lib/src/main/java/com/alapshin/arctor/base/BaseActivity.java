@@ -40,6 +40,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
+    @LayoutRes
+    protected abstract int getLayoutRes();
     protected abstract void injectDependencies();
-    protected abstract @LayoutRes int getLayoutRes();
 }

@@ -38,6 +38,7 @@ public abstract class BaseDialogFragment extends DialogFragment {
         super.onSaveInstanceState(outState);
     }
 
+    @LayoutRes
+    protected abstract int getLayoutRes();
     protected abstract void injectDependencies();
-    protected abstract @LayoutRes int getLayoutRes();
 }
