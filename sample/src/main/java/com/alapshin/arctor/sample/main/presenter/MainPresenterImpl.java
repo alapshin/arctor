@@ -17,11 +17,13 @@ public class MainPresenterImpl extends RxPresenter<MainView> implements MainPres
     @Override
     public void onCreate(@Nullable PresenterBundle bundle) {
         super.onCreate(bundle);
-        Subscription subscription = Observable.interval(0, 1, TimeUnit.SECONDS)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(deliverLatestCache())
-                .subscribe(data -> getView().setData(data));
-        addSubscription(subscription);
+        if (bundle == null) {
+            Subscription subscription = Observable.interval(0, 1, TimeUnit.SECONDS)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .compose(deliverLatestCache())
+                    .subscribe(data -> getView().setData(data));
+            addSubscription(subscription);
+        }
     }
 }

@@ -13,7 +13,7 @@ import dagger.Provides;
 public class NavigationModule {
     @Provides
     @ActivityScope
-    Navigator provideNavigator(FragmentActivity activity) {
-        return new NavigatorImpl(activity);
+    Navigator provideNavigator() {
+        return new NavigatorImpl();
     }
 }

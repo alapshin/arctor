@@ -1,4 +1,4 @@
-package com.alapshin.arctor.base;
+package com.alapshin.mvp.view;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -6,9 +6,12 @@ import android.os.Build;
 import android.support.annotation.LayoutRes;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.widget.LinearLayout;
 
-public abstract class BaseRelativeLayout extends LinearLayout {
+import com.alapshin.arctor.presenter.Presenter;
+import com.alapshin.arctor.view.MvpRelativeLayout;
+import com.alapshin.arctor.view.MvpView;
+
+public abstract class BaseRelativeLayout<V extends MvpView, P extends Presenter<V>> extends MvpRelativeLayout {
     public BaseRelativeLayout(Context context) {
         super(context);
         init(context, null, 0, 0);

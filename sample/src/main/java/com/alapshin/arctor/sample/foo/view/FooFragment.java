@@ -8,11 +8,11 @@ import com.alapshin.arctor.sample.R;
 import com.alapshin.arctor.sample.di.HasComponent;
 import com.alapshin.arctor.sample.di.components.ActivityComponent;
 import com.alapshin.arctor.sample.foo.presenter.FooPresenter;
-import com.alapshin.mvp.view.CustomFragment;
+import com.alapshin.mvp.view.BaseFragment;
 
 import butterknife.Bind;
 
-public class FooFragment extends CustomFragment<FooView, FooPresenter>
+public class FooFragment extends BaseFragment<FooView, FooPresenter>
         implements FooView {
 
     private static final String TAG = FooFragment.class.getSimpleName();

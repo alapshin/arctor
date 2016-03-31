@@ -3,21 +3,17 @@ package com.alapshin.arctor.view;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.View;
 
-import com.alapshin.arctor.base.BaseFragment;
 import com.alapshin.arctor.delegate.FragmentMvpDelegate;
 import com.alapshin.arctor.delegate.FragmentMvpDelegateImpl;
 import com.alapshin.arctor.presenter.Presenter;
 
 import javax.inject.Inject;
 
-/**
- * @author alapshin
- * @since 2015-08-30
- */
 public abstract class MvpFragment<V extends MvpView, P extends Presenter<V>>
-        extends BaseFragment implements MvpView {
+        extends Fragment implements MvpView {
 
     protected @Inject P presenter;
     private FragmentMvpDelegate<V, P> mvpDelegate = new FragmentMvpDelegateImpl<>();
