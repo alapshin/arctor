@@ -6,10 +6,10 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.3.1'
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.7'
-        classpath 'me.tatarka:gradle-retrolambda:3.2.1'
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.11.3'
+        classpath 'com.android.tools.build:gradle:2.0.0-beta7'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        classpath 'me.tatarka:gradle-retrolambda:3.3.0-beta4'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.12.0'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.3'
     }
 }
@@ -17,65 +17,51 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
-        maven {
-            url "https://clojars.org/repo/"
-        }
     }
 }
 
 ext {
-    minSdkVersion = 15
-    compileSdkVersion = 22
-    buildToolsVersion = '23.0.1'
+    versions = [
+            minSdk: 15,
+            compileSdk: 23,
+            targetSdk: 22,
+            buildTools: '23.0.1',
+            dagger: '2.0.1',
+            support: '23.2.1',
+            supportTest: '0.3.0'
+    ]
+
+    libraries = [
+            mvp: project(':mvp'),
+            arctor: project(':arctor-lib'),
+
+            supportv13: "com.android.support:support-v13:$versions.support",
+            supportappcompat: "com.android.support:appcompat-v7:$versions.support",
+            supportannotations: "com.android.support:support-annotations:$versions.support",
+            supportdesign: "com.android.support:design:$versions.support",
+            supportrecyclerview: "com.android.support:recyclerview-v7:$versions.support",
+
+            autovalue: 'com.google.auto.value:auto-value:1.2-rc1',
+            butterknife: 'com.jakewharton:butterknife:7.0.1',
+            dagger: "com.google.dagger:dagger:$versions.dagger",
+            daggercompiler: "com.google.dagger:dagger-compiler:$versions.dagger",
+            javaxannotation: 'javax.annotation:javax.annotation-api:1.2',
+            jsr250: 'javax.annotation:jsr250-api:1.0',
+            jsr305: 'com.google.code.findbugs:jsr305:3.0.1',
+            jsr330: 'javax.inject:javax.inject:1',
+            rxjava: 'io.reactivex:rxjava:1.1.2',
+            rxandroid: 'io.reactivex:rxandroid:0.24.0',
+            rxlifecycle: 'com.trello:rxlifecycle:0.5.0',
+
+            junit: 'junit:junit:4.12',
+            mockito: 'org.mockito:mockito-core:2.0.23-beta',
+            assertj: 'org.assertj:assertj-core:1.7.1',
+            assertjandroid: 'com.squareup.assertj:assertj-android:1.0.0',
+
+            supporttestrunner: "com.android.support.test:runner:$versions.supportTest",
+            supporttestrules: "com.android.support.test:rules:$versions.supportTest",
+            supporttestespresso: 'com.android.support.test.espresso:espresso-core:2.2',
+
+            robolectric: 'org.robolectric:robolectric:3.0',
+    ]
 }
-
-ext.libraries = [
-        supportv13: 'com.android.support:support-v13:22.2.1',
-        supportappcompat: 'com.android.support:appcompat-v7:22.2.1',
-        supportannotations: 'com.android.support:support-annotations:22.2.1',
-        supportrecyclerview: 'com.android.support:recyclerview-v7:22.2.1',
-
-        autoparcel:'com.github.frankiesardo:auto-parcel:0.3',
-        autoparcelprocessor: 'com.github.frankiesardo:auto-parcel-processor:0.3',
-        autovalue: 'com.google.auto.value:auto-value:1.1',
-        butterknife: 'com.jakewharton:butterknife:7.0.1',
-        crashlytics: 'com.crashlytics.sdk.android:crashlytics:2.4.0@aar',
-        crashlyticsndk: 'com.crashlytics.sdk.android:crashlytics-ndk:1.1.0@aar',
-        dagger: 'com.google.dagger:dagger:2.0.1',
-        daggercompiler: 'com.google.dagger:dagger-compiler:2.0.1',
-        eventbus: 'de.greenrobot:eventbus:3.0.0-beta1',
-        eventbusprocessor: 'de.greenrobot:eventbus-annotation-processor:3.0.0-beta1',
-        gson: 'com.google.code.gson:gson:2.3.1',
-        guava: 'com.google.guava:guava:18.0',
-        icepick: 'frankiesardo:icepick:3.1.0',
-        icepickprocessor: 'frankiesardo:icepick-processor:3.1.0',
-        javaxannotation: 'javax.annotation:javax.annotation-api:1.2',
-        jsr305: 'com.google.code.findbugs:jsr305:3.0.0',
-        jsr330: 'javax.inject:javax.inject:1',
-        leakcanary: 'com.squareup.leakcanary:leakcanary-android:1.3.1',
-        leakcanarynoop: 'com.squareup.leakcanary:leakcanary-android-no-op:1.3.1',
-        logbackcore: 'ch.qos.logback:logback-core:1.1.3',
-        logbackclassic: 'ch.qos.logback:logback-classic:1.1.3',
-        logbackandroidcore: 'com.github.tony19:logback-android-core:1.1.1-4',
-        logbackandroidclassic: 'com.github.tony19:logback-android-classic:1.1.1-4',
-        okhttp: 'com.squareup.okhttp:okhttp:2.4.0',
-        reactivelocation: 'pl.charmas.android:android-reactive-location:0.6@aar',
-        retrofit: 'com.squareup.retrofit:retrofit:1.9.0',
-        retrofitmock: 'com.squareup.retrofit:retrofit-mock:1.6.1',
-        rxjava: 'io.reactivex:rxjava:1.0.14',
-        rxandroid: 'io.reactivex:rxandroid:0.24.0',
-        slf4j: 'org.slf4j:slf4j-api:1.7.7',
-        stickylistheaders: 'se.emilsjolander:stickylistheaders:2.7.0',
-        viewpagerindicator: 'com.viewpagerindicator:library:2.4.1@aar',
-
-        junit: 'junit:junit:4.12',
-        mockito: 'org.mockito:mockito-core:2.0.23-beta',
-        assertj: 'org.assertj:assertj-core:1.7.1',
-        assertjandroid: 'com.squareup.assertj:assertj-android:1.0.0',
-
-        supporttestrunner: 'com.android.support.test:runner:0.3',
-        supporttestrules: 'com.android.support.test:rules:0.3',
-        supporttestespresso: 'com.android.support.test.espresso:espresso-core:2.2',
-
-        robolectric: 'org.robolectric:robolectric:3.0',
-]

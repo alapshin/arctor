@@ -1,0 +1,7 @@
+<resources>
+    <string name="all_data">Data %d</string>
+    <string name="app_name">Arctor Sample</string>
+    <string name="menu_foo">Foo</string>
+    <string name="menu_bar">Bar</string>
+    <string name="menu_baz">Baz</string>
+</resources>

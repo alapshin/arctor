@@ -6,81 +6,77 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.alapshin.arctor.base.BaseDialogFragment;
+import com.alapshin.arctor.delegate.FragmentMvpDelegate;
+import com.alapshin.arctor.delegate.FragmentMvpDelegateImpl;
 import com.alapshin.arctor.presenter.Presenter;
-import com.alapshin.arctor.presenter.PresenterDelegate;
 
 import javax.inject.Inject;
 
-/**
- * @author alapshin
- * @since 2015-08-30
- */
 public abstract class MvpDialogFragment<V extends MvpView, P extends Presenter<V>>
         extends BaseDialogFragment implements MvpView {
     protected @Inject P presenter;
-    private PresenterDelegate<V, P> presenterDelegate = new PresenterDelegate<>();
+    private FragmentMvpDelegate<V, P> mvpDelegate = new FragmentMvpDelegateImpl<>();
 
     @Override
     @CallSuper
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenterDelegate.onCreate(presenter, savedInstanceState);
+        mvpDelegate.onCreate(presenter, savedInstanceState);
     }
 
     @Override
     @CallSuper
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        presenterDelegate.onViewCreated((V) this);
+        mvpDelegate.onViewCreated((V) this, savedInstanceState);
     }
 
     @Override
     @CallSuper
     public void onStart() {
         super.onStart();
-        presenterDelegate.onStart();
+        mvpDelegate.onStart();
     }
 
     @Override
     @CallSuper
     public void onResume() {
         super.onResume();
-        presenterDelegate.onResume();
+        mvpDelegate.onResume();
     }
 
     @Override
     @CallSuper
     public void onPause() {
-        presenterDelegate.onPause();
+        mvpDelegate.onPause();
         super.onPause();
     }
 
     @Override
     @CallSuper
     public void onSaveInstanceState(Bundle outState) {
-        presenterDelegate.onSaveInstanceState(outState);
+        mvpDelegate.onSaveInstanceState(outState);
         super.onSaveInstanceState(outState);
     }
 
     @Override
     @CallSuper
     public void onStop() {
-        presenterDelegate.onStop();
+        mvpDelegate.onStop();
         super.onStop();
     }
 
     @Override
     @CallSuper
     public void onDestroyView() {
-        presenterDelegate.onDestroyView();
+        mvpDelegate.onDestroyView();
         super.onDestroyView();
     }
 
     @Override
     @CallSuper
     public void onDestroy() {
-        presenterDelegate.onDestroy();
+        mvpDelegate.onDestroy();
         super.onDestroy();
     }
 }
