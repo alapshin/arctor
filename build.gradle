@@ -25,7 +25,7 @@ ext {
             minSdk: 15,
             compileSdk: 23,
             targetSdk: 22,
-            buildTools: '23.0.1',
+            buildTools: '23.0.3',
             dagger: '2.0.1',
             support: '23.2.1',
             supportTest: '0.3.0'
