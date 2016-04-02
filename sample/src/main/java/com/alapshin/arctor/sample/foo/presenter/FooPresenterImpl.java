@@ -17,11 +17,13 @@ public class FooPresenterImpl extends RxPresenter<FooView> implements FooPresent
     @Override
     public void onCreate(@Nullable PresenterBundle bundle) {
         super.onCreate(bundle);
-        Subscription subscription = Observable.interval(0, 1, TimeUnit.SECONDS)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(deliverLatestCache())
-                .subscribe(data -> getView().setData(data));
-        addSubscription(subscription);
+        if (bundle == null) {
+            Subscription subscription = Observable.interval(0, 1, TimeUnit.SECONDS)
+                    .compose(deliverLatestCache())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(data -> getView().setData(data));
+            addSubscription(subscription);
+        }
     }
 }

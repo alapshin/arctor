@@ -6,9 +6,9 @@ import com.alapshin.arctor.sample.R;
 import com.alapshin.arctor.sample.bar.presenter.BarPresenter;
 import com.alapshin.arctor.sample.di.HasComponent;
 import com.alapshin.arctor.sample.di.components.ActivityComponent;
-import com.alapshin.mvp.view.CustomFragment;
+import com.alapshin.mvp.view.BaseFragment;
 
-public class BarFragment extends CustomFragment<BarView, BarPresenter> implements BarView {
+public class BarFragment extends BaseFragment<BarView, BarPresenter> implements BarView {
     @LayoutRes
     @Override
     protected int getLayoutRes() {

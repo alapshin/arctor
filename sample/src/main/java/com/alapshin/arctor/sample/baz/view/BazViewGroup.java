@@ -8,12 +8,12 @@ import com.alapshin.arctor.sample.R;
 import com.alapshin.arctor.sample.baz.presenter.BazPresenter;
 import com.alapshin.arctor.sample.di.HasComponent;
 import com.alapshin.arctor.sample.di.components.ActivityComponent;
-import com.alapshin.arctor.view.MvpFrameLayout;
+import com.alapshin.mvp.view.BaseFrameLayout;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class BazViewGroup extends MvpFrameLayout<BazView, BazPresenter> implements BazView {
+public class BazViewGroup extends BaseFrameLayout<BazView, BazPresenter> implements BazView {
 
     private static final String TAG = BazViewGroup.class.getSimpleName();
 

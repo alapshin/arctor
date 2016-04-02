@@ -1,7 +1,6 @@
 package com.alapshin.arctor.sample.main.view;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.LayoutRes;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -18,13 +17,13 @@ import com.alapshin.arctor.sample.di.modules.ActivityModule;
 import com.alapshin.arctor.sample.foo.FooScreen;
 import com.alapshin.arctor.sample.main.presenter.MainPresenter;
 import com.alapshin.arctor.sample.navigation.Navigator;
-import com.alapshin.mvp.view.CustomActivity;
+import com.alapshin.mvp.view.BaseActivity;
 
 import javax.inject.Inject;
 
 import butterknife.Bind;
 
-public class MainActivity extends CustomActivity<MainView, MainPresenter>
+public class MainActivity extends BaseActivity<MainView, MainPresenter>
         implements MainView, HasComponent<ActivityComponent> {
 
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -60,10 +59,24 @@ public class MainActivity extends CustomActivity<MainView, MainPresenter>
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        navigator.attach(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        navigator.detach();
+    }
+
+    @Override
     public ActivityComponent component() {
+        component = getComponent(0);
         if (component == null) {
             component = ((HasComponent<ApplicationComponent>) getApplication())
                     .component().activityComponent(new ActivityModule(this));
+            setComponent(0, component);
         }
         return component;
     }

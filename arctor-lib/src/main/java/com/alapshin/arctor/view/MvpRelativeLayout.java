@@ -8,8 +8,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
+import android.widget.RelativeLayout;
 
-import com.alapshin.arctor.base.BaseRelativeLayout;
 import com.alapshin.arctor.delegate.ViewGroupMvpDelegate;
 import com.alapshin.arctor.delegate.ViewGroupMvpDelegateImpl;
 import com.alapshin.arctor.presenter.Presenter;
@@ -17,7 +17,7 @@ import com.alapshin.arctor.presenter.Presenter;
 import javax.inject.Inject;
 
 public abstract class MvpRelativeLayout<V extends MvpView, P extends Presenter<V>>
-        extends BaseRelativeLayout implements MvpView {
+        extends RelativeLayout implements MvpView {
     private static final String PARENT_STATE_KEY = "parent_state";
 
     @Inject P presenter;

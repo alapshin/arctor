@@ -2,7 +2,11 @@ package com.alapshin.mvp.view;
 
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.alapshin.arctor.presenter.Presenter;
 import com.alapshin.arctor.view.MvpDialogFragment;
@@ -15,7 +19,7 @@ import butterknife.ButterKnife;
 import rx.Observable;
 import rx.subjects.BehaviorSubject;
 
-public abstract class CustomDialogFragment<V extends MvpView, P extends Presenter<V>>
+public abstract class BaseDialogFragment<V extends MvpView, P extends Presenter<V>>
         extends MvpDialogFragment<V, P> implements FragmentLifecycleProvider {
 
     private final BehaviorSubject<FragmentEvent> lifecycleSubject = BehaviorSubject.create();
@@ -45,8 +49,17 @@ public abstract class CustomDialogFragment<V extends MvpView, P extends Presente
     @Override
     @CallSuper
     public void onCreate(Bundle savedInstanceState) {
+        injectDependencies();
         super.onCreate(savedInstanceState);
         lifecycleSubject.onNext(FragmentEvent.CREATE);
+    }
+
+    @Override
+    @CallSuper
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(getLayoutRes(), container, false);
+        return view;
     }
 
     @Override
@@ -106,4 +119,11 @@ public abstract class CustomDialogFragment<V extends MvpView, P extends Presente
         lifecycleSubject.onNext(FragmentEvent.DETACH);
         super.onDetach();
     }
+
+    @LayoutRes
+    protected abstract int getLayoutRes();
+    protected abstract void injectDependencies();
+
 }
+
+

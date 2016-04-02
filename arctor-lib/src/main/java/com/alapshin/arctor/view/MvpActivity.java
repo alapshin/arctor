@@ -3,15 +3,15 @@ package com.alapshin.arctor.view;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 
-import com.alapshin.arctor.base.BaseActivity;
 import com.alapshin.arctor.delegate.ActivityMvpDelegate;
 import com.alapshin.arctor.delegate.ActivityMvpDelegateImpl;
 import com.alapshin.arctor.presenter.Presenter;
 
 import javax.inject.Inject;
 
-public abstract class MvpActivity<V extends MvpView, P extends Presenter<V>> extends BaseActivity
+public abstract class MvpActivity<V extends MvpView, P extends Presenter<V>> extends AppCompatActivity
         implements MvpView {
     protected @Inject P presenter;
     private ActivityMvpDelegate<V, P> mvpDelegate = new ActivityMvpDelegateImpl<>();

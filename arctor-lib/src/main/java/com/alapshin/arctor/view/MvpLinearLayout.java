@@ -8,20 +8,16 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
+import android.widget.LinearLayout;
 
-import com.alapshin.arctor.base.BaseLinearLayout;
 import com.alapshin.arctor.delegate.ViewGroupMvpDelegate;
 import com.alapshin.arctor.delegate.ViewGroupMvpDelegateImpl;
 import com.alapshin.arctor.presenter.Presenter;
 
 import javax.inject.Inject;
 
-/**
- * @author alapshin
- * @since 2015-09-24
- */
 public abstract class MvpLinearLayout<V extends MvpView, P extends Presenter<V>>
-        extends BaseLinearLayout implements MvpView {
+        extends LinearLayout implements MvpView {
     private static final String PARENT_STATE_KEY = "parent_state";
 
     @Inject P presenter;

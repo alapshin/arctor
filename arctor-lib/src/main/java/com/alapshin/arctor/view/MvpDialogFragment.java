@@ -3,9 +3,9 @@ package com.alapshin.arctor.view;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.view.View;
 
-import com.alapshin.arctor.base.BaseDialogFragment;
 import com.alapshin.arctor.delegate.FragmentMvpDelegate;
 import com.alapshin.arctor.delegate.FragmentMvpDelegateImpl;
 import com.alapshin.arctor.presenter.Presenter;
@@ -13,7 +13,7 @@ import com.alapshin.arctor.presenter.Presenter;
 import javax.inject.Inject;
 
 public abstract class MvpDialogFragment<V extends MvpView, P extends Presenter<V>>
-        extends BaseDialogFragment implements MvpView {
+        extends DialogFragment implements MvpView {
     protected @Inject P presenter;
     private FragmentMvpDelegate<V, P> mvpDelegate = new FragmentMvpDelegateImpl<>();
 
