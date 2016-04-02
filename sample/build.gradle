@@ -41,4 +41,6 @@ dependencies {
     apt libraries.daggercompiler
     compile libraries.dagger
     provided libraries.jsr250
+
+    testCompile libraries.junit
 }
