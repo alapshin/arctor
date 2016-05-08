@@ -6,7 +6,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.0.0-rc1'
+        classpath 'com.android.tools.build:gradle:2.1.0'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         classpath 'me.tatarka:gradle-retrolambda:3.3.0-beta4'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.12.0'
@@ -26,9 +26,9 @@ ext {
             compileSdk: 23,
             targetSdk: 22,
             buildTools: '23.0.3',
-            dagger: '2.2',
-            support: '23.2.1',
-            supportTest: '0.3.0'
+            dagger: '2.4',
+            support: '23.4.0',
+            supportTest: '0.5'
     ]
 
     libraries = [
@@ -49,13 +49,13 @@ ext {
             jsr250: 'javax.annotation:jsr250-api:1.0',
             jsr305: 'com.google.code.findbugs:jsr305:3.0.1',
             jsr330: 'javax.inject:javax.inject:1',
-            rxjava: 'io.reactivex:rxjava:1.1.2',
-            rxandroid: 'io.reactivex:rxandroid:1.1.0',
-            rxlifecycle: 'com.trello:rxlifecycle:0.5.0',
+            rxjava: 'io.reactivex:rxjava:1.1.5',
+            rxandroid: 'io.reactivex:rxandroid:1.2.0',
+            rxlifecycle: 'com.trello:rxlifecycle:0.6.1',
 
             junit: 'junit:junit:4.12',
-            mockito: 'org.mockito:mockito-core:2.0.23-beta',
-            assertj: 'org.assertj:assertj-core:1.7.1',
+            mockito: 'org.mockito:mockito-core:2.0.52-beta',
+            assertj: 'org.assertj:assertj-core:2.4.1',
             assertjandroid: 'com.squareup.assertj:assertj-android:1.0.0',
 
             supporttestrunner: "com.android.support.test:runner:$versions.supportTest",
