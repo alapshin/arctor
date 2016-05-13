@@ -13,7 +13,8 @@ import javax.inject.Inject;
 
 public abstract class MvpActivity<V extends MvpView, P extends Presenter<V>> extends AppCompatActivity
         implements MvpView {
-    protected @Inject P presenter;
+    @Inject
+    protected P presenter;
     private ActivityMvpDelegate<V, P> mvpDelegate = new ActivityMvpDelegateImpl<>();
 
     @Override

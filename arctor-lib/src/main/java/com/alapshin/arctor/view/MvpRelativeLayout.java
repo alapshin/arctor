@@ -20,7 +20,8 @@ public abstract class MvpRelativeLayout<V extends MvpView, P extends Presenter<V
         extends RelativeLayout implements MvpView {
     private static final String PARENT_STATE_KEY = "parent_state";
 
-    @Inject P presenter;
+    @Inject
+    protected P presenter;
     private ViewGroupMvpDelegate<V, P> mvpDelegate = new ViewGroupMvpDelegateImpl<>();
 
     public MvpRelativeLayout(Context context) {

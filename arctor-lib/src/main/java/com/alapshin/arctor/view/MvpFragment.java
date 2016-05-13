@@ -14,8 +14,8 @@ import javax.inject.Inject;
 
 public abstract class MvpFragment<V extends MvpView, P extends Presenter<V>>
         extends Fragment implements MvpView {
-
-    protected @Inject P presenter;
+    @Inject
+    protected P presenter;
     private FragmentMvpDelegate<V, P> mvpDelegate = new FragmentMvpDelegateImpl<>();
 
     @Override
