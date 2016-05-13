@@ -11,6 +11,7 @@ import com.alapshin.di.ComponentCache;
 import com.alapshin.di.ComponentCacheDelegate;
 import com.trello.rxlifecycle.ActivityEvent;
 import com.trello.rxlifecycle.ActivityLifecycleProvider;
+import com.trello.rxlifecycle.LifecycleTransformer;
 import com.trello.rxlifecycle.RxLifecycle;
 
 import butterknife.ButterKnife;
@@ -29,12 +30,12 @@ public abstract class BaseActivity<V extends MvpView, P extends Presenter<V>>
     }
 
     @Override
-    public final <T> Observable.Transformer<T, T> bindUntilEvent(ActivityEvent event) {
-        return RxLifecycle.bindUntilActivityEvent(lifecycleSubject, event);
+    public final <T> LifecycleTransformer<T> bindUntilEvent(ActivityEvent event) {
+        return RxLifecycle.bindUntilEvent(lifecycleSubject, event);
     }
 
     @Override
-    public final <T> Observable.Transformer<T, T> bindToLifecycle() {
+    public final <T> LifecycleTransformer<T> bindToLifecycle() {
         return RxLifecycle.bindActivity(lifecycleSubject);
     }
 

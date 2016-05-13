@@ -9,6 +9,7 @@ import com.alapshin.arctor.view.MvpLceDialogFragment;
 import com.alapshin.arctor.view.MvpView;
 import com.trello.rxlifecycle.FragmentEvent;
 import com.trello.rxlifecycle.FragmentLifecycleProvider;
+import com.trello.rxlifecycle.LifecycleTransformer;
 import com.trello.rxlifecycle.RxLifecycle;
 
 import butterknife.ButterKnife;
@@ -26,12 +27,12 @@ public abstract class CustomLceDialogFragment<D, V extends MvpView, P extends Pr
     }
 
     @Override
-    public final <T> Observable.Transformer<T, T> bindUntilEvent(FragmentEvent event) {
-        return RxLifecycle.bindUntilFragmentEvent(lifecycleSubject, event);
+    public final <T> LifecycleTransformer<T> bindUntilEvent(FragmentEvent event) {
+        return RxLifecycle.bindUntilEvent(lifecycleSubject, event);
     }
 
     @Override
-    public final <T> Observable.Transformer<T, T> bindToLifecycle() {
+    public final <T> LifecycleTransformer<T> bindToLifecycle() {
         return RxLifecycle.bindFragment(lifecycleSubject);
     }
 
