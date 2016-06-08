@@ -32,7 +32,7 @@ ext {
     ]
 
     libraries = [
-            mvp: project(':mvp'),
+            base: project(':base'),
             arctor: project(':arctor-lib'),
 
             supportv13: "com.android.support:support-v13:$versions.support",

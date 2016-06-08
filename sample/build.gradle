@@ -34,7 +34,7 @@ dependencies {
     compile libraries.supportv13
 
     // MVP
-    compile libraries.mvp
+    compile libraries.base
     compile libraries.arctor
 
     // Dagger
