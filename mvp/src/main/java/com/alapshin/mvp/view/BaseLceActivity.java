@@ -15,7 +15,7 @@ import butterknife.ButterKnife;
 import rx.Observable;
 import rx.subjects.BehaviorSubject;
 
-public abstract class CustomLceActivity<D, V extends MvpView, P extends Presenter<V>>
+public abstract class BaseLceActivity<D, V extends MvpView, P extends Presenter<V>>
         extends MvpLceActivity<D, V, P> implements ActivityLifecycleProvider {
 
     private final BehaviorSubject<ActivityEvent> lifecycleSubject = BehaviorSubject.create();

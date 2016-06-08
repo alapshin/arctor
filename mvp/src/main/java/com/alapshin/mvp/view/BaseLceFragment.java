@@ -1,11 +1,10 @@
 package com.alapshin.mvp.view;
 
 import android.os.Bundle;
-import android.support.annotation.CallSuper;
 import android.view.View;
 
 import com.alapshin.arctor.presenter.Presenter;
-import com.alapshin.arctor.view.MvpLceDialogFragment;
+import com.alapshin.arctor.view.MvpLceFragment;
 import com.alapshin.arctor.view.MvpView;
 import com.trello.rxlifecycle.FragmentEvent;
 import com.trello.rxlifecycle.FragmentLifecycleProvider;
@@ -16,8 +15,8 @@ import butterknife.ButterKnife;
 import rx.Observable;
 import rx.subjects.BehaviorSubject;
 
-public abstract class CustomLceDialogFragment<D, V extends MvpView, P extends Presenter<V>>
-        extends MvpLceDialogFragment<D, V, P> implements FragmentLifecycleProvider {
+public abstract class BaseLceFragment<D, V extends MvpView, P extends Presenter<V>>
+        extends MvpLceFragment<D, V, P> implements FragmentLifecycleProvider {
 
     private final BehaviorSubject<FragmentEvent> lifecycleSubject = BehaviorSubject.create();
 
@@ -37,21 +36,18 @@ public abstract class CustomLceDialogFragment<D, V extends MvpView, P extends Pr
     }
 
     @Override
-    @CallSuper
     public void onAttach(android.app.Activity activity) {
         super.onAttach(activity);
         lifecycleSubject.onNext(FragmentEvent.ATTACH);
     }
 
     @Override
-    @CallSuper
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         lifecycleSubject.onNext(FragmentEvent.CREATE);
     }
 
     @Override
-    @CallSuper
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
@@ -59,35 +55,30 @@ public abstract class CustomLceDialogFragment<D, V extends MvpView, P extends Pr
     }
 
     @Override
-    @CallSuper
     public void onStart() {
         super.onStart();
         lifecycleSubject.onNext(FragmentEvent.START);
     }
 
     @Override
-    @CallSuper
     public void onResume() {
         super.onResume();
         lifecycleSubject.onNext(FragmentEvent.RESUME);
     }
 
     @Override
-    @CallSuper
     public void onPause() {
         lifecycleSubject.onNext(FragmentEvent.PAUSE);
         super.onPause();
     }
 
     @Override
-    @CallSuper
     public void onStop() {
         lifecycleSubject.onNext(FragmentEvent.STOP);
         super.onStop();
     }
 
     @Override
-    @CallSuper
     public void onDestroyView() {
         ButterKnife.unbind(this);
         lifecycleSubject.onNext(FragmentEvent.DESTROY_VIEW);
@@ -95,14 +86,12 @@ public abstract class CustomLceDialogFragment<D, V extends MvpView, P extends Pr
     }
 
     @Override
-    @CallSuper
     public void onDestroy() {
         lifecycleSubject.onNext(FragmentEvent.DESTROY);
         super.onDestroy();
     }
 
     @Override
-    @CallSuper
     public void onDetach() {
         lifecycleSubject.onNext(FragmentEvent.DETACH);
         super.onDetach();
