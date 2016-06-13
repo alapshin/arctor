@@ -22,15 +22,13 @@ public class PresenterBundleUtil {
      */
     @SuppressWarnings("unchecked") // Handled internally
     public static PresenterBundle getPresenterBundle(@Nullable Bundle savedInstanceState) {
-        HashMap<String, Object> map;
+        HashMap<String, Object> map = new HashMap<>();
 
         if (savedInstanceState != null) {
             try {
                 map = (HashMap<String, Object>) savedInstanceState
                         .getSerializable(MAP_KEY);
-                if (map != null) {
-                    return new PresenterBundle(map);
-                }
+                return new PresenterBundle(map);
             } catch (ClassCastException e) {
                 Log.e(TAG, "getPresenterBundle", e);
             }
