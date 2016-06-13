@@ -17,12 +17,14 @@ import com.trello.rxlifecycle.LifecycleTransformer;
 import com.trello.rxlifecycle.RxLifecycle;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import rx.Observable;
 import rx.subjects.BehaviorSubject;
 
 public abstract class BaseDialogFragment<V extends MvpView, P extends Presenter<V>>
         extends MvpDialogFragment<V, P> implements FragmentLifecycleProvider {
 
+    private Unbinder unbinder;
     private final BehaviorSubject<FragmentEvent> lifecycleSubject = BehaviorSubject.create();
 
     @Override
@@ -67,7 +69,7 @@ public abstract class BaseDialogFragment<V extends MvpView, P extends Presenter<
     @CallSuper
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         lifecycleSubject.onNext(FragmentEvent.CREATE_VIEW);
     }
 
@@ -102,7 +104,7 @@ public abstract class BaseDialogFragment<V extends MvpView, P extends Presenter<
     @Override
     @CallSuper
     public void onDestroyView() {
-        ButterKnife.unbind(this);
+        unbinder.unbind();
         lifecycleSubject.onNext(FragmentEvent.DESTROY_VIEW);
         super.onDestroyView();
     }

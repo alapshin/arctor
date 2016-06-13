@@ -12,12 +12,14 @@ import com.trello.rxlifecycle.LifecycleTransformer;
 import com.trello.rxlifecycle.RxLifecycle;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import rx.Observable;
 import rx.subjects.BehaviorSubject;
 
 public abstract class BaseLceFragment<D, V extends MvpView, P extends Presenter<V>>
         extends MvpLceFragment<D, V, P> implements FragmentLifecycleProvider {
 
+    private Unbinder unbinder;
     private final BehaviorSubject<FragmentEvent> lifecycleSubject = BehaviorSubject.create();
 
     @Override
@@ -80,7 +82,7 @@ public abstract class BaseLceFragment<D, V extends MvpView, P extends Presenter<
 
     @Override
     public void onDestroyView() {
-        ButterKnife.unbind(this);
+        unbinder.unbind();
         lifecycleSubject.onNext(FragmentEvent.DESTROY_VIEW);
         super.onDestroyView();
     }

@@ -21,7 +21,7 @@ import com.alapshin.mvp.view.BaseActivity;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class MainActivity extends BaseActivity<MainView, MainPresenter>
         implements MainView, HasComponent<ActivityComponent> {
@@ -33,9 +33,9 @@ public class MainActivity extends BaseActivity<MainView, MainPresenter>
 
     private ActivityComponent component;
 
-    @Bind(R.id.activity_main_toolbar) Toolbar toolbar;
-    @Bind(R.id.activity_main_drawer_layout) DrawerLayout drawerLayout;
-    @Bind(R.id.activity_main_navigation_view) NavigationView navigationView;
+    @BindView(R.id.activity_main_toolbar) Toolbar toolbar;
+    @BindView(R.id.activity_main_drawer_layout) DrawerLayout drawerLayout;
+    @BindView(R.id.activity_main_navigation_view) NavigationView navigationView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

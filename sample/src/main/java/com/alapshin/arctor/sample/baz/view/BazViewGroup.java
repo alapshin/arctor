@@ -10,14 +10,14 @@ import com.alapshin.arctor.sample.di.HasComponent;
 import com.alapshin.arctor.sample.di.components.ActivityComponent;
 import com.alapshin.mvp.view.BaseFrameLayout;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class BazViewGroup extends BaseFrameLayout<BazView, BazPresenter> implements BazView {
 
     private static final String TAG = BazViewGroup.class.getSimpleName();
 
-    @Bind(R.id.viewgroup_baz_textview) TextView textView;
+    @BindView(R.id.viewgroup_baz_textview) TextView textView;
 
     public BazViewGroup(Context context) {
         super(context);

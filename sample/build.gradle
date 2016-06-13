@@ -37,10 +37,16 @@ dependencies {
     compile libraries.base
     compile libraries.arctor
 
+    // Butterknife
+    compile libraries.butterknife
+    apt libraries.butterknifecompiler
+
     // Dagger
     apt libraries.daggercompiler
     compile libraries.dagger
     provided libraries.jsr250
+    compile libraries.rxjava
+    compile libraries.rxandroid
 
     testCompile libraries.junit
 }
