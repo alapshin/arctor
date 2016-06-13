@@ -2,6 +2,8 @@ package com.alapshin.arctor.sample.foo.view;
 
 import android.support.annotation.LayoutRes;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.alapshin.arctor.sample.R;
@@ -18,11 +20,18 @@ public class FooFragment extends BaseFragment<FooView, FooPresenter>
     private static final String TAG = FooFragment.class.getSimpleName();
 
     @BindView(R.id.fragment_foo_textview) TextView textView;
+    @BindView(R.id.fragment_foo_progressbar) ProgressBar progressBar;
+
+    @Override
+    public void showProgress() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
 
     @Override
     public void setData(long data) {
         Log.d(TAG, "setData " + data);
         textView.setText(String.format(getString(R.string.all_data), data));
+        progressBar.setVisibility(View.GONE);
     }
 
     @LayoutRes
