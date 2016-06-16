@@ -30,7 +30,7 @@ ext {
             butterknife: '8.1.0',
             dagger: '2.5',
             support: '24.0.0',
-            supportTest: '0.5'
+            supporttest: '0.5'
     ]
 
     libraries = [
@@ -57,14 +57,14 @@ ext {
             rxlifecycle: 'com.trello:rxlifecycle:0.6.1',
 
             junit: 'junit:junit:4.12',
-            mockito: 'org.mockito:mockito-core:2.0.52-beta',
-            assertj: 'org.assertj:assertj-core:2.4.1',
+            mockito: 'org.mockito:mockito-core:2.0.59-beta',
+            assertj: 'org.assertj:assertj-core:1.7.1',
             assertjandroid: 'com.squareup.assertj:assertj-android:1.0.0',
+            robolectric: 'org.robolectric:robolectric:3.1',
 
-            supporttestrunner: "com.android.support.test:runner:$versions.supportTest",
-            supporttestrules: "com.android.support.test:rules:$versions.supportTest",
+            supporttestrunner: "com.android.support.test:runner:$versions.supporttest",
+            supporttestrules: "com.android.support.test:rules:$versions.supporttest",
             supporttestespresso: 'com.android.support.test.espresso:espresso-core:2.2',
 
-            robolectric: 'org.robolectric:robolectric:3.0',
     ]
 }
