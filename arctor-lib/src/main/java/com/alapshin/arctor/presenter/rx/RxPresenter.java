@@ -4,11 +4,9 @@ package com.alapshin.arctor.presenter.rx;
 import android.support.annotation.CallSuper;
 
 import com.alapshin.arctor.presenter.BasePresenter;
-import com.alapshin.arctor.presenter.Presenter;
 import com.alapshin.arctor.presenter.PresenterBundle;
 import com.alapshin.arctor.presenter.rx.delivery.DeliverFirst;
 import com.alapshin.arctor.presenter.rx.delivery.DeliverLatest;
-import com.alapshin.arctor.presenter.rx.delivery.DeliverLatestCache;
 import com.alapshin.arctor.presenter.rx.delivery.DeliverReplay;
 import com.alapshin.arctor.view.MvpView;
 
@@ -93,7 +91,9 @@ public class RxPresenter<V extends MvpView> extends BasePresenter<V> {
     }
 
     /**
-     * Removes and unsubscribes from all subscripions that has been registered with {@link #addSubscription(Subscription)} previously.
+     * Removes and unsubscribes from all subscripions that has been registered with
+     * {@link #addSubscription(Subscription)} previously.
+     *
      * See {@link CompositeSubscription#clear() for details.}
      */
     public void clearSubscriptions() {
@@ -101,9 +101,10 @@ public class RxPresenter<V extends MvpView> extends BasePresenter<V> {
     }
 
     /**
-     * Returns an {@link rx.Observable.Transformer} that delays emission from the source {@link rx.Observable}.
+     * Returns an {@link rx.Observable.Transformer} that delays emission from the source
+     * {@link rx.Observable}.
      *
-     * {@link #deliverFirst} delivers only the first onNext value that has been emitted by the source observable.
+     * Delivers the first onNext value that has been emitted by the source observable.
      *
      * @param <T> the type of source observable emissions
      */
@@ -112,10 +113,10 @@ public class RxPresenter<V extends MvpView> extends BasePresenter<V> {
     }
 
     /**
-     * Returns an {@link rx.Observable.Transformer} that delays emission from the source {@link rx.Observable}.
+     * Returns an {@link rx.Observable.Transformer} that delays emission from the source
+     * {@link rx.Observable}.
      *
-     * {@link #deliverLatest} keeps the latest onNext value and emits it when there is attached view.
-     * Terminates when source observable completes {link rx.Observable#onCompleted()}
+     * Delivers latest onNext value that has been emitted by the source observable.
      *
      * @param <T> the type of source observable emissions
      */
@@ -123,22 +124,21 @@ public class RxPresenter<V extends MvpView> extends BasePresenter<V> {
         return new DeliverLatest<>(viewStatus());
     }
 
-
     /**
-     * Returns an {@link rx.Observable.Transformer} that delays emission from the source {@link rx.Observable}.
+     * Deprecated and will be removed in a future release.
      *
-     * {@link #deliverLatestCache} keeps the latest onNext value and emits it if there is * attached view. Never completes.
-     *
-     * @param <T> the type of source observable emissions
+     * Use {@link RxPresenter#deliverLatest()} instead, which does exactly the same thing.
      */
-    public <T> DeliverLatestCache<T> deliverLatestCache() {
-        return new DeliverLatestCache<>(viewStatus());
+    @Deprecated
+    public <T> DeliverLatest<T> deliverLatestCache() {
+        return new DeliverLatest<>(viewStatus());
     }
 
     /**
-     * Returns an {@link rx.Observable.Transformer} that delays emission from the source {@link rx.Observable}.
+     * Returns an {@link rx.Observable.Transformer} that delays emission from the source
+     * {@link rx.Observable}.
      *
-     * {@link #deliverReplay} keeps all onNext values and emits them each time a new view gets attached.
+     * Keeps all onNext values and emits them each time a new view gets attached.
      *
      * @param <T> the type of source observable emissions
      */

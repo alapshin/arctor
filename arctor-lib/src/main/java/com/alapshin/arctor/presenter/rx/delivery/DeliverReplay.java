@@ -22,7 +22,7 @@ public class DeliverReplay<T> implements Observable.Transformer<T, T> {
                 .switchMap(new Func1<Boolean, Observable<T>>() {
                     @Override
                     public Observable<T> call(final Boolean flag) {
-                        return flag.booleanValue() ? subject : Observable.<T>never();
+                        return flag ? subject : Observable.<T>empty();
                     }
                 })
                 .doOnUnsubscribe(new Action0() {
