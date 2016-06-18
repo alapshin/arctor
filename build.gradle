@@ -23,9 +23,9 @@ allprojects {
 ext {
     versions = [
             minSdk: 15,
-            compileSdk: 23,
+            compileSdk: 24,
             targetSdk: 22,
-            buildTools: '23.0.3',
+            buildTools: '24.0.0',
 
             butterknife: '8.1.0',
             dagger: '2.5',
