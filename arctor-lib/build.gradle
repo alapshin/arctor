@@ -46,6 +46,14 @@ android {
         // Functional tests live in src/functionalTests.
         androidTest.java.srcDirs  += 'src/functionalTest/java'
     }
+
+    testOptions.unitTests.all {
+        testLogging {
+            events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+            exceptionFormat 'full'
+            showStandardStreams = true
+        }
+    }
 }
 
 
