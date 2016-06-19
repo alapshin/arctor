@@ -13,7 +13,7 @@ android:
         - extra-android-support
 
 env:
-    JAVA8_HOME="/usr/lib/jvm/java-8-openjdk-amd64/"
+    JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/"
 
 before_install:
     - sudo add-apt-repository ppa:openjdk-r/ppa -y
