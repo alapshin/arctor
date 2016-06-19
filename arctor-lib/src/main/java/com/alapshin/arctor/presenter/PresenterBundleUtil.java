@@ -8,8 +8,8 @@ import java.util.HashMap;
 import javax.annotation.Nullable;
 
 public class PresenterBundleUtil {
-    private static final String TAG = PresenterBundleUtil.class.getSimpleName();
     private static final String MAP_KEY = PresenterBundle.class.getName();
+    private static final String LOG_TAG = PresenterBundleUtil.class.getSimpleName();
 
     private PresenterBundleUtil() {
         // No instances
@@ -30,7 +30,7 @@ public class PresenterBundleUtil {
                         .getSerializable(MAP_KEY);
                 return new PresenterBundle(map);
             } catch (ClassCastException e) {
-                Log.e(TAG, "getPresenterBundle", e);
+                Log.e(LOG_TAG, "getPresenterBundle", e);
             }
         }
 
