@@ -62,6 +62,7 @@ public abstract class BaseFragment<V extends MvpView, P extends Presenter<V>>
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(getLayoutRes(), container, false);
+        unbinder = ButterKnife.bind(this, view);
         return view;
     }
 
@@ -69,7 +70,6 @@ public abstract class BaseFragment<V extends MvpView, P extends Presenter<V>>
     @CallSuper
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        unbinder = ButterKnife.bind(this, view);
         lifecycleSubject.onNext(FragmentEvent.CREATE_VIEW);
     }
 
