@@ -56,6 +56,10 @@ public class ViewStateCommandQueue<V extends MvpView>
         return commands.element();
     }
 
+    public void clear() {
+        commands.clear();
+    }
+
     public boolean isEmpty() {
         return commands.isEmpty();
     }
