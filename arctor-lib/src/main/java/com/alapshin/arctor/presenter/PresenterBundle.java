@@ -189,33 +189,33 @@ public class PresenterBundle {
     }
 
     /**
-     * Inserts an ArrayList<Integer> value into the mapping of this Bundle, replacing
+     * Inserts an ArrayList value into the mapping of this Bundle, replacing
      * any existing value for the given key.  Either key or value may be null.
      *
      * @param key a String, or null
-     * @param value an ArrayList<Integer> object, or null
+     * @param value an ArrayList object, or null
      */
     public void putIntegerArrayList(String key, ArrayList<Integer> value) {
         map.put(key, value);
     }
 
     /**
-     * Inserts an ArrayList<String> value into the mapping of this Bundle, replacing
+     * Inserts an ArrayList value into the mapping of this Bundle, replacing
      * any existing value for the given key.  Either key or value may be null.
      *
      * @param key a String, or null
-     * @param value an ArrayList<String> object, or null
+     * @param value an ArrayList object, or null
      */
     public void putStringArrayList(String key, ArrayList<String> value) {
         map.put(key, value);
     }
 
     /**
-     * Inserts an ArrayList<CharSequence> value into the mapping of this Bundle, replacing
+     * Inserts an ArrayList value into the mapping of this Bundle, replacing
      * any existing value for the given key.  Either key or value may be null.
      *
      * @param key a String, or null
-     * @param value an ArrayList<CharSequence> object, or null
+     * @param value an ArrayList object, or null
      */
     public void putCharSequenceArrayList(String key, ArrayList<CharSequence> value) {
         map.put(key, value);
@@ -682,7 +682,7 @@ public class PresenterBundle {
      * value is explicitly associated with the key.
      *
      * @param key a String, or null
-     * @return an ArrayList<String> value, or null
+     * @return an ArrayList value, or null
      */
     public ArrayList<Integer> getIntegerArrayList(String key) {
         Object o = map.get(key);
@@ -702,7 +702,7 @@ public class PresenterBundle {
      * value is explicitly associated with the key.
      *
      * @param key a String, or null
-     * @return an ArrayList<String> value, or null
+     * @return an ArrayList value, or null
      */
     public ArrayList<String> getStringArrayList(String key) {
         Object o = map.get(key);
@@ -722,7 +722,7 @@ public class PresenterBundle {
      * value is explicitly associated with the key.
      *
      * @param key a String, or null
-     * @return an ArrayList<CharSequence> value, or null
+     * @return an ArrayList value, or null
      */
     public ArrayList<CharSequence> getCharSequenceArrayList(String key) {
         Object o = map.get(key);
