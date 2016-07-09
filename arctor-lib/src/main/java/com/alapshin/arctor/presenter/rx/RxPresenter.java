@@ -28,9 +28,9 @@ public class RxPresenter<V extends MvpView> extends BasePresenter<V> {
     private BehaviorSubject<Boolean> viewSubject = BehaviorSubject.create();
 
     /**
-     * Returns an {@link rx.Observable<Boolean>} that emits current status of a view.
+     * Returns an {@link rx.Observable} that emits current status of a view.
      *
-     * @return an {@link rx.Observable<Boolean>} that emits true when view attached and false when view detached.
+     * @return an {@link rx.Observable} that emits true when view attached and false when view detached.
      */
     public Observable<Boolean> viewStatus() {
         return viewSubject;

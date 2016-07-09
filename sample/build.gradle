@@ -34,8 +34,8 @@ dependencies {
     compile libraries.supportv13
 
     // MVP
-    compile libraries.base
     compile libraries.arctor
+    compile libraries.samplebase
 
     // Butterknife
     compile libraries.butterknife

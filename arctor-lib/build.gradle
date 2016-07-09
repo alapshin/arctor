@@ -1,10 +1,15 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.neenbedankt.android-apt'
-apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.novoda.bintray-release'
 
-group = 'com.github.alapshin'
-archivesBaseName = 'arctor'
-version = '0.6.0'
+publish {
+    userOrg = 'alapshin'
+    groupId = GROUP_ID
+    artifactId = 'arctor'
+    publishVersion = PUBLISH_VERSION
+    desc = 'Android MVP library'
+    website = 'https://github.com/alapshin/arctor'
+}
 
 android {
     compileSdkVersion versions.compileSdk
