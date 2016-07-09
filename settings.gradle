@@ -1,1 +1,1 @@
-include ':arctor-lib', ':sample-base', ':sample'
+include ':arctor-lib', ':arctor-conductor', ':sample-base', ':sample'

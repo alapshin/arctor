@@ -23,6 +23,7 @@ allprojects {
 ext {
     versions = [
             minSdk: 15,
+            minSdk16: 16,
             compileSdk: 24,
             targetSdk: 22,
             buildTools: '24.0.0',
@@ -35,6 +36,7 @@ ext {
 
     libraries = [
             arctor: project(':arctor-lib'),
+            arctorconductor: project(':arctor-conductor'),
             samplebase: project(':sample-base'),
 
             supportv13: "com.android.support:support-v13:$versions.support",
@@ -46,6 +48,7 @@ ext {
             autovalue: 'com.google.auto.value:auto-value:1.2-rc1',
             butterknife: "com.jakewharton:butterknife:$versions.butterknife",
             butterknifecompiler: "com.jakewharton:butterknife-compiler:$versions.butterknife",
+            conductor: 'com.bluelinelabs:conductor:2.0.0',
             dagger: "com.google.dagger:dagger:$versions.dagger",
             daggercompiler: "com.google.dagger:dagger-compiler:$versions.dagger",
             javaxannotation: 'javax.annotation:javax.annotation-api:1.2',
