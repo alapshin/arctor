@@ -9,7 +9,7 @@ import com.alapshin.arctor.sample.di.modules.BazModule;
 import com.alapshin.arctor.sample.di.modules.FooModule;
 import com.alapshin.arctor.sample.di.modules.MainModule;
 import com.alapshin.arctor.sample.di.modules.NavigationModule;
-import com.alapshin.arctor.sample.di.scopes.ActivityScope;
+import com.alapshin.arctor.sample.di.scopes.ScopeIn;
 import com.alapshin.arctor.sample.foo.view.FooFragment;
 import com.alapshin.arctor.sample.main.view.MainActivity;
 
@@ -23,7 +23,7 @@ import dagger.Subcomponent;
         MainModule.class,
         NavigationModule.class
 })
-@ActivityScope
+@ScopeIn(ActivityComponent.class)
 public interface ActivityComponent {
     void inject(BarFragment fragment);
     void inject(FooFragment fragment);
