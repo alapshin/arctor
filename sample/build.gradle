@@ -13,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId "com.alapshin.arctor.sample"
-        minSdkVersion versions.minSdk
+        minSdkVersion versions.minSdk16
         targetSdkVersion versions.targetSdk
         versionCode 1
         versionName "1.0"

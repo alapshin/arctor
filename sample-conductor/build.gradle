@@ -1,14 +1,18 @@
-apply plugin: 'com.android.library'
+apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion versions.compileSdk
     buildToolsVersion versions.buildTools
 
     defaultConfig {
+        applicationId "com.alapshin.sampleconductor"
         minSdkVersion versions.minSdk16
         targetSdkVersion versions.targetSdk
         versionCode 1
         versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
     buildTypes {
         release {
@@ -19,15 +23,8 @@ android {
 }
 
 dependencies {
-    compile libraries.butterknife
-
-    compile libraries.arctor
-    compile libraries.arctorconductor
-
-    compile libraries.jsr305
-    compile libraries.rxjava
-    compile libraries.rxandroid
-    compile libraries.rxlifecycle
     compile libraries.supportappcompat
-    compile libraries.supportannotations
+    compile libraries.supportconstraintlayout
+
+    testCompile libraries.junit
 }
