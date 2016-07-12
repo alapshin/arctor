@@ -16,7 +16,7 @@ public interface ViewGroupMvpDelegate<V extends MvpView, P extends Presenter<V>>
     /**
      * Call from {@link ViewGroup#onAttachedToWindow()}
      */
-    public void onAttachedToWindow(V view, P presenter);
+    public void onAttachedToWindow();
 
     /**
      * Call from {@link ViewGroup#onDetachedFromWindow()}

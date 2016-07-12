@@ -7,21 +7,33 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.alapshin.arctor.delegate.ActivityMvpDelegate;
 import com.alapshin.arctor.delegate.ActivityMvpDelegateImpl;
+import com.alapshin.arctor.delegate.MvpCallback;
 import com.alapshin.arctor.presenter.Presenter;
 
 import javax.inject.Inject;
 
-public abstract class MvpActivity<V extends MvpView, P extends Presenter<V>> extends AppCompatActivity
-        implements MvpView {
+public abstract class MvpActivity<V extends MvpView, P extends Presenter<V>>
+        extends AppCompatActivity
+        implements MvpCallback<V, P>, MvpView {
     @Inject
     protected P presenter;
-    private ActivityMvpDelegate<V, P> mvpDelegate = new ActivityMvpDelegateImpl<>();
+    private ActivityMvpDelegate<V, P> mvpDelegate = new ActivityMvpDelegateImpl<>(this);
+
+    @Override
+    public V getMvpView() {
+        return (V) this;
+    }
+
+    @Override
+    public P getPresenter() {
+        return presenter;
+    }
 
     @Override
     @CallSuper
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mvpDelegate.onCreate((V) this, presenter, savedInstanceState);
+        mvpDelegate.onCreate(savedInstanceState);
     }
 
     @Override

@@ -10,6 +10,7 @@ import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 
+import com.alapshin.arctor.delegate.MvpCallback;
 import com.alapshin.arctor.delegate.ViewGroupMvpDelegate;
 import com.alapshin.arctor.delegate.ViewGroupMvpDelegateImpl;
 import com.alapshin.arctor.presenter.Presenter;
@@ -17,12 +18,13 @@ import com.alapshin.arctor.presenter.Presenter;
 import javax.inject.Inject;
 
 public abstract class MvpRelativeLayout<V extends MvpView, P extends Presenter<V>>
-        extends RelativeLayout implements MvpView {
+        extends RelativeLayout
+        implements MvpCallback<V, P>, MvpView {
     private static final String PARENT_STATE_KEY = "parent_state";
 
     @Inject
     protected P presenter;
-    private ViewGroupMvpDelegate<V, P> mvpDelegate = new ViewGroupMvpDelegateImpl<>();
+    private ViewGroupMvpDelegate<V, P> mvpDelegate = new ViewGroupMvpDelegateImpl<>(this);
 
     public MvpRelativeLayout(Context context) {
         super(context);
@@ -41,6 +43,16 @@ public abstract class MvpRelativeLayout<V extends MvpView, P extends Presenter<V
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
+    @Override
+    public V getMvpView() {
+        return (V) this;
+    }
+
+    @Override
+    public P getPresenter() {
+        return presenter;
+    }
+
     public Activity getActivity() {
         Context context = getContext();
         while (!(context instanceof Activity) && context instanceof ContextWrapper)
@@ -54,7 +66,7 @@ public abstract class MvpRelativeLayout<V extends MvpView, P extends Presenter<V
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        mvpDelegate.onAttachedToWindow((V) this, presenter);
+        mvpDelegate.onAttachedToWindow();
     }
 
     @Override

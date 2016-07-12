@@ -7,66 +7,67 @@ import com.alapshin.arctor.presenter.Presenter;
 import com.alapshin.arctor.presenter.PresenterBundle;
 import com.alapshin.arctor.view.MvpView;
 
-import javax.annotation.Nonnull;
-
 import static com.alapshin.arctor.presenter.PresenterBundleUtil.getPresenterBundle;
 import static com.alapshin.arctor.presenter.PresenterBundleUtil.setPresenterBundle;
 
 public class FragmentMvpDelegateImpl<V extends MvpView, P extends Presenter<V>>
         implements FragmentMvpDelegate<V, P> {
 
-    private P presenter;
+    private MvpCallback<V, P> callback;
     private boolean isDestroyedBySystem;
 
-    @Override
-    public void onCreate(@Nonnull P presenter, @Nullable Bundle savedInstanceState) {
-        this.presenter = presenter;
-        this.presenter.onCreate(getPresenterBundle(savedInstanceState));
+    public FragmentMvpDelegateImpl(MvpCallback<V, P> callback) {
+        this.callback = callback;
     }
 
     @Override
-    public void onViewCreated(V view, @Nullable Bundle savedInstanceState) {
-        presenter.attachView(view);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        callback.getPresenter().onCreate(getPresenterBundle(savedInstanceState));
+    }
+
+    @Override
+    public void onViewCreated(@Nullable Bundle savedInstanceState) {
+        callback.getPresenter().attachView(callback.getMvpView());
     }
 
     @Override
     public void onStart() {
-        presenter.onStart();
+        callback.getPresenter().onStart();
     }
 
     @Override
     public void onResume() {
         isDestroyedBySystem = false;
-        presenter.onResume();
+        callback.getPresenter().onResume();
     }
 
     @Override
     public void onPause() {
-        presenter.onPause();
+        callback.getPresenter().onPause();
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         isDestroyedBySystem = true;
         PresenterBundle bundle = new PresenterBundle();
-        presenter.onSaveInstanceState(bundle);
+        callback.getPresenter().onSaveInstanceState(bundle);
         setPresenterBundle(outState, bundle);
     }
 
     @Override
     public void onStop() {
-        presenter.onStop();
+        callback.getPresenter().onStop();
     }
 
     @Override
     public void onDestroyView() {
-        presenter.detachView();
+        callback.getPresenter().detachView();
     }
 
     @Override
     public void onDestroy() {
         if (!isDestroyedBySystem) {
-            presenter.onDestroy();
+            callback.getPresenter().onDestroy();
         }
     }
 }

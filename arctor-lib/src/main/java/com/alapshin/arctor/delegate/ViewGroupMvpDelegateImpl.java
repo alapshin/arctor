@@ -8,23 +8,26 @@ import com.alapshin.arctor.view.MvpView;
 public class ViewGroupMvpDelegateImpl<V extends MvpView, P extends Presenter<V>>
         implements ViewGroupMvpDelegate<V, P> {
 
-    P presenter;
+    private MvpCallback<V, P> callback;
+
+    public ViewGroupMvpDelegateImpl(MvpCallback<V, P> callback) {
+        this.callback = callback;
+    }
 
     @Override
-    public void onAttachedToWindow(V view, P presenter) {
-        presenter.attachView(view);
-        this.presenter = presenter;
-        presenter.onCreate(null);
-        presenter.onStart();
-        presenter.onResume();
+    public void onAttachedToWindow() {
+        callback.getPresenter().onCreate(null);
+        callback.getPresenter().attachView(callback.getMvpView());
+        callback.getPresenter().onStart();
+        callback.getPresenter().onResume();
     }
 
     @Override
     public void onDetachedFromWindow() {
-        presenter.detachView();
-        presenter.onPause();
-        presenter.onStop();
-        presenter.onDestroy();
+        callback.getPresenter().detachView();
+        callback.getPresenter().onPause();
+        callback.getPresenter().onStop();
+        callback.getPresenter().onDestroy();
     }
 
     @Override
