@@ -17,7 +17,7 @@ public abstract class MvpDialogFragment<V extends MvpView, P extends Presenter<V
         extends DialogFragment
         implements MvpCallback<V, P>, MvpView {
     @Inject
-    protected P presenter;
+    P presenter;
     private FragmentMvpDelegate<V, P> mvpDelegate = new FragmentMvpDelegateImpl<>(this);
 
     @Override

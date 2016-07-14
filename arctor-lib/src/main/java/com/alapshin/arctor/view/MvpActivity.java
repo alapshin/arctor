@@ -16,7 +16,7 @@ public abstract class MvpActivity<V extends MvpView, P extends Presenter<V>>
         extends AppCompatActivity
         implements MvpCallback<V, P>, MvpView {
     @Inject
-    protected P presenter;
+    P presenter;
     private ActivityMvpDelegate<V, P> mvpDelegate = new ActivityMvpDelegateImpl<>(this);
 
     @Override

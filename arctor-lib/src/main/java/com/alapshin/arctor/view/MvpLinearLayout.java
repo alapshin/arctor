@@ -23,7 +23,7 @@ public abstract class MvpLinearLayout<V extends MvpView, P extends Presenter<V>>
     private static final String PARENT_STATE_KEY = "parent_state";
 
     @Inject
-    protected P presenter;
+    P presenter;
     private ViewGroupMvpDelegate<V, P> mvpDelegate = new ViewGroupMvpDelegateImpl<>(this);
 
     public MvpLinearLayout(Context context) {
