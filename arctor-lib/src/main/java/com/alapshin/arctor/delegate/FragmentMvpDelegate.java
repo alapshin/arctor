@@ -10,8 +10,8 @@ import com.alapshin.arctor.view.MvpView;
 import javax.annotation.Nonnull;
 
 public interface FragmentMvpDelegate<V extends MvpView, P extends Presenter<V>> {
-    public void onCreate(@Nonnull P presenter, @Nullable Bundle savedInstanceState);
-    public void onViewCreated(V view, @Nullable Bundle savedInstanceState);
+    public void onCreate(@Nullable Bundle savedInstanceState);
+    public void onViewCreated(@Nullable Bundle savedInstanceState);
     public void onStart();
     public void onResume();
     public void onPause();
