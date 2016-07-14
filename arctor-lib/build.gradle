@@ -56,4 +56,5 @@ dependencies {
     testCompile libraries.assertj
     testCompile libraries.mockito
     testCompile libraries.robolectric
+    testCompile libraries.robolectricsupport
 }
