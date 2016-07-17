@@ -65,7 +65,7 @@ ext {
             mockito: 'org.mockito:mockito-core:2.0.82-beta',
             assertj: 'org.assertj:assertj-core:1.7.1',
             assertjandroid: 'com.squareup.assertj:assertj-android:1.0.0',
-            robolectric: 'org.robolectric:robolectric:$versions.robolectric',
+            robolectric: "org.robolectric:robolectric:$versions.robolectric",
             robolectricsupport: "org.robolectric:shadows-support-v4:$versions.robolectric",
 
             supporttestrunner: "com.android.support.test:runner:$versions.supporttest",
