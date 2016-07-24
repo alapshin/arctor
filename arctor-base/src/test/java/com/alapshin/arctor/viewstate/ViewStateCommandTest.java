@@ -16,7 +16,7 @@ import org.robolectric.annotation.Config;
 import static org.assertj.core.api.Assertions.*;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class)
+@Config(constants = BuildConfig.class, manifest = "src/main/AndroidManifest.xml", sdk = 21)
 public class ViewStateCommandTest {
     @Test
     public void serialize() {

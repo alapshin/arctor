@@ -10,14 +10,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
-import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.support.v4.SupportFragmentController;
 
 import static org.mockito.Mockito.*;
 
+@RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
-@RunWith(RobolectricGradleTestRunner.class)
 public class FragmentTest {
     TestPresenter mockPresenter;
 

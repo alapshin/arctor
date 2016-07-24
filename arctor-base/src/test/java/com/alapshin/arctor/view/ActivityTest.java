@@ -9,14 +9,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
 import org.robolectric.Robolectric;
-import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.util.ActivityController;
 
 import static org.mockito.Mockito.*;
 
+@RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
-@RunWith(RobolectricGradleTestRunner.class)
 public class ActivityTest {
     TestPresenter mockPresenter;
     ActivityController<TestActivity> activityController;
