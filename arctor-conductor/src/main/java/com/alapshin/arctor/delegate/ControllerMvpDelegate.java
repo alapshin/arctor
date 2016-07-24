@@ -1,12 +1,18 @@
 package com.alapshin.arctor.delegate;
 
 
-import android.support.annotation.NonNull;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 
 import com.alapshin.arctor.presenter.Presenter;
 import com.alapshin.arctor.view.MvpView;
 
 public interface ControllerMvpDelegate<V extends MvpView, P extends Presenter<V>> {
-    public void onCreateView(@NonNull V view, @NonNull P presenter);
-    public void onDetach();
+    void onCreate(@Nullable Bundle savedInstanceState);
+    void onCreateView();
+    void onAttach();
+    void onDetach();
+    void onDestroyView();
+    void onDestroy();
+    void onSaveInstanceState(Bundle outState);
 }

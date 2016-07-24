@@ -1,7 +1,5 @@
 package com.alapshin.arctor.sample.di.modules;
 
-import android.support.v4.app.FragmentActivity;
-
 import com.alapshin.arctor.sample.di.components.ActivityComponent;
 import com.alapshin.arctor.sample.di.scopes.ScopeIn;
 import com.alapshin.arctor.sample.navigation.Navigator;

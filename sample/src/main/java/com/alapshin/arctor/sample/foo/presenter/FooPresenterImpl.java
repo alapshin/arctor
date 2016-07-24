@@ -41,7 +41,6 @@ public class FooPresenterImpl extends RxPresenter<FooView> implements FooPresent
             addSubscription(dataSubscription);
 
             ProgressCommand command = new ProgressCommand();
-
             Subscription progressSubscription = Observable.just(null)
                     .compose(deliverLatest())
                     .observeOn(AndroidSchedulers.mainThread())
