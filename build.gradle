@@ -36,7 +36,7 @@ ext {
     ]
 
     libraries = [
-            arctor: project(':arctor-lib'),
+            arctor: project(':arctor-base'),
             arctorconductor: project(':arctor-conductor'),
             samplebase: project(':sample-base'),
 
