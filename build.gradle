@@ -9,8 +9,8 @@ buildscript {
         classpath 'com.android.tools.build:gradle:2.2.0-alpha6'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         classpath 'me.tatarka:gradle-retrolambda:3.3.0-beta4'
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.12.0'
-        classpath 'com.novoda:bintray-release:0.3.4'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.13.0'
+        classpath 'com.novoda:bintray-release:0.3.5'
     }
 }
 
@@ -28,10 +28,10 @@ ext {
             targetSdk: 22,
             buildTools: '24.0.0',
 
-            butterknife: '8.1.0',
+            butterknife: '8.2.1',
             dagger: '2.5',
-            robolectric: '3.1',
-            support: '24.0.0',
+            robolectric: '3.1.1',
+            support: '24.1.1',
             supporttest: '0.5'
     ]
 
@@ -57,12 +57,12 @@ ext {
             jsr250: 'javax.annotation:jsr250-api:1.0',
             jsr305: 'com.google.code.findbugs:jsr305:3.0.1',
             jsr330: 'javax.inject:javax.inject:1',
-            rxjava: 'io.reactivex:rxjava:1.1.6',
+            rxjava: 'io.reactivex:rxjava:1.1.8',
             rxandroid: 'io.reactivex:rxandroid:1.2.1',
             rxlifecycle: 'com.trello:rxlifecycle:0.6.1',
 
             junit: 'junit:junit:4.12',
-            mockito: 'org.mockito:mockito-core:2.0.82-beta',
+            mockito: 'org.mockito:mockito-core:2.0.87-beta',
             assertj: 'org.assertj:assertj-core:1.7.1',
             assertjandroid: 'com.squareup.assertj:assertj-android:1.0.0',
             robolectric: "org.robolectric:robolectric:$versions.robolectric",
