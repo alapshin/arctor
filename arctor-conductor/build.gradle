@@ -1,6 +1,11 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.novoda.bintray-release'
 
+// For publishing to local maven repo
+group = GROUP_ID
+version = PUBLISH_VERSION
+
+// For publishing to Bintray
 publish {
     userOrg = 'alapshin'
     groupId = GROUP_ID
