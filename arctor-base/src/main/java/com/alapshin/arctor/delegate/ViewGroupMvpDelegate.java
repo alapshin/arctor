@@ -16,22 +16,22 @@ public interface ViewGroupMvpDelegate<V extends MvpView, P extends Presenter<V>>
     /**
      * Call from {@link ViewGroup#onAttachedToWindow()}
      */
-    public void onAttachedToWindow();
+    void onAttachedToWindow();
 
     /**
      * Call from {@link ViewGroup#onDetachedFromWindow()}
      */
-    public void onDetachedFromWindow();
+    void onDetachedFromWindow();
 
     /**
      * Call from {@link ViewGroup#onRestoreInstanceState(Parcelable)}
      * @param state The parcelable state.
      */
-    public void onRestoreInstanceState(Parcelable state);
+    void onRestoreInstanceState(Parcelable state);
 
     /**
      * Call from {@link ViewGroup#onSaveInstanceState()}
      * @return The state with saved data
      */
-    public Parcelable onSaveInstanceState();
+    Parcelable onSaveInstanceState();
 }

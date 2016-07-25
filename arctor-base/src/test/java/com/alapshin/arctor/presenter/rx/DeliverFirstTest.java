@@ -64,7 +64,7 @@ public class DeliverFirstTest {
     @Test
     public void emitFirstAfterViewAttachment() {
         Observable<Boolean> view = Observable.just(true)
-                .delay(DELAY_IN_MILLISECONDS, TimeUnit.MILLISECONDS);
+                .delaySubscription(DELAY_IN_MILLISECONDS, TimeUnit.MILLISECONDS);
         DeliverFirst<Integer> transformer = new DeliverFirst<>(view);
         TestSubscriber<Integer> testSubscriber = new TestSubscriber<>();
         Observable.just(0, 1, 2)

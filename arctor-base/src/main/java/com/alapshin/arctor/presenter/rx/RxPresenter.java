@@ -22,8 +22,6 @@ import rx.subscriptions.CompositeSubscription;
  * @since 2015-07-06
  */
 public class RxPresenter<V extends MvpView> extends BasePresenter<V> {
-    private final String TAG = this.getClass().getSimpleName();
-
     private CompositeSubscription subscriptions = new CompositeSubscription();
     private BehaviorSubject<Boolean> viewSubject = BehaviorSubject.create();
 
@@ -81,7 +79,8 @@ public class RxPresenter<V extends MvpView> extends BasePresenter<V> {
     }
 
     /**
-     * Removes and unsubscribes a subscription that has been registered with {@link #addSubscription(Subscription)} previously.
+     * Removes and unsubscribes a subscription that has been registered with
+     * {@link #addSubscription(Subscription)} previously.
      * See {@link CompositeSubscription#remove(Subscription) for details.}
      *
      * @param subscription a subscription to remove.

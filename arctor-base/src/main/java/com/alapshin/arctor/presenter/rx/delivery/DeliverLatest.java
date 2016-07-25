@@ -38,7 +38,8 @@ public class DeliverLatest<T> implements Observable.Transformer<T, T> {
                 .combineLatest(
                         view,
                         observable
-                                // Materialize data Observable to handle onError and onCompleted events when view is detached
+                                // Materialize data Observable to handle onError and onCompleted events
+                                // when view is detached
                                 .materialize()
                                 // Keep the last two notifications
                                 .buffer(2, 1)
@@ -64,7 +65,8 @@ public class DeliverLatest<T> implements Observable.Transformer<T, T> {
                                 // Remove duplicate notifications caused by sliding buffer
                                 .scan(new Func2<List<Notification<T>>, List<Notification<T>>, List<Notification<T>>>() {
                                     @Override
-                                    public List<Notification<T>> call(List<Notification<T>> notifications, List<Notification<T>> notifications2) {
+                                    public List<Notification<T>> call(List<Notification<T>> notifications,
+                                                                      List<Notification<T>> notifications2) {
                                         if (notifications == null) {
                                             // If it is first buffer of notifications emit it as usual
                                             return notifications2;

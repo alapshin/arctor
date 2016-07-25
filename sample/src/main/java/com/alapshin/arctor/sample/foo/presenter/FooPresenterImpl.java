@@ -1,7 +1,5 @@
 package com.alapshin.arctor.sample.foo.presenter;
 
-import android.util.Log;
-
 import com.alapshin.arctor.presenter.PresenterBundle;
 import com.alapshin.arctor.presenter.rx.RxPresenter;
 import com.alapshin.arctor.sample.foo.view.FooView;

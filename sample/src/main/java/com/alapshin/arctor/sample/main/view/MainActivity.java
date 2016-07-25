@@ -52,6 +52,8 @@ public class MainActivity extends BaseActivity<MainView, MainPresenter>
                 case R.id.menu_foo:
                     navigator.set(FooScreen.create(), false);
                     break;
+                default:
+                    break;
             }
             drawerLayout.closeDrawers();
             return true;

@@ -3,7 +3,6 @@ package com.alapshin.arctor.view;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.alapshin.arctor.delegate.ControllerMvpDelegate;
 import com.alapshin.arctor.delegate.ControllerMvpDelegateImpl;

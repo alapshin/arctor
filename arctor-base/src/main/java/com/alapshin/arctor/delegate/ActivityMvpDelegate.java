@@ -6,14 +6,12 @@ import android.support.annotation.Nullable;
 import com.alapshin.arctor.presenter.Presenter;
 import com.alapshin.arctor.view.MvpView;
 
-import javax.annotation.Nonnull;
-
 public interface ActivityMvpDelegate<V extends MvpView, P extends Presenter<V>> {
-    public void onCreate(@Nullable Bundle savedInstanceState);
-    public void onStart();
-    public void onResume();
-    public void onPause();
-    public void onSaveInstanceState(@Nullable Bundle outState);
-    public void onStop();
-    public void onDestroy();
+    void onCreate(@Nullable Bundle savedInstanceState);
+    void onStart();
+    void onResume();
+    void onPause();
+    void onSaveInstanceState(@Nullable Bundle outState);
+    void onStop();
+    void onDestroy();
 }

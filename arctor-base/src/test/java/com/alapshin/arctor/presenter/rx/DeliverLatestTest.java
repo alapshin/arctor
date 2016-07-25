@@ -66,7 +66,7 @@ public class DeliverLatestTest {
     @Test
     public void emitLastAfterViewAttachment() {
         Observable<Boolean> view = Observable.just(true)
-                .delay(DELAY_IN_MILLISECONDS, TimeUnit.MILLISECONDS);
+                .delaySubscription(DELAY_IN_MILLISECONDS, TimeUnit.MILLISECONDS);
         DeliverLatest<Integer> transformer = new DeliverLatest<>(view);
         TestSubscriber<Integer> testSubscriber = new TestSubscriber<>();
         Observable.just(0, 1, 2)

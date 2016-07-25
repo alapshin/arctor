@@ -40,7 +40,7 @@ public class BasePresenter<V extends MvpView> implements Presenter<V> {
         SKIP
     }
 
-    private final String VIEW_STATE_COMMAND_QUEUE_KEY = "view_state_command_queue";
+    private static final String VIEW_STATE_COMMAND_QUEUE_KEY = "view_state_command_queue";
     /**
      * Reference to view. Using weak reference to avoid memory leaks. Before calling any view
      * methods check that view is attached with isViewAttached

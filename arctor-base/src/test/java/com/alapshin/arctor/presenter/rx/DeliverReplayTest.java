@@ -3,7 +3,6 @@ package com.alapshin.arctor.presenter.rx;
 
 import com.alapshin.arctor.presenter.rx.delivery.DeliverReplay;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;

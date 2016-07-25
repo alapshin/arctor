@@ -39,7 +39,7 @@ public class ViewStateCommandQueue<V extends MvpView>
      * @param command command to add
      */
     public void addWithReplace(ViewStateCommand<V> command) {
-        for (Iterator<ViewStateCommand<V>> it = commands.iterator(); it.hasNext(); ) {
+        for (Iterator<ViewStateCommand<V>> it = commands.iterator(); it.hasNext();) {
             ViewStateCommand<V> command1 = it.next();
             if (command1.type() == command.type()) {
                 it.remove();

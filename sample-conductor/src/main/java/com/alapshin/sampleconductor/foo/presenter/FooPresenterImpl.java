@@ -18,7 +18,7 @@ public class FooPresenterImpl extends RxPresenter<FooView> implements FooPresent
     static class DataCommand implements ViewStateCommand<FooView> {
         private final long data;
 
-        public DataCommand(long data) {
+        DataCommand(long data) {
             this.data = data;
         }
 

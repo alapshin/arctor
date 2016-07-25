@@ -1,7 +1,6 @@
 package com.alapshin.mvp.view;
 
 
-import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
