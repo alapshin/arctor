@@ -10,13 +10,29 @@ buildscript {
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         classpath 'me.tatarka:gradle-retrolambda:3.3.0-beta4'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.13.0'
-        classpath 'com.novoda:bintray-release:0.3.5'
+        classpath 'com.novoda:bintray-release:0.3.4'
     }
 }
 
 allprojects {
     repositories {
         jcenter()
+    }
+}
+
+subprojects {
+    apply from: rootProject.file('gradle/checkstyle.gradle')
+
+    afterEvaluate {
+        // Log instrumentation tests results.
+        tasks.withType(com.android.build.gradle.internal.tasks.AndroidTestTask) { task ->
+            task.doFirst {
+                logging.level = LogLevel.INFO
+            }
+            task.doLast {
+                logging.level = LogLevel.LIFECYCLE
+            }
+        }
     }
 }
 
