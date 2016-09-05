@@ -11,7 +11,7 @@ import rx.Observable;
 import rx.observers.TestSubscriber;
 
 public class DeliverFirstTest {
-    private static final int DELAY_IN_MILLISECONDS = 200;
+    private static final int DELAY_IN_MILLISECONDS = 500;
 
     @Test
     public void emitWithAttachedView() {

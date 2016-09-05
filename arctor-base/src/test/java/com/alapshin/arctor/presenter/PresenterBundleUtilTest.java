@@ -12,7 +12,7 @@ import org.robolectric.annotation.Config;
 import static org.assertj.core.api.Assertions.*;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class)
+@Config(constants = BuildConfig.class, sdk = 23)
 public class PresenterBundleUtilTest {
     @Test
     public void checkBundleInteraction() {

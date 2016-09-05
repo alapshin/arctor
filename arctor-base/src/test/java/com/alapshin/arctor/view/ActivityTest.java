@@ -16,7 +16,7 @@ import org.robolectric.util.ActivityController;
 import static org.mockito.Mockito.*;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class)
+@Config(constants = BuildConfig.class, sdk = 23)
 public class ActivityTest {
     TestPresenter mockPresenter;
     ActivityController<TestActivity> activityController;

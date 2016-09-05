@@ -17,7 +17,7 @@ import org.robolectric.shadows.support.v4.SupportFragmentController;
 import static org.mockito.Mockito.*;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class)
+@Config(constants = BuildConfig.class, sdk = 23)
 public class FragmentTest {
     TestPresenter mockPresenter;
 
