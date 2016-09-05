@@ -5,7 +5,7 @@ android {
     buildToolsVersion versions.buildTools
 
     defaultConfig {
-        minSdkVersion versions.minSdk
+        minSdkVersion versions.minSdk16
         targetSdkVersion versions.targetSdk
         versionCode 1
         versionName "1.0"
@@ -20,7 +20,10 @@ android {
 
 dependencies {
     compile libraries.butterknife
+
     compile libraries.arctor
+    compile libraries.arctorconductor
+
     compile libraries.jsr305
     compile libraries.rxjava
     compile libraries.rxandroid

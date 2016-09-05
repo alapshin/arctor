@@ -6,10 +6,10 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.0'
+        classpath 'com.android.tools.build:gradle:2.2.0-rc1'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         classpath 'me.tatarka:gradle-retrolambda:3.3.0-beta4'
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.12.0'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.13.0'
         classpath 'com.novoda:bintray-release:0.3.4'
     }
 }
@@ -20,51 +20,73 @@ allprojects {
     }
 }
 
+subprojects {
+    apply from: rootProject.file('gradle/checkstyle.gradle')
+
+    afterEvaluate {
+        // Log instrumentation tests results.
+        tasks.withType(com.android.build.gradle.internal.tasks.AndroidTestTask) { task ->
+            task.doFirst {
+                logging.level = LogLevel.INFO
+            }
+            task.doLast {
+                logging.level = LogLevel.LIFECYCLE
+            }
+        }
+    }
+}
+
 ext {
     versions = [
             minSdk: 15,
+            minSdk16: 16,
             compileSdk: 24,
             targetSdk: 22,
-            buildTools: '24.0.0',
+            buildTools: '24.0.2',
 
-            butterknife: '8.1.0',
-            dagger: '2.5',
-            support: '24.0.0',
+            butterknife: '8.4.0',
+            dagger: '2.6.1',
+            robolectric: '3.1.2',
+            rxlifecycle: '0.6.1',
+            support: '24.2.0',
             supporttest: '0.5'
     ]
 
     libraries = [
-            arctor: project(':arctor-lib'),
+            arctor: project(':arctor-base'),
+            arctorconductor: project(':arctor-conductor'),
             samplebase: project(':sample-base'),
 
             supportv13: "com.android.support:support-v13:$versions.support",
             supportappcompat: "com.android.support:appcompat-v7:$versions.support",
             supportannotations: "com.android.support:support-annotations:$versions.support",
+            supportconstraintlayout: 'com.android.support.constraint:constraint-layout:1.0.0-alpha4',
             supportdesign: "com.android.support:design:$versions.support",
             supportrecyclerview: "com.android.support:recyclerview-v7:$versions.support",
 
             autovalue: 'com.google.auto.value:auto-value:1.2-rc1',
             butterknife: "com.jakewharton:butterknife:$versions.butterknife",
             butterknifecompiler: "com.jakewharton:butterknife-compiler:$versions.butterknife",
+            conductor: 'com.bluelinelabs:conductor:2.0.0',
             dagger: "com.google.dagger:dagger:$versions.dagger",
             daggercompiler: "com.google.dagger:dagger-compiler:$versions.dagger",
             javaxannotation: 'javax.annotation:javax.annotation-api:1.2',
             jsr250: 'javax.annotation:jsr250-api:1.0',
             jsr305: 'com.google.code.findbugs:jsr305:3.0.1',
             jsr330: 'javax.inject:javax.inject:1',
-            rxjava: 'io.reactivex:rxjava:1.1.6',
-            rxandroid: 'io.reactivex:rxandroid:1.2.0',
-            rxlifecycle: 'com.trello:rxlifecycle:0.6.1',
+            rxjava: 'io.reactivex:rxjava:1.1.9',
+            rxandroid: 'io.reactivex:rxandroid:1.2.1',
+            rxlifecycle: "com.trello:rxlifecycle:$versions.rxlifecycle",
 
             junit: 'junit:junit:4.12',
-            mockito: 'org.mockito:mockito-core:2.0.59-beta',
+            mockito: 'org.mockito:mockito-core:2.0.0-beta.118',
             assertj: 'org.assertj:assertj-core:1.7.1',
             assertjandroid: 'com.squareup.assertj:assertj-android:1.0.0',
-            robolectric: 'org.robolectric:robolectric:3.1',
+            robolectric: "org.robolectric:robolectric:$versions.robolectric",
+            robolectricsupport: "org.robolectric:shadows-support-v4:$versions.robolectric",
 
             supporttestrunner: "com.android.support.test:runner:$versions.supporttest",
             supporttestrules: "com.android.support.test:rules:$versions.supporttest",
             supporttestespresso: 'com.android.support.test.espresso:espresso-core:2.2',
-
     ]
 }

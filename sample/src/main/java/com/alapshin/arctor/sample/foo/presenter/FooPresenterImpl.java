@@ -1,7 +1,5 @@
 package com.alapshin.arctor.sample.foo.presenter;
 
-import android.util.Log;
-
 import com.alapshin.arctor.presenter.PresenterBundle;
 import com.alapshin.arctor.presenter.rx.RxPresenter;
 import com.alapshin.arctor.sample.foo.view.FooView;
@@ -41,7 +39,6 @@ public class FooPresenterImpl extends RxPresenter<FooView> implements FooPresent
             addSubscription(dataSubscription);
 
             ProgressCommand command = new ProgressCommand();
-
             Subscription progressSubscription = Observable.just(null)
                     .compose(deliverLatest())
                     .observeOn(AndroidSchedulers.mainThread())

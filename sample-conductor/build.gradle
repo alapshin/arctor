@@ -1,0 +1,49 @@
+apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'com.neenbedankt.android-apt'
+
+android {
+    compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildTools
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    defaultConfig {
+        applicationId "com.alapshin.sampleconductor"
+        minSdkVersion versions.minSdk16
+        targetSdkVersion versions.targetSdk
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile libraries.supportappcompat
+    compile libraries.supportconstraintlayout
+
+    compile libraries.arctor
+    compile libraries.arctorconductor
+    compile libraries.samplebase
+
+    // Butterknife
+    compile libraries.butterknife
+    apt libraries.butterknifecompiler
+
+    // Dagger
+    apt libraries.daggercompiler
+    compile libraries.dagger
+
+    testCompile libraries.junit
+}

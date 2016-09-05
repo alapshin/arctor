@@ -1,28 +1,21 @@
-apply plugin: 'checkstyle'
+plugins.apply('checkstyle')
 
 checkstyle {
+    toolVersion = '6.17'
+}
+
+task checkstyle(type: Checkstyle) {
     configFile rootProject.file('checkstyle.xml')
+
+    ignoreFailures false // Fail early.
     showViolations true
+
+    source 'src'
+    include '**/*.java'
+    classpath = files()
 }
 
 afterEvaluate {
-    def variants = plugins.hasPlugin('com.android.application') ?
-            android.applicationVariants : android.libraryVariants
-
-    variants.each { variant ->
-        def task = tasks.create("checkstyle${variant.name.capitalize()}", Checkstyle)
-
-        task.group = 'verification'
-        task.description = "Run Checkstyle for the ${variant.description}."
-
-        def variantCompile = variant.javaCompile
-
-        task.source = variantCompile.source
-        task.exclude('**/BuildConfig.java')
-        task.exclude('**/R.java')
-        task.classpath = project.fileTree(variantCompile.destinationDir)
-
-        task.dependsOn(variantCompile)
-        tasks.getByName('check').dependsOn(task)
-    }
+    def checkTask = tasks.findByName('check')
+    checkTask.dependsOn('checkstyle')
 }
