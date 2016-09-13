@@ -5,8 +5,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.os.Build;
-import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
@@ -67,23 +65,6 @@ public abstract class MvpLinearLayout<V extends MvpView, P extends Presenter<V>>
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         mvpDelegate.onAttachedToWindow();
-    }
-
-    @Override
-    protected Parcelable onSaveInstanceState() {
-        Bundle bundle = new Bundle();
-//        mvpDelegate.onSaveInstanceState(bundle);
-        bundle.putParcelable(PARENT_STATE_KEY, super.onSaveInstanceState());
-
-        return bundle;
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Parcelable state) {
-        super.onRestoreInstanceState(state);
-
-        Bundle bundle = (Bundle) state;
-//        mvpDelegate.onCreate(presenter, bundle);
     }
 
     @Override
