@@ -8,6 +8,7 @@ import com.alapshin.arctor.view.MvpView;
 
 public interface ActivityMvpDelegate<V extends MvpView, P extends Presenter<V>> {
     void onCreate(@Nullable Bundle savedInstanceState);
+    void onContentChanged();
     void onStart();
     void onResume();
     void onPause();

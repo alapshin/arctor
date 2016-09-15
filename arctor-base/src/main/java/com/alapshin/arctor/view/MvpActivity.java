@@ -37,6 +37,12 @@ public abstract class MvpActivity<V extends MvpView, P extends Presenter<V>>
     }
 
     @Override
+    public void onContentChanged() {
+        super.onContentChanged();
+        mvpDelegate.onContentChanged();
+    }
+
+    @Override
     @CallSuper
     protected void onStart() {
         super.onStart();

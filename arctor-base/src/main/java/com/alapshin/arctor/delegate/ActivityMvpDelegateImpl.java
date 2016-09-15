@@ -24,6 +24,10 @@ public class ActivityMvpDelegateImpl<V extends MvpView, P extends Presenter<V>>
     public void onCreate(@Nullable Bundle savedInstanceState) {
         callback.getPresenter().onCreate(
                 getPresenterBundle(savedInstanceState));
+    }
+
+    @Override
+    public void onContentChanged() {
         callback.getPresenter().attachView(callback.getMvpView());
     }
 
