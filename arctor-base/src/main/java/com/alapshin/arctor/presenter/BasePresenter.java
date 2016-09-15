@@ -102,8 +102,10 @@ public class BasePresenter<V extends MvpView> implements Presenter<V> {
     @Override
     @CallSuper
     public void detachView() {
-        viewRef.clear();
-        viewRef = null;
+        if (viewRef != null) {
+            viewRef.clear();
+            viewRef = null;
+        }
     }
 
     /**
