@@ -6,9 +6,9 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.0-rc2'
+        classpath 'com.android.tools.build:gradle:2.2.0'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
-        classpath 'me.tatarka:gradle-retrolambda:3.3.0-beta4'
+        classpath 'me.tatarka:gradle-retrolambda:3.3.0'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.13.0'
         classpath 'com.novoda:bintray-release:0.3.4'
     }
@@ -45,10 +45,10 @@ ext {
             buildTools: '24.0.2',
 
             butterknife: '8.4.0',
-            dagger: '2.6.1',
+            dagger: '2.7',
             robolectric: '3.1.2',
             rxlifecycle: '0.6.1',
-            support: '24.2.0',
+            support: '24.2.1',
             supporttest: '0.5'
     ]
 
@@ -67,14 +67,14 @@ ext {
             autovalue: 'com.google.auto.value:auto-value:1.2-rc1',
             butterknife: "com.jakewharton:butterknife:$versions.butterknife",
             butterknifecompiler: "com.jakewharton:butterknife-compiler:$versions.butterknife",
-            conductor: 'com.bluelinelabs:conductor:2.0.0',
+            conductor: 'com.bluelinelabs:conductor:2.0.1',
             dagger: "com.google.dagger:dagger:$versions.dagger",
             daggercompiler: "com.google.dagger:dagger-compiler:$versions.dagger",
             javaxannotation: 'javax.annotation:javax.annotation-api:1.2',
             jsr250: 'javax.annotation:jsr250-api:1.0',
             jsr305: 'com.google.code.findbugs:jsr305:3.0.1',
             jsr330: 'javax.inject:javax.inject:1',
-            rxjava: 'io.reactivex:rxjava:1.1.9',
+            rxjava: 'io.reactivex:rxjava:1.2.0',
             rxandroid: 'io.reactivex:rxandroid:1.2.1',
             rxlifecycle: "com.trello:rxlifecycle:$versions.rxlifecycle",
 

@@ -7,6 +7,7 @@ version = PUBLISH_VERSION
 
 // For publishing to Bintray
 publish {
+    autoPublish = true
     userOrg = 'alapshin'
     groupId = GROUP_ID
     artifactId = 'arctor'
