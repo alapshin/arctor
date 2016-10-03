@@ -55,6 +55,8 @@ ext {
     libraries = [
             arctor: project(':arctor-base'),
             arctorconductor: project(':arctor-conductor'),
+            arctorannotation: project(':arctor-annotation'),
+            arctorprocessor: project(':arctor-processor'),
             samplebase: project(':sample-base'),
 
             supportv13: "com.android.support:support-v13:$versions.support",
@@ -64,13 +66,16 @@ ext {
             supportdesign: "com.android.support:design:$versions.support",
             supportrecyclerview: "com.android.support:recyclerview-v7:$versions.support",
 
-            autovalue: 'com.google.auto.value:auto-value:1.2-rc1',
+            autovalue: 'com.google.auto.value:auto-value:1.3',
+            autoservice: 'com.google.auto.service:auto-service:1.0-rc2',
             butterknife: "com.jakewharton:butterknife:$versions.butterknife",
             butterknifecompiler: "com.jakewharton:butterknife-compiler:$versions.butterknife",
             conductor: 'com.bluelinelabs:conductor:2.0.1',
             dagger: "com.google.dagger:dagger:$versions.dagger",
             daggercompiler: "com.google.dagger:dagger-compiler:$versions.dagger",
+            guava: 'com.google.guava:guava:19.0',
             javaxannotation: 'javax.annotation:javax.annotation-api:1.2',
+            javapoet: 'com.squareup:javapoet:1.7.0',
             jsr250: 'javax.annotation:jsr250-api:1.0',
             jsr305: 'com.google.code.findbugs:jsr305:3.0.1',
             jsr330: 'javax.inject:javax.inject:1',
