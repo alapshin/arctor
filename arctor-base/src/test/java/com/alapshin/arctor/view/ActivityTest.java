@@ -2,6 +2,7 @@ package com.alapshin.arctor.view;
 
 
 import com.alapshin.arctor.BuildConfig;
+import com.alapshin.arctor.LibraryRobolectricTestRunner;
 import com.alapshin.arctor.presenter.PresenterBundle;
 
 import org.junit.Before;
@@ -9,15 +10,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
 import org.robolectric.Robolectric;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.util.ActivityController;
 
 import static org.mockito.Mockito.*;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(LibraryRobolectricTestRunner.class)
 @Config(constants = BuildConfig.class, sdk = 23)
 public class ActivityTest {
+    TestActivity testActivity;
     TestPresenter mockPresenter;
     ActivityController<TestActivity> activityController;
 
@@ -25,8 +26,8 @@ public class ActivityTest {
     public void setup() {
         mockPresenter = mock(TestPresenter.class);
         activityController = Robolectric.buildActivity(TestActivity.class);
-        TestActivity activity = activityController.get();
-        activity.presenter = mockPresenter;
+        testActivity = activityController.get();
+        testActivity.presenter = mockPresenter;
     }
 
     @Test
