@@ -2,20 +2,18 @@ plugins.apply('checkstyle')
 
 checkstyle {
     toolVersion = '6.17'
-}
-
-task checkstyle(type: Checkstyle) {
     configFile rootProject.file('checkstyle.xml')
 
     ignoreFailures false // Fail early.
     showViolations true
+}
 
+task checkstyle(type: Checkstyle) {
     source 'src'
     include '**/*.java'
     classpath = files()
 }
 
 afterEvaluate {
-    def checkTask = tasks.findByName('check')
-    checkTask.dependsOn('checkstyle')
+    tasks.findByName('check').dependsOn('checkstyle')
 }
