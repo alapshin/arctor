@@ -4,19 +4,18 @@ package com.alapshin.arctor.view;
 import android.os.Bundle;
 
 import com.alapshin.arctor.BuildConfig;
-import com.alapshin.arctor.presenter.PresenterBundle;
+import com.alapshin.arctor.LibraryRobolectricTestRunner;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.support.v4.SupportFragmentController;
 
 import static org.mockito.Mockito.*;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(LibraryRobolectricTestRunner.class)
 @Config(constants = BuildConfig.class, sdk = 23)
 public class FragmentTest {
     TestPresenter mockPresenter;
@@ -91,7 +90,7 @@ public class FragmentTest {
         recreatedFragment.onViewCreated(null, outState);
         recreatedFragmentController.start();
         recreatedFragmentController.resume();
-        inOrder.verify(mockPresenter).onCreate(any(PresenterBundle.class));
+        inOrder.verify(mockPresenter).onCreate(null);
         inOrder.verify(mockPresenter).attachView(any(TestView.class));
         inOrder.verify(mockPresenter).onStart();
         inOrder.verify(mockPresenter).onResume();
