@@ -1,0 +1,30 @@
+apply plugin: 'java'
+apply plugin: 'com.novoda.bintray-release'
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
+
+// For publishing to local maven repo
+group = GROUP_ID
+version = PUBLISH_VERSION
+
+// For publishing to Bintray
+publish {
+    autoPublish = true
+    userOrg = 'alapshin'
+    groupId = GROUP_ID
+    artifactId = 'arctor-processor'
+    publishVersion = PUBLISH_VERSION
+    desc = 'Android MVP library'
+    website = 'https://github.com/alapshin/arctor'
+}
+
+dependencies {
+    compile project(':arctor-annotation')
+
+    compile libraries.javapoet
+    compile libraries.autovalue
+    compile libraries.autoservice
+    compile libraries.guava
+}
+
