@@ -76,11 +76,15 @@ public class CommandGenerator {
                 CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, methodName));
         TypeName viewTypeName = TypeName.get(methodElement.getEnclosingElement().asType());
 
+        int type = annotation.type();
+        if (type == -1) {
+            type = commandClassName.hashCode();
+        }
         MethodSpec typeMethodSpec = MethodSpec.methodBuilder("type")
                 .addAnnotation(Override.class)
                 .addModifiers(Modifier.PUBLIC)
                 .returns(TypeName.INT)
-                .addStatement("return $L", annotation.value())
+                .addStatement("return $L", type)
                 .build();
 
         TypeName commandTypeName = ClassName.get(packageName, commandClassName);
