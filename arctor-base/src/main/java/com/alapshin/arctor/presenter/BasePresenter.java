@@ -86,6 +86,7 @@ public class BasePresenter<V extends MvpView> implements Presenter<V> {
     @Override
     @CallSuper
     public void onDestroy() {
+        viewStateCommandQueue.clear();
     }
 
     @Override
