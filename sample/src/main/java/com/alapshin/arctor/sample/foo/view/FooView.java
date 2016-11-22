@@ -5,6 +5,6 @@ import com.alapshin.arctor.view.MvpView;
 
 public interface FooView extends MvpView {
     void showProgress();
-    @GenerateCommand(0)
+    @GenerateCommand
     void setData(long data);
 }
