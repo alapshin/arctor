@@ -5,6 +5,7 @@ import com.alapshin.arctor.presenter.rx.delivery.DeliverLatest;
 
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
@@ -124,5 +125,19 @@ public class DeliverLatestTest {
                 .subscribe(testSubscriber);
         testSubscriber.awaitTerminalEvent();
         testSubscriber.assertError(RuntimeException.class);
+    }
+
+    @Test
+    public void emitValueFromEndlessAfterViewAttachment() {
+        Observable<Boolean> view = Observable.just(true)
+                .delay(DELAY_IN_MILLISECONDS, TimeUnit.MILLISECONDS);
+        DeliverLatest<Object> transformer = new DeliverLatest<>(view);
+        TestSubscriber<Object> testSubscriber = new TestSubscriber<>();
+        Observable.interval(0, 100, TimeUnit.MILLISECONDS)
+                .compose(transformer)
+                .subscribe(testSubscriber);
+        testSubscriber.awaitTerminalEvent(500, TimeUnit.MILLISECONDS);
+        testSubscriber.assertNotCompleted();
+        testSubscriber.assertValues(1L, 2L, 3L, 4L, 5L);
     }
 }
