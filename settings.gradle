@@ -2,6 +2,7 @@ include ':arctor-annotation',
         ':arctor-base',
         ':arctor-conductor',
         ':arctor-processor',
+        ':arctor-rxjava',
         ':sample-base',
         ':sample',
         ':sample-conductor'
