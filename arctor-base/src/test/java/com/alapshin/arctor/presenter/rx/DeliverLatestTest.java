@@ -5,7 +5,6 @@ import com.alapshin.arctor.presenter.rx.delivery.DeliverLatest;
 
 import org.junit.Test;
 
-import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
