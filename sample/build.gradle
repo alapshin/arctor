@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
-apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     compileSdkVersion versions.compileSdk
@@ -36,21 +35,22 @@ dependencies {
     // MVP
     compile libraries.arctor
     compile libraries.arctorannotation
-    apt libraries.arctorprocessor
+    annotationProcessor libraries.arctorprocessor
     compile libraries.samplebase
 
     // AutoValue
     provided libraries.autovalue
-    apt libraries.autovalue
+    annotationProcessor libraries.autovalue
 
     // Butterknife
     compile libraries.butterknife
-    apt libraries.butterknifecompiler
+    annotationProcessor libraries.butterknifecompiler
 
     // Dagger
-    apt libraries.daggercompiler
     compile libraries.dagger
     provided libraries.jsr250
+    annotationProcessor libraries.daggercompiler
+    // RxJava
     compile libraries.rxjava
     compile libraries.rxandroid
 
