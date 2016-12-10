@@ -9,6 +9,8 @@ import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
 import rx.observers.TestSubscriber;
+import rx.schedulers.Schedulers;
+import rx.schedulers.TestScheduler;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -67,13 +69,15 @@ public class DeliverLatestTest {
 
     @Test
     public void emitLastAfterViewAttachment() {
-        Observable<Boolean> view = Observable.just(true)
-                .delaySubscription(DELAY_IN_MILLISECONDS, TimeUnit.MILLISECONDS);
-        DeliverLatest<Integer> transformer = new DeliverLatest<>(view);
+        TestScheduler testScheduler = Schedulers.test();
         TestSubscriber<Integer> testSubscriber = new TestSubscriber<>();
+        Observable<Boolean> view = Observable.just(true)
+                .delay(DELAY_IN_MILLISECONDS, TimeUnit.MILLISECONDS, testScheduler);
+        DeliverLatest<Integer> transformer = new DeliverLatest<>(view);
         Observable.just(0, 1, 2)
                 .compose(transformer)
                 .subscribe(testSubscriber);
+        testScheduler.advanceTimeBy(DELAY_IN_MILLISECONDS, TimeUnit.MILLISECONDS);
         testSubscriber.awaitTerminalEvent();
         testSubscriber.assertValue(2);
         testSubscriber.assertCompleted();
@@ -105,9 +109,9 @@ public class DeliverLatestTest {
 
     @Test
     public void doesNotEmitErrorWithNeverAttachedView() {
+        TestSubscriber<Object> testSubscriber = new TestSubscriber<>();
         Observable<Boolean> view = Observable.never();
         DeliverLatest<Object> transformer = new DeliverLatest<>(view);
-        TestSubscriber<Object> testSubscriber = new TestSubscriber<>();
         Observable.error(new RuntimeException())
                 .compose(transformer)
                 .subscribe(testSubscriber);
@@ -130,14 +134,16 @@ public class DeliverLatestTest {
 
     @Test
     public void emitValueFromEndlessAfterViewAttachment() {
-        Observable<Boolean> view = Observable.just(true)
-                .delay(DELAY_IN_MILLISECONDS, TimeUnit.MILLISECONDS);
-        DeliverLatest<Object> transformer = new DeliverLatest<>(view);
+        TestScheduler testScheduler = Schedulers.test();
         TestSubscriber<Object> testSubscriber = new TestSubscriber<>();
-        Observable.interval(0, 100, TimeUnit.MILLISECONDS)
+
+        Observable<Boolean> view = Observable.just(true)
+                .delay(DELAY_IN_MILLISECONDS, TimeUnit.MILLISECONDS, testScheduler);
+        DeliverLatest<Object> transformer = new DeliverLatest<>(view);
+        Observable.interval(0, 100, TimeUnit.MILLISECONDS, testScheduler)
                 .compose(transformer)
                 .subscribe(testSubscriber);
-        testSubscriber.awaitTerminalEvent(500, TimeUnit.MILLISECONDS);
+        testScheduler.advanceTimeBy(500, TimeUnit.MILLISECONDS);
         testSubscriber.assertNotCompleted();
         assertThat(testSubscriber.getOnNextEvents()).isNotEmpty();
     }
