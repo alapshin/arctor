@@ -1,6 +1,8 @@
 package com.alapshin.arctor.presenter.rxjava2;
 
 
+import com.alapshin.arctor.presenter.rxjava2.util.Optional;
+
 import java.util.List;
 
 import io.reactivex.Notification;
@@ -14,7 +16,8 @@ import io.reactivex.functions.Predicate;
 /**
  * {@link ObservableTransformer} that ties upstream {@link Observable} emission  to Observable representing view status
  *
- * When view is attached (latest emitted value from view observable is true) then values from data observable propagates  as usual.
+ * When view is attached (latest emitted value from view observable is true) then values from data observable propagates
+ * as usual.
  *
  * When view is detached (latest emitted value from view observable is false) then values from upstream
  * Observable propagate using following rules:

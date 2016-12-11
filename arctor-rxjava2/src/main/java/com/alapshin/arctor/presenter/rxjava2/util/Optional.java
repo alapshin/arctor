@@ -1,6 +1,5 @@
-package com.alapshin.arctor.presenter.rxjava2;
+package com.alapshin.arctor.presenter.rxjava2.util;
 
-import hu.akarnokd.rxjava2.functions.Supplier;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.functions.Predicate;
@@ -79,12 +78,12 @@ public final class Optional<T> {
     }
 
     public T orElseGet(Supplier<? extends T> other) {
-        return value != null ? value : other.call();
+        return value != null ? value : other.get();
     }
 
     public <X extends Throwable> T orElseThrow(Supplier<? extends X> exceptionSupplier) throws X {
         if (value == null) {
-            throw exceptionSupplier.call();
+            throw exceptionSupplier.get();
         }
         return value;
     }
