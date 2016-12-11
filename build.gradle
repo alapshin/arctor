@@ -61,7 +61,7 @@ ext {
             supportv13: "com.android.support:support-v13:$versions.support",
             supportappcompat: "com.android.support:appcompat-v7:$versions.support",
             supportannotations: "com.android.support:support-annotations:$versions.support",
-            supportconstraintlayout: 'com.android.support.constraint:constraint-layout:1.0.0-beta3',
+            supportconstraintlayout: 'com.android.support.constraint:constraint-layout:1.0.0-beta4',
             supportdesign: "com.android.support:design:$versions.support",
             supportrecyclerview: "com.android.support:recyclerview-v7:$versions.support",
 
