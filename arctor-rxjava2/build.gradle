@@ -1,4 +1,20 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
+
+// For publishing to local maven repo
+group = GROUP_ID
+version = PUBLISH_VERSION
+
+// For publishing to Bintray
+publish {
+    autoPublish = true
+    userOrg = 'alapshin'
+    groupId = GROUP_ID
+    artifactId = 'arctor-rxjava2'
+    publishVersion = PUBLISH_VERSION
+    desc = 'Android MVP library'
+    website = 'https://github.com/alapshin/arctor'
+}
 
 android {
     compileSdkVersion versions.compileSdk
