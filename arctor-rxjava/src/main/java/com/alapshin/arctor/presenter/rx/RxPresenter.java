@@ -90,7 +90,7 @@ public class RxPresenter<V extends MvpView> extends BasePresenter<V> {
     }
 
     /**
-     * Removes and unsubscribes from all subscripions that has been registered with
+     * Removes and unsubscribes from all subscriptions that has been registered with
      * {@link #addSubscription(Subscription)} previously.
      *
      * See {@link CompositeSubscription#clear() for details.}
