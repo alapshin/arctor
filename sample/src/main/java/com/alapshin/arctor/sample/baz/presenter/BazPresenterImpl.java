@@ -20,7 +20,7 @@ public class BazPresenterImpl extends RxPresenter<BazView> implements BazPresent
         Subscription subscription = Observable.interval(0, 1, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .compose(deliverLatestCache())
+                .compose(deliverLatest())
                 .subscribe(data -> getView().setData(data));
         addSubscription(subscription);
     }

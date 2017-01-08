@@ -7,16 +7,22 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.observers.TestObserver;
+import io.reactivex.schedulers.TestScheduler;
 import io.reactivex.subjects.BehaviorSubject;
+import io.reactivex.subjects.PublishSubject;
 
 public class WaitViewReplayTransformerTest {
+    private static final int EMIT_DELAY_IN_SECONDS = 60;
+    private static final int WAIT_DELAY_IN_MILLISECONDS = 60;
+
     @Test
     public void shouldEmitValueWhenViewIsAttached() {
-        BehaviorSubject<Boolean> viewValve = BehaviorSubject.create();
+        BehaviorSubject<Boolean> view = BehaviorSubject.create();
+        WaitViewReplayTransformer<Integer> transformer = new WaitViewReplayTransformer<>(view);
 
-        viewValve.onNext(true);
+        view.onNext(true);
         TestObserver<Integer> testObserver = Observable.just(0)
-                .compose(new WaitViewReplayTransformer<Integer>(viewValve))
+                .compose(transformer)
                 .test();
         testObserver.awaitTerminalEvent();
         testObserver.assertValue(0);
@@ -25,25 +31,33 @@ public class WaitViewReplayTransformerTest {
 
     @Test
     public void shouldEmitValueAfterViewIsAttached() {
-        BehaviorSubject<Boolean> viewValve = BehaviorSubject.create();
+        TestScheduler testScheduler = new TestScheduler();
+        BehaviorSubject<Boolean> view = BehaviorSubject.create();
+        view.onNext(true);
+        WaitViewReplayTransformer<Integer> transformer = new WaitViewReplayTransformer<>(
+                view.delay(EMIT_DELAY_IN_SECONDS, TimeUnit.SECONDS, testScheduler));
 
-        viewValve.onNext(true);
         TestObserver<Integer> testObserver = Observable.just(0)
-                .compose(new WaitViewReplayTransformer<Integer>(viewValve.delay(200, TimeUnit.MILLISECONDS)))
+                .compose(transformer)
                 .test();
+        testScheduler.advanceTimeBy(EMIT_DELAY_IN_SECONDS, TimeUnit.SECONDS);
         testObserver.awaitTerminalEvent();
         testObserver.assertValue(0);
         testObserver.assertComplete();
     }
 
     @Test
-    public void shouldReplayValuesAfterViewIsAttached() {
-        BehaviorSubject<Boolean> viewValve = BehaviorSubject.create();
+    public void shouldReplayAllValuesAfterViewIsAttached() {
+        TestScheduler testScheduler = new TestScheduler();
+        BehaviorSubject<Boolean> view = BehaviorSubject.create();
+        view.onNext(true);
+        WaitViewReplayTransformer<Integer> transformer = new WaitViewReplayTransformer<>(
+                view.delay(EMIT_DELAY_IN_SECONDS, TimeUnit.SECONDS, testScheduler));
 
-        viewValve.onNext(true);
-        TestObserver<Integer> testObserver = Observable.fromArray(0, 1, 2)
-                .compose(new WaitViewReplayTransformer<Integer>(viewValve.delay(200, TimeUnit.MILLISECONDS)))
+        TestObserver<Integer> testObserver = Observable.just(0, 1, 2)
+                .compose(transformer)
                 .test();
+        testScheduler.advanceTimeBy(EMIT_DELAY_IN_SECONDS, TimeUnit.SECONDS);
         testObserver.awaitTerminalEvent();
         testObserver.assertValues(0, 1, 2);
         testObserver.assertComplete();
@@ -51,39 +65,26 @@ public class WaitViewReplayTransformerTest {
 
     @Test
     public void shouldNotEmitValueWhenViewIsDetached() {
-        BehaviorSubject<Boolean> viewValve = BehaviorSubject.create();
+        BehaviorSubject<Boolean> view = BehaviorSubject.create();
+        WaitViewReplayTransformer<Integer> transformer = new WaitViewReplayTransformer<>(view);
 
-        viewValve.onNext(false);
         TestObserver<Integer> testObserver = Observable.just(0)
-                .compose(new WaitViewReplayTransformer<Integer>(viewValve))
+                .compose(transformer)
                 .test();
-        testObserver.awaitTerminalEvent(200, TimeUnit.MILLISECONDS);
+        testObserver.awaitTerminalEvent(WAIT_DELAY_IN_MILLISECONDS, TimeUnit.MILLISECONDS);
         testObserver.assertNoValues();
         testObserver.assertNotComplete();
     }
 
     @Test
     public void shouldEmitErrorWhenViewIsAttached() {
-        BehaviorSubject<Boolean> viewValve = BehaviorSubject.create();
+        BehaviorSubject<Boolean> view = BehaviorSubject.create();
+        view.onNext(true);
+        WaitViewReplayTransformer<Integer> transformer = new WaitViewReplayTransformer<>(view);
 
-        viewValve.onNext(true);
         Exception exception = new RuntimeException();
         TestObserver<Integer> testObserver = Observable.<Integer>error(exception)
-                .compose(new WaitViewReplayTransformer<Integer>(viewValve))
-                .test();
-        testObserver.awaitTerminalEvent();
-        testObserver.assertError(exception);
-        testObserver.assertNotComplete();
-    }
-
-    @Test
-    public void shouldEmitErrorAfterViewIsAttached() {
-        BehaviorSubject<Boolean> viewValve = BehaviorSubject.create();
-
-        viewValve.onNext(true);
-        Exception exception = new RuntimeException();
-        TestObserver<Integer> testObserver = Observable.<Integer>error(exception)
-                .compose(new WaitViewReplayTransformer<Integer>(viewValve.delay(200, TimeUnit.MILLISECONDS)))
+                .compose(transformer)
                 .test();
         testObserver.awaitTerminalEvent();
         testObserver.assertError(exception);
@@ -92,15 +93,46 @@ public class WaitViewReplayTransformerTest {
 
     @Test
     public void shouldNotEmitErrorWhenViewIsDetached() {
-        BehaviorSubject<Boolean> viewValve = BehaviorSubject.create();
+        BehaviorSubject<Boolean> view = BehaviorSubject.create();
+        WaitViewReplayTransformer<Integer> transformer = new WaitViewReplayTransformer<>(view);
 
-        viewValve.onNext(false);
         Exception exception = new RuntimeException();
         TestObserver<Integer> testObserver = Observable.<Integer>error(exception)
-                .compose(new WaitViewReplayTransformer<Integer>(viewValve))
+                .compose(transformer)
                 .test();
-        testObserver.awaitTerminalEvent(200, TimeUnit.MILLISECONDS);
+        testObserver.awaitTerminalEvent(WAIT_DELAY_IN_MILLISECONDS, TimeUnit.MILLISECONDS);
         testObserver.assertNoValues();
+        testObserver.assertNotComplete();
+    }
+
+    @Test
+    public void shouldEmitErrorAfterViewIsAttached() {
+        TestScheduler testScheduler = new TestScheduler();
+        BehaviorSubject<Boolean> view = BehaviorSubject.create();
+        view.onNext(true);
+        WaitViewReplayTransformer<Integer> transformer = new WaitViewReplayTransformer<>(
+                view.delay(EMIT_DELAY_IN_SECONDS, TimeUnit.SECONDS, testScheduler));
+
+        Exception exception = new RuntimeException();
+        TestObserver<Integer> testObserver = Observable.<Integer>error(exception)
+                .compose(transformer)
+                .test();
+        testScheduler.advanceTimeBy(EMIT_DELAY_IN_SECONDS, TimeUnit.SECONDS);
+        testObserver.awaitTerminalEvent();
+        testObserver.assertError(exception);
+        testObserver.assertNotComplete();
+    }
+
+    @Test
+    public void shouldReplayAllValuesFromEndlessAfterViewIsAttached() {
+        PublishSubject<Integer> data = PublishSubject.create();
+        BehaviorSubject<Boolean> view = BehaviorSubject.create();
+        WaitViewReplayTransformer<Integer> transformer = new WaitViewReplayTransformer<>(view);
+        TestObserver<Integer> testObserver = data.compose(transformer).test();
+        data.onNext(0);
+        data.onNext(1);
+        view.onNext(true);
+        testObserver.assertValues(0, 1);
         testObserver.assertNotComplete();
     }
 }

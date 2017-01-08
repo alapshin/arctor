@@ -3,7 +3,6 @@ package com.alapshin.arctor.presenter.rxjava2;
 
 import com.alapshin.arctor.presenter.rxjava2.util.Optional;
 
-import java.util.List;
 
 import io.reactivex.Notification;
 import io.reactivex.Observable;
@@ -16,10 +15,10 @@ import io.reactivex.functions.Predicate;
 /**
  * {@link ObservableTransformer} that ties upstream {@link Observable} emission  to Observable representing view status
  *
- * When view is attached (latest emitted value from view observable is true) then values from data observable propagates
- * as usual.
+ * If view is attached (latest emitted value from view observable is true) then values from upstream observable
+ * propagate as usual.
  *
- * When view is detached (latest emitted value from view observable is false) then values from upstream
+ * If view is detached (latest emitted value from view observable is false) then values from upstream
  * Observable propagate using following rules:
  * <ul>
  *     <li>If upstream Observable emits onError then it would be delivered after view is attached</li>
@@ -39,55 +38,27 @@ public class WaitViewLatestTransformer<T> implements ObservableTransformer<T, T>
 
     @Override
     public ObservableSource<T> apply(Observable<T> upstream) {
-        final Observable<Boolean> delayObservable = view
-                .replay(1)
-                .autoConnect()
-                .filter(new Predicate<Boolean>() {
-                    @Override
-                    public boolean test(Boolean value) throws Exception {
-                        return value;
-                    }
-                });
-
         return Observable
                 .combineLatest(
                         view,
                         upstream
                                 // Materialize upstream Observable to handle onError and onComplete events when view is detached
                                 .materialize()
-                                // Create sliding buffer of size two
-                                .buffer(2, 1)
-                                // If the last received notification is onComplete then delay
-                                // emission of previous onNext and onCompleted notification until view is attached
-                                .delay(new Function<List<Notification<T>>, Observable<Boolean>>() {
+                                // If this is onNext notification then emit it immediately
+                                // If this is onComplete notification then delay emission of this notification while view is detached
+                                .delay(new Function<Notification<T>, Observable<Boolean>>() {
                                     @Override
-                                    public Observable<Boolean> apply(List<Notification<T>> notifications) {
-                                        Notification<T> lastNotification =
-                                                notifications.get(notifications.size() - 1);
-                                        if (lastNotification.isOnComplete()) {
-                                            // If upstream Observable completes then delay buffer emission until view is attached
-                                            return delayObservable;
-                                        } else {
+                                    public Observable<Boolean> apply(Notification<T> notification) {
+                                        if (!notification.isOnComplete()) {
                                             return Observable.just(true);
+                                        } else {
+                                            return view.filter(new Predicate<Boolean>() {
+                                                @Override
+                                                public boolean test(Boolean value) throws Exception {
+                                                    return value;
+                                                }
+                                            });
                                         }
-                                    }
-                                })
-                                // Remove duplicate notifications caused by sliding buffer
-                                .scan(new BiFunction<List<Notification<T>>, List<Notification<T>>,
-                                        List<Notification<T>>>() {
-                                    @Override
-                                    public List<Notification<T>> apply(List<Notification<T>> notifications,
-                                                                       List<Notification<T>> notifications2) {
-                                        // Remove first element from buffer since it is
-                                        // already emitted as last element of the previous buffer
-                                        return notifications2.subList(1, notifications2.size());
-                                    }
-                                })
-                                // Flatten emitted buffers
-                                .flatMap(new Function<List<Notification<T>>, Observable<Notification<T>>>() {
-                                    @Override
-                                    public Observable<Notification<T>> apply(List<Notification<T>> notifications) {
-                                        return Observable.fromIterable(notifications);
                                     }
                                 }),
                         new BiFunction<Boolean, Notification<T>, Optional<Notification<T>>>() {

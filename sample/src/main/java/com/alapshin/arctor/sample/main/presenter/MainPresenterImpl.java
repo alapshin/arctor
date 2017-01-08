@@ -21,7 +21,7 @@ public class MainPresenterImpl extends RxPresenter<MainView> implements MainPres
             Subscription subscription = Observable.interval(0, 1, TimeUnit.SECONDS)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .compose(deliverLatestCache())
+                    .compose(deliverLatest())
                     .subscribe(data -> getView().setData(data));
             addSubscription(subscription);
         }

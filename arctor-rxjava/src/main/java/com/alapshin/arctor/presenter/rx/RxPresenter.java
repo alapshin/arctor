@@ -5,9 +5,6 @@ import android.support.annotation.CallSuper;
 
 import com.alapshin.arctor.presenter.BasePresenter;
 import com.alapshin.arctor.presenter.PresenterBundle;
-import com.alapshin.arctor.presenter.rx.delivery.DeliverFirst;
-import com.alapshin.arctor.presenter.rx.delivery.DeliverLatest;
-import com.alapshin.arctor.presenter.rx.delivery.DeliverReplay;
 import com.alapshin.arctor.view.MvpView;
 
 import javax.annotation.Nullable;
@@ -103,34 +100,12 @@ public class RxPresenter<V extends MvpView> extends BasePresenter<V> {
      * Returns an {@link rx.Observable.Transformer} that delays emission from the source
      * {@link rx.Observable}.
      *
-     * Delivers the first onNext value that has been emitted by the source observable.
-     *
-     * @param <T> the type of source observable emissions
-     */
-    public <T> DeliverFirst<T> deliverFirst() {
-        return new DeliverFirst<>(viewStatus());
-    }
-
-    /**
-     * Returns an {@link rx.Observable.Transformer} that delays emission from the source
-     * {@link rx.Observable}.
-     *
      * Delivers latest onNext value that has been emitted by the source observable.
      *
      * @param <T> the type of source observable emissions
      */
-    public <T> DeliverLatest<T> deliverLatest() {
-        return new DeliverLatest<>(viewStatus());
-    }
-
-    /**
-     * Deprecated and will be removed in a future release.
-     *
-     * Use {@link RxPresenter#deliverLatest()} instead, which does exactly the same thing.
-     */
-    @Deprecated
-    public <T> DeliverLatest<T> deliverLatestCache() {
-        return new DeliverLatest<>(viewStatus());
+    public <T> WaitViewLatestTransformer<T> deliverLatest() {
+        return new WaitViewLatestTransformer<>(viewStatus());
     }
 
     /**
@@ -141,7 +116,7 @@ public class RxPresenter<V extends MvpView> extends BasePresenter<V> {
      *
      * @param <T> the type of source observable emissions
      */
-    public <T> DeliverReplay<T> deliverReplay() {
-        return new DeliverReplay<>(viewStatus());
+    public <T> WaitViewReplayTransformer<T> deliverReplay() {
+        return new WaitViewReplayTransformer<>(viewStatus());
     }
 }
