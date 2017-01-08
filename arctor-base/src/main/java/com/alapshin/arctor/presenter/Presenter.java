@@ -1,9 +1,9 @@
 package com.alapshin.arctor.presenter;
 
-import com.alapshin.arctor.view.MvpView;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.alapshin.arctor.view.MvpView;
 
 
 /**
@@ -14,7 +14,7 @@ public interface Presenter<V extends MvpView> {
     void onStart();
     void onResume();
     void onPause();
-    void onSaveInstanceState(@Nonnull PresenterBundle outState);
+    void onSaveInstanceState(@NonNull PresenterBundle outState);
     void onStop();
     void onDestroy();
 

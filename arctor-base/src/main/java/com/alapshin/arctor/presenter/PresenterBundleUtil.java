@@ -1,11 +1,10 @@
 package com.alapshin.arctor.presenter;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.util.HashMap;
-
-import javax.annotation.Nullable;
 
 public class PresenterBundleUtil {
     private static final String MAP_KEY = PresenterBundle.class.getName();

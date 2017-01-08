@@ -47,11 +47,10 @@ android {
 
 
 dependencies {
+    compile libraries.supportannotations
     compile libraries.supportappcompat
 
     provided libraries.javaxannotation
-    // JSR-305
-    provided libraries.jsr305
     // JSR-330
     provided libraries.jsr330
 

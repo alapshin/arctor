@@ -1,15 +1,14 @@
 package com.alapshin.arctor.presenter;
 
 import android.support.annotation.CallSuper;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.alapshin.arctor.view.MvpView;
 import com.alapshin.arctor.viewstate.ViewStateCommand;
 import com.alapshin.arctor.viewstate.ViewStateCommandQueue;
 
 import java.lang.ref.WeakReference;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * Base presenter implementation
@@ -74,7 +73,7 @@ public class BasePresenter<V extends MvpView> implements Presenter<V> {
 
     @Override
     @CallSuper
-    public void onSaveInstanceState(@Nonnull PresenterBundle outState) {
+    public void onSaveInstanceState(@NonNull PresenterBundle outState) {
         outState.putSerializable(VIEW_STATE_COMMAND_QUEUE_KEY, viewStateCommandQueue);
     }
 
