@@ -1,0 +1,61 @@
+apply plugin: 'com.jfrog.bintray'
+
+if (plugins.hasPlugin('com.android.library')) { // Android libraries
+    task sourcesJar(type: Jar) {
+        classifier = 'sources'
+        from android.sourceSets.main.java.srcDirs
+    }
+
+    task javadoc(type: Javadoc) {
+        source = android.sourceSets.main.java.srcDirs
+        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+        android.libraryVariants.all { variant ->
+            owner.classpath += variant.javaCompile.classpath
+        }
+    }
+} else { // Java libraries
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+bintray {
+    key = properties.getProperty("bintray.key")
+    user = properties.getProperty("bintray.user")
+
+    configurations = ['archives']
+    pkg {
+        repo = 'maven'
+        name = bintrayName
+        desc = bintrayDesc
+        userOrg = user
+        licenses = bintrayLicenses
+        vcsUrl = bintrayVcs
+        websiteUrl = bintrayWebsite
+
+        dryRun = false
+        publish = true
+        override = false
+        publicDownloadNumbers = false
+
+        version {
+            desc = bintrayDesc
+            name = PUBLISH_VERSION
+        }
+    }
+}
+

@@ -1,24 +1,20 @@
 apply plugin: 'java'
-apply plugin: 'com.novoda.bintray-release'
 
 sourceCompatibility = "1.6"
 targetCompatibility = "1.6"
 
-// For publishing to local maven repo
-group = GROUP_ID
-version = PUBLISH_VERSION
-
-// For publishing to Bintray
-publish {
-    autoPublish = true
-    userOrg = 'alapshin'
-    groupId = GROUP_ID
-    artifactId = 'arctor-annotation'
-    publishVersion = PUBLISH_VERSION
-    desc = 'Android MVP library'
-    website = 'https://github.com/alapshin/arctor'
+ext {
+    artifact = 'arctor-annotation'
+    bintrayRepo = 'maven'
+    bintrayName = 'arctor-annotation'
+    bintrayDesc = 'Android MVP library'
+    bintrayLicenses = ['Apache-2.0']
+    bintrayVcs = 'https://github.com/alapshin/arctor'
+    bintrayWebsite = 'https://github.com/alapshin/arctor'
 }
 
 dependencies {
 }
 
+apply from: rootProject.file('gradle/bintray.gradle')
+apply from: rootProject.file('gradle/localmaven.gradle')

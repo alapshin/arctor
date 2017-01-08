@@ -1,19 +1,14 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.novoda.bintray-release'
+apply plugin: 'com.jfrog.bintray'
 
-// For publishing to local maven repo
-group = GROUP_ID
-version = PUBLISH_VERSION
-
-// For publishing to Bintray
-publish {
-    autoPublish = true
-    userOrg = 'alapshin'
-    groupId = GROUP_ID
-    artifactId = 'arctor'
-    publishVersion = PUBLISH_VERSION
-    desc = 'Android MVP library'
-    website = 'https://github.com/alapshin/arctor'
+ext {
+    artifact = 'arctor'
+    bintrayRepo = 'maven'
+    bintrayName = 'arctor'
+    bintrayDesc = 'Android MVP library'
+    bintrayLicenses = ['Apache-2.0']
+    bintrayVcs = 'https://github.com/alapshin/arctor'
+    bintrayWebsite = 'https://github.com/alapshin/arctor'
 }
 
 android {
@@ -61,3 +56,6 @@ dependencies {
     testCompile libraries.robolectricsupport
     testCompile 'org.khronos:opengl-api:gl1.1-android-2.1_r1'
 }
+
+apply from: rootProject.file('gradle/bintray.gradle')
+apply from: rootProject.file('gradle/localmaven.gradle')
