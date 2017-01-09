@@ -2,6 +2,7 @@ apply plugin: 'com.github.dcendents.android-maven'
 
 group = GROUP_ID
 version = PUBLISH_VERSION
+archivesBaseName = artifact
 
 install {
     repositories.mavenInstaller {
