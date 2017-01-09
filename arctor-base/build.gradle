@@ -1,10 +1,11 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.jfrog.bintray'
 
+archivesBaseName = 'arctor'
+
 ext {
-    artifact = 'arctor'
     bintrayRepo = 'maven'
-    bintrayName = 'arctor'
+    bintrayName = archivesBaseName
     bintrayDesc = 'Android MVP library'
     bintrayLicenses = ['Apache-2.0']
     bintrayVcs = 'https://github.com/alapshin/arctor'

@@ -4,9 +4,8 @@ sourceCompatibility = "1.6"
 targetCompatibility = "1.6"
 
 ext {
-    artifact = 'arctor-annotation'
     bintrayRepo = 'maven'
-    bintrayName = 'arctor-annotation'
+    bintrayName = archivesBaseName
     bintrayDesc = 'Android MVP library'
     bintrayLicenses = ['Apache-2.0']
     bintrayVcs = 'https://github.com/alapshin/arctor'

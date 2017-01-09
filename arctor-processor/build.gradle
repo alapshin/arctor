@@ -4,9 +4,8 @@ sourceCompatibility = "1.8"
 targetCompatibility = "1.8"
 
 ext {
-    artifact = 'arctor-processor'
     bintrayRepo = 'maven'
-    bintrayName = 'arctor-processor'
+    bintrayName = archivesBaseName
     bintrayDesc = 'Android MVP library'
     bintrayLicenses = ['Apache-2.0']
     bintrayVcs = 'https://github.com/alapshin/arctor'

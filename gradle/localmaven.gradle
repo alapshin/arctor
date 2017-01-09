@@ -2,17 +2,12 @@ apply plugin: 'com.github.dcendents.android-maven'
 
 group = GROUP_ID
 version = PUBLISH_VERSION
-archivesBaseName = artifact
 
 install {
     repositories.mavenInstaller {
         // This generates POM.xml with proper parameters
         pom {
             project {
-                packaging 'aar'
-                groupId GROUP_ID
-                artifactId artifact
-
                 url bintrayWebsite
                 name bintrayName
                 description bintrayDesc

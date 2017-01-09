@@ -1,9 +1,8 @@
 apply plugin: 'com.android.library'
 
 ext {
-    artifact = 'arctor-rxjava'
     bintrayRepo = 'maven'
-    bintrayName = 'arctor-rxjava'
+    bintrayName = archivesBaseName
     bintrayDesc = 'Android MVP library'
     bintrayLicenses = ['Apache-2.0']
     bintrayVcs = 'https://github.com/alapshin/arctor'
