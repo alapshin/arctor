@@ -12,7 +12,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.subjects.BehaviorSubject;
 
 public class RxPresenter<V extends MvpView> extends BasePresenter<V> {
-    CompositeDisposable disposables;
+    CompositeDisposable disposables = new CompositeDisposable();
     BehaviorSubject<Boolean> viewSubject = BehaviorSubject.create();
 
     @Override
