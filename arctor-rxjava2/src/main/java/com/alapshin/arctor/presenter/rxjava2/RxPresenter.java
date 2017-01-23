@@ -37,14 +37,6 @@ public class RxPresenter<V extends MvpView> extends BasePresenter<V> {
         viewSubject.onNext(false);
     }
 
-    public <T> ObservableTransformer<T, T> waitViewLatest() {
-        return new WaitViewLatestTransformer<>(viewSubject);
-    }
-
-    public <T> ObservableTransformer<T, T> waitViewReplay() {
-        return new WaitViewReplayTransformer<>(viewSubject);
-    }
-
     public void addDisposable(Disposable disposable) {
         disposables.add(disposable);
     }
@@ -55,5 +47,13 @@ public class RxPresenter<V extends MvpView> extends BasePresenter<V> {
 
     public void clearDisposables() {
         disposables.clear();
+    }
+
+    public <T> WaitViewLatestTransformer<T> waitViewLatest() {
+        return new WaitViewLatestTransformer<>(viewSubject);
+    }
+
+    public <T> WaitViewReplayTransformer<T> waitViewReplay() {
+        return new WaitViewReplayTransformer<>(viewSubject);
     }
 }

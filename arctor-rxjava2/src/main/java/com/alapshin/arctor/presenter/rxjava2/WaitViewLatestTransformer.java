@@ -4,10 +4,19 @@ package com.alapshin.arctor.presenter.rxjava2;
 import com.alapshin.arctor.presenter.rxjava2.util.Optional;
 
 
+import io.reactivex.Completable;
+import io.reactivex.CompletableSource;
+import io.reactivex.CompletableTransformer;
+import io.reactivex.Maybe;
+import io.reactivex.MaybeSource;
+import io.reactivex.MaybeTransformer;
 import io.reactivex.Notification;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
+import io.reactivex.Single;
+import io.reactivex.SingleSource;
+import io.reactivex.SingleTransformer;
 import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Function;
 import io.reactivex.functions.Predicate;
@@ -29,11 +38,30 @@ import io.reactivex.functions.Predicate;
  * </ul>
  *
  */
-public class WaitViewLatestTransformer<T> implements ObservableTransformer<T, T> {
+public class WaitViewLatestTransformer<T> implements
+        MaybeTransformer<T, T>,
+        SingleTransformer<T, T>,
+        CompletableTransformer,
+        ObservableTransformer<T, T> {
     private final Observable<Boolean> view;
 
     public WaitViewLatestTransformer(Observable<Boolean> view) {
         this.view = view;
+    }
+
+    @Override
+    public MaybeSource<T> apply(Maybe<T> upstream) {
+        return ((Observable<T>) apply(upstream.toObservable())).singleElement();
+    }
+
+    @Override
+    public SingleSource<T> apply(Single<T> upstream) {
+        return ((Observable<T>) apply(upstream.toObservable())).singleOrError();
+    }
+
+    @Override
+    public CompletableSource apply(Completable upstream) {
+        return ((Observable<T>) apply(upstream.<T>toObservable())).ignoreElements();
     }
 
     @Override
