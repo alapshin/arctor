@@ -6,7 +6,6 @@ import android.support.annotation.CallSuper;
 import com.alapshin.arctor.presenter.BasePresenter;
 import com.alapshin.arctor.view.MvpView;
 
-import io.reactivex.ObservableTransformer;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.subjects.BehaviorSubject;
