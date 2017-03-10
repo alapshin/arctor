@@ -6,10 +6,10 @@ import android.view.View;
 import com.alapshin.arctor.presenter.Presenter;
 import com.alapshin.arctor.view.MvpLceFragment;
 import com.alapshin.arctor.view.MvpView;
-import com.trello.rxlifecycle.FragmentEvent;
-import com.trello.rxlifecycle.FragmentLifecycleProvider;
+import com.trello.rxlifecycle.LifecycleProvider;
 import com.trello.rxlifecycle.LifecycleTransformer;
 import com.trello.rxlifecycle.RxLifecycle;
+import com.trello.rxlifecycle.android.FragmentEvent;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -17,7 +17,7 @@ import rx.Observable;
 import rx.subjects.BehaviorSubject;
 
 public abstract class BaseLceFragment<D, V extends MvpView, P extends Presenter<V>>
-        extends MvpLceFragment<D, V, P> implements FragmentLifecycleProvider {
+        extends MvpLceFragment<D, V, P> implements LifecycleProvider<FragmentEvent> {
 
     private Unbinder unbinder;
     private final BehaviorSubject<FragmentEvent> lifecycleSubject = BehaviorSubject.create();
@@ -34,7 +34,7 @@ public abstract class BaseLceFragment<D, V extends MvpView, P extends Presenter<
 
     @Override
     public final <T> LifecycleTransformer<T> bindToLifecycle() {
-        return RxLifecycle.bindFragment(lifecycleSubject);
+        return RxLifecycle.bind(lifecycleSubject);
     }
 
     @Override

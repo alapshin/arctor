@@ -6,9 +6,9 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.3'
-        classpath 'me.tatarka:gradle-retrolambda:3.4.0'
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.13.0'
+        classpath 'com.android.tools.build:gradle:2.3.0'
+        classpath 'me.tatarka:gradle-retrolambda:3.6.0'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.14.0'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
     }
@@ -42,13 +42,13 @@ ext {
             minSdk16: 16,
             compileSdk: 24,
             targetSdk: 22,
-            buildTools: '24.0.2',
+            buildTools: '25.0.2',
 
-            butterknife: '8.4.0',
-            dagger: '2.8',
-            robolectric: '3.1.4',
-            rxlifecycle: '0.6.1',
-            support: '24.2.1',
+            butterknife: '8.5.1',
+            dagger: '2.9',
+            robolectric: '3.1.2',
+            rxlifecycle: '0.8.0',
+            support: '25.2.0',
             supporttest: '0.5'
     ]
 
@@ -65,7 +65,7 @@ ext {
             supportv13: "com.android.support:support-v13:$versions.support",
             supportappcompat: "com.android.support:appcompat-v7:$versions.support",
             supportannotations: "com.android.support:support-annotations:$versions.support",
-            supportconstraintlayout: 'com.android.support.constraint:constraint-layout:1.0.0-beta4',
+            supportconstraintlayout: 'com.android.support.constraint:constraint-layout:1.0.2',
             supportdesign: "com.android.support:design:$versions.support",
             supportrecyclerview: "com.android.support:recyclerview-v7:$versions.support",
 
@@ -82,16 +82,17 @@ ext {
             jsr250: 'javax.annotation:jsr250-api:1.0',
             jsr305: 'com.google.code.findbugs:jsr305:3.0.1',
             jsr330: 'javax.inject:javax.inject:1',
-            rxjava: 'io.reactivex:rxjava:1.2.3',
-            rxjava2: 'io.reactivex.rxjava2:rxjava:2.0.2',
+            rxjava: 'io.reactivex:rxjava:1.2.7',
+            rxjava2: 'io.reactivex.rxjava2:rxjava:2.0.7',
             rxjava2interop: 'com.github.akarnokd:rxjava2-interop:0.6.1',
             rxandroid: 'io.reactivex:rxandroid:1.2.1',
             rxandroid2: 'io.reactivex.rxjava2:rxandroid:2.0.1',
             rxrelay2: 'com.jakewharton.rxrelay2:rxrelay:2.0.0',
             rxlifecycle: "com.trello:rxlifecycle:$versions.rxlifecycle",
+            rxlifecycleandroid: "com.trello:rxlifecycle-android:$versions.rxlifecycle",
 
             junit: 'junit:junit:4.12',
-            mockito: 'org.mockito:mockito-core:2.2.28',
+            mockito: 'org.mockito:mockito-core:2.7.15',
             assertj: 'org.assertj:assertj-core:1.7.1',
             assertjandroid: 'com.squareup.assertj:assertj-android:1.0.0',
             robolectric: "org.robolectric:robolectric:$versions.robolectric",

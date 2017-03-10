@@ -28,6 +28,7 @@ dependencies {
     compile libraries.rxjava
     compile libraries.rxandroid
     compile libraries.rxlifecycle
+    compile libraries.rxlifecycleandroid
     compile libraries.supportappcompat
     compile libraries.supportannotations
 }

@@ -49,7 +49,7 @@ bintray {
 
         dryRun = false
         publish = true
-        override = false
+        override = true
         publicDownloadNumbers = false
 
         version {
