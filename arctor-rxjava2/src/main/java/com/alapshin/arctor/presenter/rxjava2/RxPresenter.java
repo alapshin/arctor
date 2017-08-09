@@ -4,6 +4,7 @@ package com.alapshin.arctor.presenter.rxjava2;
 import android.support.annotation.CallSuper;
 
 import com.alapshin.arctor.presenter.BasePresenter;
+import com.alapshin.arctor.presenter.PresenterBundle;
 import com.alapshin.arctor.view.MvpView;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -15,11 +16,19 @@ public class RxPresenter<V extends MvpView> extends BasePresenter<V> {
     BehaviorSubject<Boolean> viewSubject = BehaviorSubject.create();
 
     @Override
+    public void onCreate(PresenterBundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (viewSubject.hasComplete()) {
+            viewSubject = BehaviorSubject.create();
+        }
+    }
+
+    @Override
     @CallSuper
     public void onDestroy() {
         super.onDestroy();
-        disposables.clear();
         viewSubject.onComplete();
+        disposables.clear();
     }
 
     @Override
