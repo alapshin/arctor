@@ -33,7 +33,6 @@ public class FragmentTest {
         SupportFragmentController<TestFragment> fragmentController
                 = SupportFragmentController.of(fragment);
 
-        fragmentController.attach();
         fragmentController.create();
         fragment.onViewCreated(null, null);
         fragmentController.start();
@@ -62,7 +61,6 @@ public class FragmentTest {
         fragment.presenter = mockPresenter;
         SupportFragmentController fragmentController = SupportFragmentController.of(fragment);
 
-        fragmentController.attach();
         fragmentController.create();
         fragment.onViewCreated(null, null);
         fragmentController.start();
@@ -85,7 +83,6 @@ public class FragmentTest {
         recreatedFragment.presenter = mockPresenter;
         SupportFragmentController recreatedFragmentController =
                 SupportFragmentController.of(recreatedFragment);
-        recreatedFragmentController.attach();
         recreatedFragmentController.create(outState);
         recreatedFragment.onViewCreated(null, outState);
         recreatedFragmentController.start();
