@@ -1,5 +1,6 @@
 *.iml
 .gradle
+.gradletasknamecache
 .idea
 /build
 /captures
