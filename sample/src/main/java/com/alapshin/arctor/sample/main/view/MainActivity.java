@@ -26,12 +26,11 @@ import butterknife.BindView;
 public class MainActivity extends BaseActivity<MainView, MainPresenter>
         implements MainView, HasComponent<ActivityComponent> {
 
-    private static final String TAG = MainActivity.class.getSimpleName();
-
     @Inject
     Navigator navigator;
 
-    private ActivityComponent component;
+    @Inject
+    ActivityComponent component;
 
     @BindView(R.id.activity_main_toolbar) Toolbar toolbar;
     @BindView(R.id.activity_main_drawer_layout) DrawerLayout drawerLayout;
@@ -73,25 +72,29 @@ public class MainActivity extends BaseActivity<MainView, MainPresenter>
     }
 
     @Override
+    public Object onRetainCustomNonConfigurationInstance() {
+        return component;
+    }
+
+    @Override
     public ActivityComponent component() {
-        component = getComponent(0);
-        if (component == null) {
-            component = ((HasComponent<ApplicationComponent>) getApplication())
-                    .component().activityComponent(new ActivityModule(this));
-            setComponent(0, component);
-        }
         return component;
     }
 
     @Override
     public void setData(long data) {
-        Log.d(TAG, "setData " + data);
         toolbar.setTitle("Data " + data);
     }
 
     @Override
     protected void injectDependencies() {
-        component().inject(this);
+        if (getLastCustomNonConfigurationInstance() != null) {
+            component = ((ActivityComponent) getLastCustomNonConfigurationInstance());
+            component.inject(this);
+        } else {
+            ((HasComponent<ApplicationComponent>) getApplication())
+                    .component().activityComponent(new ActivityModule(this)).inject(this);
+        }
     }
 
     @Override

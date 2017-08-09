@@ -7,8 +7,6 @@ import android.support.annotation.LayoutRes;
 import com.alapshin.arctor.presenter.Presenter;
 import com.alapshin.arctor.view.MvpActivity;
 import com.alapshin.arctor.view.MvpView;
-import com.alapshin.di.ComponentCache;
-import com.alapshin.di.ComponentCacheDelegate;
 import com.trello.rxlifecycle.LifecycleProvider;
 import com.trello.rxlifecycle.LifecycleTransformer;
 import com.trello.rxlifecycle.RxLifecycle;
@@ -19,9 +17,8 @@ import rx.Observable;
 import rx.subjects.BehaviorSubject;
 
 public abstract class BaseActivity<V extends MvpView, P extends Presenter<V>>
-        extends MvpActivity<V, P> implements LifecycleProvider<ActivityEvent>, ComponentCache {
+        extends MvpActivity<V, P> implements LifecycleProvider<ActivityEvent> {
 
-    private final ComponentCacheDelegate componentCacheDelegate = new ComponentCacheDelegate();
     private final BehaviorSubject<ActivityEvent> lifecycleSubject = BehaviorSubject.create();
 
     @Override
@@ -42,9 +39,6 @@ public abstract class BaseActivity<V extends MvpView, P extends Presenter<V>>
     @Override
     @CallSuper
     protected void onCreate(Bundle savedInstanceState) {
-        // {@link ComponentCacheDelegate#onCreate} should be called before {@link Activity#onCreate}
-        componentCacheDelegate.onCreate(savedInstanceState, getLastCustomNonConfigurationInstance());
-
         injectDependencies();
         setContentView(getLayoutRes());
         super.onCreate(savedInstanceState);
@@ -89,29 +83,8 @@ public abstract class BaseActivity<V extends MvpView, P extends Presenter<V>>
     @Override
     @CallSuper
     public void onContentChanged() {
-        super.onContentChanged();
         ButterKnife.bind(this);
-    }
-
-    @Override
-    @CallSuper
-    public Object onRetainCustomNonConfigurationInstance() {
-        return componentCacheDelegate.onRetainCustomNonConfigurationInstance();
-    }
-
-    @Override
-    public long generateComponentId() {
-        return componentCacheDelegate.generateId();
-    }
-
-    @Override
-    public <C> C getComponent(long index) {
-        return componentCacheDelegate.getComponent(index);
-    }
-
-    @Override
-    public <C> void setComponent(long index, C component) {
-        componentCacheDelegate.setComponent(0, component);
+        super.onContentChanged();
     }
 
     @LayoutRes
