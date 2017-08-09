@@ -89,8 +89,6 @@ ext {
             rxandroid: 'io.reactivex:rxandroid:1.2.1',
             rxandroid2: 'io.reactivex.rxjava2:rxandroid:2.0.1',
             rxrelay2: 'com.jakewharton.rxrelay2:rxrelay:2.0.0',
-            rxlifecycle: "com.trello:rxlifecycle:$versions.rxlifecycle",
-            rxlifecycleandroid: "com.trello:rxlifecycle-android:$versions.rxlifecycle",
 
             junit: 'junit:junit:4.12',
             mockito: 'org.mockito:mockito-core:2.10.0',

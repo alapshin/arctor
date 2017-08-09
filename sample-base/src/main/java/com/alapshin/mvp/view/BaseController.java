@@ -16,7 +16,6 @@ import butterknife.Unbinder;
 
 public abstract class BaseController<V extends MvpView, P extends Presenter<V>>
         extends MvpController<V, P> {
-
     Unbinder unbinder;
 
     @NonNull
