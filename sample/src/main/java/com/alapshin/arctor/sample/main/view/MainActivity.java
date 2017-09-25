@@ -86,6 +86,7 @@ public class MainActivity extends BaseActivity<MainView, MainPresenter>
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     protected void injectDependencies() {
         if (getLastCustomNonConfigurationInstance() != null) {
             component = ((ActivityComponent) getLastCustomNonConfigurationInstance());

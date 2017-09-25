@@ -49,6 +49,7 @@ public class BasePresenter<V extends MvpView> implements Presenter<V> {
 
     @Override
     @CallSuper
+    @SuppressWarnings("unchecked")
     public void onCreate(@Nullable PresenterBundle savedInstanceState) {
         if (savedInstanceState != null) {
             viewStateCommandQueue = (ViewStateCommandQueue<V>) savedInstanceState.getSerializable(
