@@ -58,5 +58,7 @@ dependencies {
     testCompile 'org.khronos:opengl-api:gl1.1-android-2.1_r1'
 }
 
-apply from: rootProject.file('gradle/bintray.gradle')
-apply from: rootProject.file('gradle/localmaven.gradle')
+if (!rootProject.hasProperty('ciBuild')) {
+    apply from: rootProject.file('gradle/bintray.gradle')
+    apply from: rootProject.file('gradle/localmaven.gradle')
+}

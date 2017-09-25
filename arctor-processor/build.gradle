@@ -21,6 +21,8 @@ dependencies {
     compile libraries.guava
 }
 
-apply from: rootProject.file('gradle/bintray.gradle')
-apply from: rootProject.file('gradle/localmaven.gradle')
+if (!rootProject.hasProperty('ciBuild')) {
+    apply from: rootProject.file('gradle/bintray.gradle')
+    apply from: rootProject.file('gradle/localmaven.gradle')
+}
 
