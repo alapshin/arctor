@@ -17,6 +17,8 @@ import java.lang.ref.WeakReference;
  * @since 2015-04-18
  */
 public class BasePresenter<V extends MvpView> implements Presenter<V> {
+    private static final String VIEW_STATE_COMMAND_QUEUE_KEY = "view_state_command_queue";
+
     /**
      * How to store command into the queue after execution
      */
@@ -39,10 +41,12 @@ public class BasePresenter<V extends MvpView> implements Presenter<V> {
         SKIP
     }
 
-    private static final String VIEW_STATE_COMMAND_QUEUE_KEY = "view_state_command_queue";
+    private boolean isViewRecreated = false;
+    private boolean wasViewOnCreateCalled = false;
     /**
-     * Reference to view. Using weak reference to avoid memory leaks. Before calling any view
-     * methods check that view is attached with isViewAttached
+     * Reference to view.
+     * Using weak reference to avoid memory leaks.
+     * Before calling any view methods check that view is attached with isViewAttached
      */
     protected WeakReference<V> viewRef;
     protected ViewStateCommandQueue<V> viewStateCommandQueue = new ViewStateCommandQueue<>();
@@ -51,6 +55,22 @@ public class BasePresenter<V extends MvpView> implements Presenter<V> {
     @CallSuper
     @SuppressWarnings("unchecked")
     public void onCreate(@Nullable PresenterBundle savedInstanceState) {
+        // Method onCreate could be called in 3 different cases
+        // 1. After corresponding view is created for the first time
+        // 2. After corresponding view is recreated after configuration change
+        // 3. After corresponding view is recreated after process death
+
+        // In first case savedInstanceState is null, while in second and third case it is not.
+        // As a result to distinguish between later two cases checking for savedInstanceState alone is not enough.
+        // To solve this problem additional flag is introduced that could be checked when savedInstanceState is not null.
+        // When presenter's onCreate is called after configuration change this flag will be true and false otherwise.
+        if (wasViewOnCreateCalled) {
+           isViewRecreated = true;
+        } else {
+            isViewRecreated = false;
+            wasViewOnCreateCalled = true;
+        }
+
         if (savedInstanceState != null) {
             viewStateCommandQueue = (ViewStateCommandQueue<V>) savedInstanceState.getSerializable(
                     VIEW_STATE_COMMAND_QUEUE_KEY);
@@ -119,6 +139,10 @@ public class BasePresenter<V extends MvpView> implements Presenter<V> {
 
     public boolean isViewAttached() {
         return viewRef != null && viewRef.get() != null;
+    }
+
+    public boolean isViewRecreated() {
+        return isViewRecreated;
     }
 
     /**
