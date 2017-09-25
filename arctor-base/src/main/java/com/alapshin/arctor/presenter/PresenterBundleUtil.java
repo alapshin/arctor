@@ -21,11 +21,10 @@ public class PresenterBundleUtil {
      */
     @SuppressWarnings("unchecked") // Handled internally
     public static PresenterBundle getPresenterBundle(@Nullable Bundle savedInstanceState) {
-        HashMap<String, Object> map = new HashMap<>();
 
         if (savedInstanceState != null) {
             try {
-                map = (HashMap<String, Object>) savedInstanceState
+                HashMap<String, Object> map = (HashMap<String, Object>) savedInstanceState
                         .getSerializable(MAP_KEY);
                 return new PresenterBundle(map);
             } catch (ClassCastException e) {
