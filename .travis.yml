@@ -5,9 +5,9 @@ language: android
 android:
     components:
         - tools
-        - android-24
+        - android-26
         - platform-tools
-        - build-tools-24.0.2
+        - build-tools-26.0.1
         - extra-google-m2repository
         - extra-android-m2repository
         - extra-android-support
@@ -20,7 +20,7 @@ before_install:
     - sudo apt-get update -q
     - sudo apt-get install openjdk-8-jdk
 
-script: ./gradlew clean build
+script: ./build.sh
 
 before_cache:
     - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
