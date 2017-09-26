@@ -41,8 +41,8 @@ public class BasePresenter<V extends MvpView> implements Presenter<V> {
         SKIP
     }
 
-    private boolean isViewRecreated = false;
-    private boolean wasViewOnCreateCalled = false;
+    private boolean orientationChanged = false;
+    private boolean viewOnCreateCalled = false;
     /**
      * Reference to view.
      * Using weak reference to avoid memory leaks.
@@ -55,7 +55,7 @@ public class BasePresenter<V extends MvpView> implements Presenter<V> {
     @CallSuper
     @SuppressWarnings("unchecked")
     public void onCreate(@Nullable PresenterBundle savedInstanceState) {
-        // Method onCreate could be called in 3 different cases
+        // Presenter's onCreate method could be called in 3 different cases
         // 1. After corresponding view is created for the first time
         // 2. After corresponding view is recreated after configuration change
         // 3. After corresponding view is recreated after process death
@@ -64,11 +64,11 @@ public class BasePresenter<V extends MvpView> implements Presenter<V> {
         // As a result to distinguish between later two cases checking for savedInstanceState alone is not enough.
         // To solve this problem additional flag is introduced that could be checked when savedInstanceState is not null.
         // When presenter's onCreate is called after configuration change this flag will be true and false otherwise.
-        if (wasViewOnCreateCalled) {
-           isViewRecreated = true;
+        if (viewOnCreateCalled) {
+           orientationChanged = true;
         } else {
-            isViewRecreated = false;
-            wasViewOnCreateCalled = true;
+            viewOnCreateCalled = true;
+            orientationChanged = false;
         }
 
         if (savedInstanceState != null) {
@@ -141,8 +141,8 @@ public class BasePresenter<V extends MvpView> implements Presenter<V> {
         return viewRef != null && viewRef.get() != null;
     }
 
-    public boolean isViewRecreated() {
-        return isViewRecreated;
+    public boolean isOrientationChanged() {
+        return orientationChanged;
     }
 
     /**
