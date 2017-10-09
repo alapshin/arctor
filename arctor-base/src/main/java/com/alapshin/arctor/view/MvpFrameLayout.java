@@ -72,4 +72,10 @@ public abstract class MvpFrameLayout<V extends MvpView, P extends Presenter<V>>
         super.onDetachedFromWindow();
         mvpDelegate.onDetachedFromWindow();
     }
+
+    @Override
+    protected void onWindowVisibilityChanged(int visibility) {
+        super.onWindowVisibilityChanged(visibility);
+        mvpDelegate.onWindowVisibilityChanges(visibility);
+    }
 }

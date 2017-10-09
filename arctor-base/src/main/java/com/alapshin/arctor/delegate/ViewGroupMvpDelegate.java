@@ -24,6 +24,11 @@ public interface ViewGroupMvpDelegate<V extends MvpView, P extends Presenter<V>>
     void onDetachedFromWindow();
 
     /**
+     * Call from {@link ViewGroup#onWindowVisibilityChanged(int)}
+     */
+    void onWindowVisibilityChanges(int visibility);
+
+    /**
      * Call from {@link ViewGroup#onRestoreInstanceState(Parcelable)}
      * @param state The parcelable state.
      */
