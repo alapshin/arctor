@@ -1,7 +1,10 @@
-dist: precise
-sudo: required
+dist: trusty
 
 language: android
+
+jdk:
+    - openjdk8
+
 android:
     components:
         - tools
@@ -12,21 +15,16 @@ android:
         - extra-android-m2repository
         - extra-android-support
 
-env:
-    JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/"
+script: ./build.sh
 
 before_install:
     - yes | sdkmanager "platforms;android-27" 
-    - sudo add-apt-repository ppa:openjdk-r/ppa -y
-    - sudo apt-get update -q
-    - sudo apt-get install openjdk-8-jdk
-
-script: ./build.sh
-
-before_cache:
-    - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 
 cache:
     directories:
         - $HOME/.gradle/caches/
         - $HOME/.gradle/wrapper/
+
+before_cache:
+    - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+
