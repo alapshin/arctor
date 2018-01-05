@@ -74,6 +74,24 @@ public class WaitViewLatestTransformerTest {
     }
 
     @Test
+    public void shouldNotEmitValuesAfterViewIsDetached() {
+        TestScheduler testScheduler = Schedulers.test();
+        BehaviorSubject<Boolean> view = BehaviorSubject.create();
+        view.onNext(true);
+        WaitViewLatestTransformer<Long> transformer =
+                new WaitViewLatestTransformer<>(view);
+        TestSubscriber<Long> testSubscriber = new TestSubscriber<>();
+        Observable.interval(EMIT_DELAY_IN_SECONDS, TimeUnit.SECONDS, testScheduler)
+                .compose(transformer)
+                .subscribe(testSubscriber);
+        testScheduler.advanceTimeBy(EMIT_DELAY_IN_SECONDS, TimeUnit.SECONDS);
+        testSubscriber.assertValueCount(1);
+        view.onNext(false);
+        testScheduler.advanceTimeBy(2 * EMIT_DELAY_IN_SECONDS, TimeUnit.SECONDS);
+        testSubscriber.assertValueCount(1);
+    }
+
+    @Test
     public void shouldEmitLatestValueAfterViewIsAttached() {
         final TestScheduler dataScheduler = Schedulers.test();
         final TestScheduler viewScheduler = Schedulers.test();
@@ -171,4 +189,5 @@ public class WaitViewLatestTransformerTest {
         testSubscriber.assertValue(1);
         testSubscriber.assertNotCompleted();
     }
+
 }
