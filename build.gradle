@@ -39,7 +39,6 @@ subprojects {
 ext {
     versions = [
             minSdk: 15,
-            minSdk16: 16,
             compileSdk: 27,
             targetSdk: 27,
             buildTools: '27.0.3',
@@ -53,7 +52,6 @@ ext {
 
     libraries = [
             arctor: project(':arctor-base'),
-            arctorconductor: project(':arctor-conductor'),
             arctorannotation: project(':arctor-annotation'),
             arctorprocessor: project(':arctor-processor'),
             arctorrxjava: project(':arctor-rxjava'),
@@ -72,7 +70,6 @@ ext {
             autoservice: 'com.google.auto.service:auto-service:1.0-rc3',
             butterknife: "com.jakewharton:butterknife:$versions.butterknife",
             butterknifecompiler: "com.jakewharton:butterknife-compiler:$versions.butterknife",
-            conductor: 'com.bluelinelabs:conductor:2.0.1',
             dagger: "com.google.dagger:dagger:$versions.dagger",
             daggercompiler: "com.google.dagger:dagger-compiler:$versions.dagger",
             guava: 'com.google.guava:guava:23.6-jre',
