@@ -1,9 +1,7 @@
 package com.alapshin.arctor.viewstate;
 
-
 import android.os.Bundle;
 
-import com.alapshin.arctor.BuildConfig;
 import com.alapshin.arctor.presenter.PresenterBundle;
 import com.alapshin.arctor.presenter.PresenterBundleUtil;
 import com.alapshin.arctor.view.MvpView;
@@ -11,12 +9,10 @@ import com.alapshin.arctor.view.MvpView;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
 
 import static org.assertj.core.api.Assertions.*;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class, manifest = "src/main/AndroidManifest.xml", sdk = 21)
 public class ViewStateCommandTest {
     @Test
     public void serialize() {

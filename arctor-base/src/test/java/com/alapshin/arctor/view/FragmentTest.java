@@ -1,22 +1,17 @@
 package com.alapshin.arctor.view;
 
-
 import android.os.Bundle;
-
-import com.alapshin.arctor.BuildConfig;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
 import org.robolectric.shadows.support.v4.SupportFragmentController;
 
 import static org.mockito.Mockito.*;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class, sdk = 25)
 public class FragmentTest {
     TestPresenter mockPresenter;
 
