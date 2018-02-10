@@ -46,7 +46,6 @@ dependencies {
     compile libraries.supportannotations
     compile libraries.supportappcompat
 
-    provided libraries.javaxannotation
     // JSR-330
     provided libraries.jsr330
 

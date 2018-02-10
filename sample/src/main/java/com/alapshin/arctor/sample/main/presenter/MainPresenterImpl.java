@@ -1,12 +1,12 @@
 package com.alapshin.arctor.sample.main.presenter;
 
+import android.support.annotation.Nullable;
+
 import com.alapshin.arctor.presenter.PresenterBundle;
 import com.alapshin.arctor.presenter.rx.RxPresenter;
 import com.alapshin.arctor.sample.main.view.MainView;
 
 import java.util.concurrent.TimeUnit;
-
-import javax.annotation.Nullable;
 
 import rx.Observable;
 import rx.Subscription;

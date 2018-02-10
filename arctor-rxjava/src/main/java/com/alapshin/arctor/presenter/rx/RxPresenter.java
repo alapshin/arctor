@@ -2,12 +2,11 @@ package com.alapshin.arctor.presenter.rx;
 
 
 import android.support.annotation.CallSuper;
+import android.support.annotation.Nullable;
 
 import com.alapshin.arctor.presenter.BasePresenter;
 import com.alapshin.arctor.presenter.PresenterBundle;
 import com.alapshin.arctor.view.MvpView;
-
-import javax.annotation.Nullable;
 
 import rx.Observable;
 import rx.Subscription;

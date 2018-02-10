@@ -48,7 +48,6 @@ dependencies {
 
     // Dagger
     compile libraries.dagger
-    provided libraries.jsr250
     annotationProcessor libraries.daggercompiler
     // RxJava
     compile libraries.rxjava

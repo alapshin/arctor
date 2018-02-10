@@ -1,5 +1,6 @@
 package com.alapshin.arctor.sample.navigation;
 
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
@@ -13,8 +14,6 @@ import com.alapshin.arctor.sample.baz.view.BazViewGroup;
 import com.alapshin.arctor.sample.foo.FooScreen;
 import com.alapshin.arctor.sample.foo.view.FooFragment;
 
-import javax.annotation.Nonnull;
-
 /**
  * {@link Navigator} implementation using fragments for screens
  */
@@ -22,7 +21,7 @@ public class NavigatorImpl implements Navigator {
     private FragmentActivity activity;
 
     @Override
-    public void attach(@Nonnull FragmentActivity activity) {
+    public void attach(@NonNull FragmentActivity activity) {
         this.activity = activity;
     }
 

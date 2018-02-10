@@ -42,7 +42,6 @@ android {
 dependencies {
     compile libraries.arctor
     compile libraries.rxjava
-    provided libraries.jsr305
 
     testCompile libraries.assertj
     testCompile libraries.junit
