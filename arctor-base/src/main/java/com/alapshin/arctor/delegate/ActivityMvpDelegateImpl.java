@@ -14,7 +14,6 @@ public class ActivityMvpDelegateImpl<V extends MvpView, P extends Presenter<V>>
         implements ActivityMvpDelegate<V, P> {
 
     private MvpCallback<V, P> callback;
-    private boolean isDestroyedBySystem;
 
     public ActivityMvpDelegateImpl(MvpCallback<V, P> callback) {
         this.callback = callback;
@@ -38,20 +37,26 @@ public class ActivityMvpDelegateImpl<V extends MvpView, P extends Presenter<V>>
 
     @Override
     public void onResume() {
-        isDestroyedBySystem = false;
         callback.getPresenter().onResume();
     }
 
     @Override
-    public void onPause() {
+    public void onPause(boolean isFinishing) {
         callback.getPresenter().onPause();
+        // If activity is finishing then mark view as detached.
+        // Otherwise there is possibility that view will still receive
+        // some event while another activity already in foreground.
+        if (isFinishing) {
+            callback.getPresenter().detachView();
+        }
     }
 
     @Override
     public void onSaveInstanceState(@Nullable Bundle outState) {
-        isDestroyedBySystem = true;
         PresenterBundle bundle = new PresenterBundle();
+        // Get presenter bundle
         callback.getPresenter().onSaveInstanceState(bundle);
+        // Write presenter bundle to view bundle
         setPresenterBundle(outState, bundle);
     }
 
@@ -61,9 +66,10 @@ public class ActivityMvpDelegateImpl<V extends MvpView, P extends Presenter<V>>
     }
 
     @Override
-    public void onDestroy() {
+    public void onDestroy(boolean isChangingConfigurations) {
         callback.getPresenter().detachView();
-        if (!isDestroyedBySystem) {
+        // If activity is destroyed then notify presenter about that.
+        if (!isChangingConfigurations) {
             callback.getPresenter().onDestroy();
         }
     }

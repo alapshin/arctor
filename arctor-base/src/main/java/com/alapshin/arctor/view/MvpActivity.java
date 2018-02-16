@@ -59,7 +59,7 @@ public abstract class MvpActivity<V extends MvpView, P extends Presenter<V>>
     @Override
     @CallSuper
     protected void onPause() {
-        mvpDelegate.onPause();
+        mvpDelegate.onPause(isFinishing());
         super.onPause();
     }
 
@@ -80,7 +80,7 @@ public abstract class MvpActivity<V extends MvpView, P extends Presenter<V>>
     @Override
     @CallSuper
     protected void onDestroy() {
-        mvpDelegate.onDestroy();
+        mvpDelegate.onDestroy(isChangingConfigurations());
         super.onDestroy();
     }
 }

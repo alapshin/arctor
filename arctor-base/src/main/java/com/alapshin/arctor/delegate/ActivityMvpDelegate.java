@@ -11,8 +11,8 @@ public interface ActivityMvpDelegate<V extends MvpView, P extends Presenter<V>> 
     void onContentChanged();
     void onStart();
     void onResume();
-    void onPause();
+    void onPause(boolean isFinishing);
     void onSaveInstanceState(@Nullable Bundle outState);
     void onStop();
-    void onDestroy();
+    void onDestroy(boolean isChangingConfigurations);
 }

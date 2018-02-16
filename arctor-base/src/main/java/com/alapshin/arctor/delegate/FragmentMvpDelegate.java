@@ -11,9 +11,9 @@ public interface FragmentMvpDelegate<V extends MvpView, P extends Presenter<V>> 
     void onViewCreated(@Nullable Bundle savedInstanceState);
     void onStart();
     void onResume();
-    void onPause();
+    void onPause(boolean isFinishing);
     void onSaveInstanceState(Bundle outState);
     void onStop();
     void onDestroyView();
-    void onDestroy();
+    void onDestroy(boolean isChangingConfigurations);
 }

@@ -14,7 +14,6 @@ public class FragmentMvpDelegateImpl<V extends MvpView, P extends Presenter<V>>
         implements FragmentMvpDelegate<V, P> {
 
     private MvpCallback<V, P> callback;
-    private boolean isDestroyedBySystem;
 
     public FragmentMvpDelegateImpl(MvpCallback<V, P> callback) {
         this.callback = callback;
@@ -37,18 +36,19 @@ public class FragmentMvpDelegateImpl<V extends MvpView, P extends Presenter<V>>
 
     @Override
     public void onResume() {
-        isDestroyedBySystem = false;
         callback.getPresenter().onResume();
     }
 
     @Override
-    public void onPause() {
+    public void onPause(boolean isFinishing) {
         callback.getPresenter().onPause();
+        if (isFinishing) {
+            callback.getPresenter().detachView();
+        }
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        isDestroyedBySystem = true;
         PresenterBundle bundle = new PresenterBundle();
         callback.getPresenter().onSaveInstanceState(bundle);
         setPresenterBundle(outState, bundle);
@@ -65,8 +65,8 @@ public class FragmentMvpDelegateImpl<V extends MvpView, P extends Presenter<V>>
     }
 
     @Override
-    public void onDestroy() {
-        if (!isDestroyedBySystem) {
+    public void onDestroy(boolean isChangingConfigurations) {
+        if (!isChangingConfigurations) {
             callback.getPresenter().onDestroy();
         }
     }
