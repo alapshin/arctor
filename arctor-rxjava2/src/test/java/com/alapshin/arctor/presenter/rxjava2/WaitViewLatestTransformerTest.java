@@ -1,6 +1,5 @@
 package com.alapshin.arctor.presenter.rxjava2;
 
-
 import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
@@ -13,8 +12,8 @@ import io.reactivex.subjects.BehaviorSubject;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class WaitViewLatestTransformerTest {
+    private static final int WAIT_DELAY_IN_SECONDS = 60;
     private static final int EMIT_DELAY_IN_SECONDS = 60;
-    private static final int WAIT_DELAY_IN_MILLISECONDS = 60;
 
     @Test
     public void shouldEmitValueWhenViewIsAttached() {
@@ -52,10 +51,12 @@ public class WaitViewLatestTransformerTest {
         WaitViewLatestTransformer<Integer> transformer =
                 new WaitViewLatestTransformer<>(view);
 
+        TestScheduler testScheduler = new TestScheduler();
         TestObserver<Integer> testObserver = Observable.just(0)
                 .compose(transformer)
+                .subscribeOn(testScheduler)
                 .test();
-        testObserver.awaitTerminalEvent(WAIT_DELAY_IN_MILLISECONDS, TimeUnit.MILLISECONDS);
+        testScheduler.advanceTimeBy(WAIT_DELAY_IN_SECONDS, TimeUnit.SECONDS);
         testObserver.assertNoValues();
         testObserver.assertNotComplete();
     }
@@ -174,7 +175,7 @@ public class WaitViewLatestTransformerTest {
     }
 
     @Test
-    public void shouldEmitLatestValueFromEndlessWithSingleEmissionAfterViewIsAttached() {
+    public void shouldEmitLatestValueFromEndlessAfterViewIsAttached() {
         TestScheduler testScheduler = new TestScheduler();
         BehaviorSubject<Boolean> view = BehaviorSubject.create();
         view.onNext(true);
@@ -188,6 +189,28 @@ public class WaitViewLatestTransformerTest {
                 .test();
         testScheduler.advanceTimeBy(EMIT_DELAY_IN_SECONDS, TimeUnit.SECONDS);
         testObserver.assertValue(1);
+        testObserver.assertNotComplete();
+    }
+
+    @Test
+    public void shouldAgainEmitLatestValueFromEndlessAfterViewIsAttached() {
+        TestScheduler testScheduler = new TestScheduler();
+        BehaviorSubject<Boolean> view = BehaviorSubject.create();
+        view.onNext(true);
+        WaitViewLatestTransformer<Integer> transformer =
+                new WaitViewLatestTransformer<>(view.delay(EMIT_DELAY_IN_SECONDS, TimeUnit.SECONDS, testScheduler));
+
+        BehaviorSubject<Integer> subject = BehaviorSubject.create();
+        subject.onNext(1);
+        TestObserver<Integer> testObserver = subject.compose(transformer)
+                .test();
+        testScheduler.advanceTimeBy(EMIT_DELAY_IN_SECONDS, TimeUnit.SECONDS);
+        testObserver.assertValue(1);
+        testObserver.assertNotComplete();
+        view.onNext(false);
+        view.onNext(true);
+        testScheduler.advanceTimeBy(EMIT_DELAY_IN_SECONDS, TimeUnit.SECONDS);
+        testObserver.assertValues(1, 1);
         testObserver.assertNotComplete();
     }
 }
