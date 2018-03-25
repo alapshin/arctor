@@ -1,6 +1,5 @@
 package com.alapshin.arctor.presenter.rxjava2;
 
-
 import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
@@ -13,7 +12,7 @@ import io.reactivex.subjects.PublishSubject;
 
 public class WaitViewReplayTransformerTest {
     private static final int EMIT_DELAY_IN_SECONDS = 60;
-    private static final int WAIT_DELAY_IN_MILLISECONDS = 60;
+    private static final int WAIT_DELAY_IN_SECONDS = 60;
 
     @Test
     public void shouldEmitValueWhenViewIsAttached() {
@@ -68,10 +67,12 @@ public class WaitViewReplayTransformerTest {
         BehaviorSubject<Boolean> view = BehaviorSubject.create();
         WaitViewReplayTransformer<Integer> transformer = new WaitViewReplayTransformer<>(view);
 
+        TestScheduler testScheduler = new TestScheduler();
         TestObserver<Integer> testObserver = Observable.just(0)
                 .compose(transformer)
+                .subscribeOn(testScheduler)
                 .test();
-        testObserver.awaitTerminalEvent(WAIT_DELAY_IN_MILLISECONDS, TimeUnit.MILLISECONDS);
+        testScheduler.advanceTimeBy(WAIT_DELAY_IN_SECONDS, TimeUnit.SECONDS);
         testObserver.assertNoValues();
         testObserver.assertNotComplete();
     }
@@ -97,10 +98,12 @@ public class WaitViewReplayTransformerTest {
         WaitViewReplayTransformer<Integer> transformer = new WaitViewReplayTransformer<>(view);
 
         Exception exception = new RuntimeException();
+        TestScheduler testScheduler = new TestScheduler();
         TestObserver<Integer> testObserver = Observable.<Integer>error(exception)
                 .compose(transformer)
+                .subscribeOn(testScheduler)
                 .test();
-        testObserver.awaitTerminalEvent(WAIT_DELAY_IN_MILLISECONDS, TimeUnit.MILLISECONDS);
+        testScheduler.advanceTimeBy(WAIT_DELAY_IN_SECONDS, TimeUnit.SECONDS);
         testObserver.assertNoValues();
         testObserver.assertNotComplete();
     }
