@@ -1,8 +1,6 @@
 package com.alapshin.arctor.presenter.rxjava2;
 
-
 import com.alapshin.arctor.presenter.rxjava2.util.Optional;
-
 
 import io.reactivex.Completable;
 import io.reactivex.CompletableSource;
@@ -43,6 +41,7 @@ public class WaitViewLatestTransformer<T> implements
         SingleTransformer<T, T>,
         CompletableTransformer,
         ObservableTransformer<T, T> {
+
     private final Observable<Boolean> view;
 
     public WaitViewLatestTransformer(Observable<Boolean> view) {
@@ -82,7 +81,7 @@ public class WaitViewLatestTransformer<T> implements
                                         } else {
                                             return view.filter(new Predicate<Boolean>() {
                                                 @Override
-                                                public boolean test(Boolean value) throws Exception {
+                                                public boolean test(Boolean value) {
                                                     return value;
                                                 }
                                             });
@@ -103,7 +102,7 @@ public class WaitViewLatestTransformer<T> implements
                 })
                 .map(new Function<Optional<Notification<T>>, Notification<T>>() {
                     @Override
-                    public Notification<T> apply(Optional<Notification<T>> notificationOptional) throws Exception {
+                    public Notification<T> apply(Optional<Notification<T>> notificationOptional) {
                         return notificationOptional.get();
                     }
                 })

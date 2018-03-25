@@ -1,6 +1,5 @@
 package com.alapshin.arctor.presenter.rxjava2;
 
-
 import io.reactivex.Completable;
 import io.reactivex.CompletableSource;
 import io.reactivex.CompletableTransformer;
@@ -24,6 +23,7 @@ public class WaitViewReplayTransformer<T> implements
         SingleTransformer<T, T>,
         CompletableTransformer,
         ObservableTransformer<T, T> {
+
     private final Observable<Boolean> view;
 
     public WaitViewReplayTransformer(Observable<Boolean> view) {
@@ -79,10 +79,11 @@ public class WaitViewReplayTransformer<T> implements
                 })
                 .doOnDispose(new Action() {
                     @Override
-                    public void run() throws Exception {
+                    public void run() {
                         observer.dispose();
                     }
                 })
                 .dematerialize();
     }
+
 }
