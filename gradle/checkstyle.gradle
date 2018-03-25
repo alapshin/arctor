@@ -1,7 +1,7 @@
 plugins.apply('checkstyle')
 
 checkstyle {
-    toolVersion = '6.17'
+    toolVersion = '8.8'
     configFile rootProject.file('checkstyle.xml')
 
     ignoreFailures false // Fail early.
