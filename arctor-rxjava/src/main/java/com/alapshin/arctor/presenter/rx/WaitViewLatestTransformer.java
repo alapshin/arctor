@@ -1,9 +1,6 @@
 package com.alapshin.arctor.presenter.rx;
 
-import rx.Notification;
 import rx.Observable;
-import rx.functions.Func1;
-import rx.functions.Func2;
 
 /**
  * {@link rx.Observable.Transformer} that couples data and view status
@@ -39,33 +36,15 @@ public class WaitViewLatestTransformer<T> implements Observable.Transformer<T, T
                                 .materialize()
                                 // If this is onNext notification then emit it immediately
                                 // If this is onComplete notification then delay emission of this notification while view is detached
-                                .delay(new Func1<Notification<T>, Observable<Boolean>>() {
-                                    @Override
-                                    public Observable<Boolean> call(Notification<T> notification) {
-                                        if (!notification.isOnCompleted()) {
-                                            return Observable.just(true);
-                                        } else {
-                                            return view.filter(new Func1<Boolean, Boolean>() {
-                                                @Override
-                                                public Boolean call(Boolean value) {
-                                                    return value;
-                                                }
-                                            });
-                                        }
+                                .delay(notification -> {
+                                    if (!notification.isOnCompleted()) {
+                                        return Observable.just(true);
+                                    } else {
+                                        return view.filter(value -> value);
                                     }
                                 }),
-                        new Func2<Boolean, Notification<T>, Notification<T>>() {
-                            @Override
-                            public Notification<T> call(Boolean flag, Notification<T> notification) {
-                                return flag ? notification : null;
-                            }
-                        })
-                .filter(new Func1<Notification<T>, Boolean>() {
-                    @Override
-                    public Boolean call(Notification<T> notification) {
-                        return notification != null;
-                    }
-                })
+                        (flag, notification) -> flag ? notification : null)
+                .filter(notification -> notification != null)
                 .dematerialize();
     }
 }

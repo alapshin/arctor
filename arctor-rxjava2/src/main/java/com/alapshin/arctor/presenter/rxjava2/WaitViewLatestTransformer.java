@@ -15,9 +15,7 @@ import io.reactivex.ObservableTransformer;
 import io.reactivex.Single;
 import io.reactivex.SingleSource;
 import io.reactivex.SingleTransformer;
-import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Function;
-import io.reactivex.functions.Predicate;
 
 /**
  * {@link ObservableTransformer} that ties upstream {@link Observable} emission  to Observable representing view status
@@ -73,39 +71,17 @@ public class WaitViewLatestTransformer<T> implements
                                 .materialize()
                                 // If this is onNext notification then emit it immediately
                                 // If this is onComplete notification then delay emission of this notification while view is detached
-                                .delay(new Function<Notification<T>, Observable<Boolean>>() {
-                                    @Override
-                                    public Observable<Boolean> apply(Notification<T> notification) {
-                                        if (!notification.isOnComplete()) {
-                                            return Observable.just(true);
-                                        } else {
-                                            return view.filter(new Predicate<Boolean>() {
-                                                @Override
-                                                public boolean test(Boolean value) {
-                                                    return value;
-                                                }
-                                            });
-                                        }
+                                .delay((Function<Notification<T>, Observable<Boolean>>) notification -> {
+                                    if (!notification.isOnComplete()) {
+                                        return Observable.just(true);
+                                    } else {
+                                        return view.filter(value -> value);
                                     }
                                 }),
-                        new BiFunction<Boolean, Notification<T>, Optional<Notification<T>>>() {
-                            @Override
-                            public Optional<Notification<T>> apply(Boolean flag, Notification<T> notification) {
-                                return flag ? Optional.of(notification) : Optional.<Notification<T>>ofNullable(null);
-                            }
-                        })
-                .filter(new Predicate<Optional<Notification<T>>>() {
-                    @Override
-                    public boolean test(Optional<Notification<T>> notification) {
-                        return notification.isPresent();
-                    }
-                })
-                .map(new Function<Optional<Notification<T>>, Notification<T>>() {
-                    @Override
-                    public Notification<T> apply(Optional<Notification<T>> notificationOptional) {
-                        return notificationOptional.get();
-                    }
-                })
+                        (flag, notification) -> flag ? Optional.of(notification)
+                                : Optional.<Notification<T>>ofNullable(null))
+                .filter(Optional::isPresent)
+                .map(Optional::get)
                 .dematerialize();
     }
 
