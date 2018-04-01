@@ -1,27 +1,35 @@
 package com.alapshin.arctor.presenter.rx;
 
-
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
 import rx.observers.TestSubscriber;
-import rx.schedulers.Schedulers;
 import rx.schedulers.TestScheduler;
 import rx.subjects.BehaviorSubject;
 import rx.subjects.PublishSubject;
 
 public class WaitViewReplayTransformerTest {
-    private static final int EMIT_DELAY_IN_SECONDS = 60;
-    private static final int WAIT_DELAY_IN_MILLISECONDS = 60;
+    private static final int DELAY_IN_SECONDS = 60;
+
+    private BehaviorSubject<Boolean> view;
+    private TestScheduler scheduler;
+    private WaitViewReplayTransformer<Integer> transformer;
+    private TestSubscriber<Integer> testSubscriber;
+
+    @Before
+    public void setup() {
+        view = BehaviorSubject.create();
+        scheduler = new TestScheduler();
+        testSubscriber = new TestSubscriber<>();
+        transformer = new WaitViewReplayTransformer<>(view);
+    }
 
     @Test
     public void shouldEmitValueWhenViewIsAttached() {
-        BehaviorSubject<Boolean> view = BehaviorSubject.create();
         view.onNext(true);
-        WaitViewReplayTransformer<Integer> transformer = new WaitViewReplayTransformer<>(view);
-        TestSubscriber<Integer> testSubscriber = new TestSubscriber<>();
         Observable.just(0)
                 .compose(transformer)
                 .subscribe(testSubscriber);
@@ -32,9 +40,7 @@ public class WaitViewReplayTransformerTest {
 
     @Test
     public void shouldEmitAllValuesWhenViewIsAttached() {
-        BehaviorSubject<Boolean> view = BehaviorSubject.create(true);
-        WaitViewReplayTransformer<Integer> transformer = new WaitViewReplayTransformer<>(view);
-        TestSubscriber<Integer> testSubscriber = new TestSubscriber<>();
+        view.onNext(true);
         Observable.just(0, 1, 2)
                 .compose(transformer)
                 .subscribe(testSubscriber);
@@ -45,28 +51,23 @@ public class WaitViewReplayTransformerTest {
 
     @Test
     public void shouldNotEmitValueWhenViewIsDetached() {
-        BehaviorSubject<Boolean> view = BehaviorSubject.create();
-        WaitViewReplayTransformer<Integer> transformer = new WaitViewReplayTransformer<>(view);
-        TestSubscriber<Integer> testSubscriber = new TestSubscriber<>();
         Observable.just(0)
+                .subscribeOn(scheduler)
                 .compose(transformer)
                 .subscribe(testSubscriber);
-        testSubscriber.awaitTerminalEvent(WAIT_DELAY_IN_MILLISECONDS, TimeUnit.MILLISECONDS);
+        scheduler.advanceTimeBy(DELAY_IN_SECONDS, TimeUnit.SECONDS);
         testSubscriber.assertNoValues();
     }
 
     @Test
     public void shouldEmitValueAfterViewIsAttached() {
-        TestScheduler testScheduler = Schedulers.test();
-        BehaviorSubject<Boolean> view = BehaviorSubject.create();
         view.onNext(true);
-        WaitViewReplayTransformer<Integer> transformer =
-                new WaitViewReplayTransformer<>(view.delay(EMIT_DELAY_IN_SECONDS, TimeUnit.SECONDS, testScheduler));
+        transformer = new WaitViewReplayTransformer<>(view.delay(DELAY_IN_SECONDS, TimeUnit.SECONDS, scheduler));
         TestSubscriber<Integer> testSubscriber = new TestSubscriber<>();
         Observable.just(0)
                 .compose(transformer)
                 .subscribe(testSubscriber);
-        testScheduler.advanceTimeBy(EMIT_DELAY_IN_SECONDS, TimeUnit.SECONDS);
+        scheduler.advanceTimeBy(DELAY_IN_SECONDS, TimeUnit.SECONDS);
         testSubscriber.awaitTerminalEvent();
         testSubscriber.assertValue(0);
         testSubscriber.assertCompleted();
@@ -74,16 +75,13 @@ public class WaitViewReplayTransformerTest {
 
     @Test
     public void shouldReplayAllValuesAfterViewIsAttached() {
-        TestScheduler testScheduler = Schedulers.test();
-        BehaviorSubject<Boolean> view = BehaviorSubject.create();
         view.onNext(true);
-        WaitViewReplayTransformer<Integer> transformer =
-                new WaitViewReplayTransformer<>(view.delay(EMIT_DELAY_IN_SECONDS, TimeUnit.SECONDS, testScheduler));
+        transformer = new WaitViewReplayTransformer<>(view.delay(DELAY_IN_SECONDS, TimeUnit.SECONDS, scheduler));
         TestSubscriber<Integer> testSubscriber = new TestSubscriber<>();
         Observable.just(0, 1, 2)
                 .compose(transformer)
                 .subscribe(testSubscriber);
-        testScheduler.advanceTimeBy(EMIT_DELAY_IN_SECONDS, TimeUnit.SECONDS);
+        scheduler.advanceTimeBy(DELAY_IN_SECONDS, TimeUnit.SECONDS);
         testSubscriber.awaitTerminalEvent();
         testSubscriber.assertValues(0, 1, 2);
         testSubscriber.assertCompleted();
@@ -91,10 +89,8 @@ public class WaitViewReplayTransformerTest {
 
     @Test
     public void shouldEmitErrorWhenViewIsAttached() {
-        BehaviorSubject<Boolean> view = BehaviorSubject.create(true);
-        WaitViewReplayTransformer<Object> transformer = new WaitViewReplayTransformer<>(view);
-        TestSubscriber<Object> testSubscriber = new TestSubscriber<>();
-        Observable.error(new RuntimeException())
+        view.onNext(true);
+        Observable.<Integer>error(new RuntimeException())
                 .compose(transformer)
                 .subscribe(testSubscriber);
         testSubscriber.awaitTerminalEvent();
@@ -103,28 +99,23 @@ public class WaitViewReplayTransformerTest {
 
     @Test
     public void shouldNotEmitErrorWhenViewIsDetached() {
-        BehaviorSubject<Boolean> view = BehaviorSubject.create();
-        WaitViewReplayTransformer<Object> transformer = new WaitViewReplayTransformer<>(view);
-        TestSubscriber<Object> testSubscriber = new TestSubscriber<>();
-        Observable.error(new RuntimeException())
+        Observable.<Integer>error(new RuntimeException())
+                .subscribeOn(scheduler)
                 .compose(transformer)
                 .subscribe(testSubscriber);
-        testSubscriber.awaitTerminalEvent(WAIT_DELAY_IN_MILLISECONDS, TimeUnit.MILLISECONDS);
+        scheduler.advanceTimeBy(DELAY_IN_SECONDS, TimeUnit.SECONDS);
         testSubscriber.assertNoErrors();
     }
 
     @Test
     public void shouldEmitErrorAfterViewIsAttached() {
-        TestScheduler testScheduler = Schedulers.test();
-        BehaviorSubject<Boolean> view = BehaviorSubject.create();
         view.onNext(true);
-        WaitViewReplayTransformer<Object> transformer = new WaitViewReplayTransformer<>(
-                view.delay(EMIT_DELAY_IN_SECONDS, TimeUnit.SECONDS, testScheduler));
-        TestSubscriber<Object> testSubscriber = new TestSubscriber<>();
-        Observable.error(new RuntimeException())
+        transformer = new WaitViewReplayTransformer<>(
+                view.delay(DELAY_IN_SECONDS, TimeUnit.SECONDS, scheduler));
+        Observable.<Integer>error(new RuntimeException())
                 .compose(transformer)
                 .subscribe(testSubscriber);
-        testScheduler.advanceTimeBy(EMIT_DELAY_IN_SECONDS, TimeUnit.SECONDS);
+        scheduler.advanceTimeBy(DELAY_IN_SECONDS, TimeUnit.SECONDS);
         testSubscriber.awaitTerminalEvent();
         testSubscriber.assertError(RuntimeException.class);
     }

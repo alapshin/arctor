@@ -1,5 +1,6 @@
 package com.alapshin.arctor.presenter.rxjava2;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
@@ -12,15 +13,21 @@ import io.reactivex.subjects.BehaviorSubject;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class WaitViewLatestTransformerTest {
-    private static final int WAIT_DELAY_IN_SECONDS = 60;
-    private static final int EMIT_DELAY_IN_SECONDS = 60;
+    private static final int DELAY_IN_SECONDS = 60;
+
+    private BehaviorSubject<Boolean> view;
+    private TestScheduler scheduler;
+    private WaitViewLatestTransformer<Integer> transformer;
+
+    @Before
+    public void setup() {
+        view = BehaviorSubject.create();
+        scheduler = new TestScheduler();
+        transformer = new WaitViewLatestTransformer<>(view);
+    }
 
     @Test
     public void shouldEmitValueWhenViewIsAttached() {
-        BehaviorSubject<Boolean> view = BehaviorSubject.create();
-        WaitViewLatestTransformer<Integer> transformer =
-                new WaitViewLatestTransformer<>(view);
-
         view.onNext(true);
         TestObserver<Integer> testObserver = Observable.just(0)
                 .compose(transformer)
@@ -32,10 +39,6 @@ public class WaitViewLatestTransformerTest {
 
     @Test
     public void shouldEmitAllValuesWhenViewIsAttached() {
-        BehaviorSubject<Boolean> view = BehaviorSubject.create();
-        WaitViewLatestTransformer<Integer> transformer =
-                new WaitViewLatestTransformer<>(view);
-
         view.onNext(true);
         TestObserver<Integer> testObserver = Observable.just(0, 1, 2)
                 .compose(transformer)
@@ -47,32 +50,25 @@ public class WaitViewLatestTransformerTest {
 
     @Test
     public void shouldNotEmitValueWhenViewIsDetached() {
-        BehaviorSubject<Boolean> view = BehaviorSubject.create();
-        WaitViewLatestTransformer<Integer> transformer =
-                new WaitViewLatestTransformer<>(view);
-
-        TestScheduler testScheduler = new TestScheduler();
         TestObserver<Integer> testObserver = Observable.just(0)
                 .compose(transformer)
-                .subscribeOn(testScheduler)
+                .subscribeOn(scheduler)
                 .test();
-        testScheduler.advanceTimeBy(WAIT_DELAY_IN_SECONDS, TimeUnit.SECONDS);
+        scheduler.advanceTimeBy(DELAY_IN_SECONDS, TimeUnit.SECONDS);
         testObserver.assertNoValues();
         testObserver.assertNotComplete();
     }
 
     @Test
     public void shouldEmitValueAfterViewIsAttached() {
-        TestScheduler testScheduler = new TestScheduler();
-        BehaviorSubject<Boolean> view = BehaviorSubject.create();
         view.onNext(true);
-        WaitViewLatestTransformer<Integer> transformer =
-                new WaitViewLatestTransformer<>(view.delay(EMIT_DELAY_IN_SECONDS, TimeUnit.SECONDS, testScheduler));
+        transformer = new WaitViewLatestTransformer<>(
+                view.delay(DELAY_IN_SECONDS, TimeUnit.SECONDS, scheduler));
 
         TestObserver<Integer> testObserver = Observable.just(0)
                 .compose(transformer)
                 .test();
-        testScheduler.advanceTimeBy(EMIT_DELAY_IN_SECONDS, TimeUnit.SECONDS);
+        scheduler.advanceTimeBy(DELAY_IN_SECONDS, TimeUnit.SECONDS);
         testObserver.awaitTerminalEvent();
         testObserver.assertValue(0);
         testObserver.assertComplete();
@@ -80,33 +76,27 @@ public class WaitViewLatestTransformerTest {
 
     @Test
     public void shouldNotEmitValuesAfterViewIsDetached() {
-        TestScheduler testScheduler = new TestScheduler();
-        BehaviorSubject<Boolean> view = BehaviorSubject.create();
         view.onNext(true);
-        WaitViewLatestTransformer<Long> transformer =
-                new WaitViewLatestTransformer<>(view);
-        TestObserver<Long> testObserver = Observable.interval(EMIT_DELAY_IN_SECONDS, TimeUnit.SECONDS, testScheduler)
+        TestObserver<Integer> testObserver = Observable.interval(DELAY_IN_SECONDS, TimeUnit.SECONDS, scheduler)
+                .map(Long::intValue)
                 .compose(transformer)
                 .test();
-        testScheduler.advanceTimeBy(EMIT_DELAY_IN_SECONDS, TimeUnit.SECONDS);
+        scheduler.advanceTimeBy(DELAY_IN_SECONDS, TimeUnit.SECONDS);
         testObserver.assertValueCount(1);
         view.onNext(false);
-        testScheduler.advanceTimeBy(2 * EMIT_DELAY_IN_SECONDS, TimeUnit.SECONDS);
+        scheduler.advanceTimeBy(2 * DELAY_IN_SECONDS, TimeUnit.SECONDS);
         testObserver.assertValueCount(1);
     }
 
     @Test
     public void shouldEmitLatestValueAfterViewIsAttached() {
-        TestScheduler testScheduler = new TestScheduler();
-        BehaviorSubject<Boolean> view = BehaviorSubject.create();
         view.onNext(true);
-        WaitViewLatestTransformer<Integer> transformer =
-                new WaitViewLatestTransformer<>(view.delay(EMIT_DELAY_IN_SECONDS, TimeUnit.SECONDS, testScheduler));
-
+        transformer =
+                new WaitViewLatestTransformer<>(view.delay(DELAY_IN_SECONDS, TimeUnit.SECONDS, scheduler));
         TestObserver<Integer> testObserver = Observable.fromArray(0, 1, 2)
                 .compose(transformer)
                 .test();
-        testScheduler.advanceTimeBy(EMIT_DELAY_IN_SECONDS, TimeUnit.SECONDS);
+        scheduler.advanceTimeBy(DELAY_IN_SECONDS, TimeUnit.SECONDS);
         testObserver.awaitTerminalEvent();
         testObserver.assertValue(2);
         testObserver.assertComplete();
@@ -114,10 +104,6 @@ public class WaitViewLatestTransformerTest {
 
     @Test
     public void shouldEmitErrorWhenViewIsAttached() {
-        BehaviorSubject<Boolean> view = BehaviorSubject.create();
-        WaitViewLatestTransformer<Integer> transformer =
-                new WaitViewLatestTransformer<Integer>(view);
-
         view.onNext(true);
         Exception exception = new RuntimeException();
         TestObserver<Integer> testObserver = Observable.<Integer>error(exception)
@@ -129,87 +115,73 @@ public class WaitViewLatestTransformerTest {
 
     @Test
     public void shouldEmitErrorAfterViewIsAttached() {
-        TestScheduler testScheduler = new TestScheduler();
-        BehaviorSubject<Boolean> view = BehaviorSubject.create();
         view.onNext(true);
-        WaitViewLatestTransformer<Integer> transformer =
-                new WaitViewLatestTransformer<>(view.delay(EMIT_DELAY_IN_SECONDS, TimeUnit.SECONDS, testScheduler));
+        transformer = new WaitViewLatestTransformer<>(view.delay(DELAY_IN_SECONDS, TimeUnit.SECONDS, scheduler));
 
         Exception exception = new RuntimeException();
         TestObserver<Integer> testObserver = Observable.<Integer>error(exception)
                 .compose(transformer)
                 .test();
-        testScheduler.advanceTimeBy(EMIT_DELAY_IN_SECONDS, TimeUnit.SECONDS);
+        scheduler.advanceTimeBy(DELAY_IN_SECONDS, TimeUnit.SECONDS);
         testObserver.awaitTerminalEvent();
         testObserver.assertError(exception);
     }
 
     @Test
     public void shouldNotEmitErrorWhenViewIsDetached() {
-        BehaviorSubject<Boolean> view = BehaviorSubject.create();
-        WaitViewLatestTransformer<Integer> transformer =
-                new WaitViewLatestTransformer<Integer>(view);
-
         TestObserver<Integer> testObserver = Observable.<Integer>error(new RuntimeException())
                 .compose(transformer)
+                .subscribeOn(scheduler)
                 .test();
-        testObserver.awaitTerminalEvent(EMIT_DELAY_IN_SECONDS, TimeUnit.MILLISECONDS);
+        scheduler.advanceTimeBy(DELAY_IN_SECONDS, TimeUnit.SECONDS);
         testObserver.assertNoErrors();
         testObserver.assertNotComplete();
     }
 
     @Test
     public void shouldEmitValueFromEndlessAfterViewIsAttached() {
-        TestScheduler testScheduler = new TestScheduler();
-        BehaviorSubject<Boolean> view = BehaviorSubject.create();
         view.onNext(true);
-        WaitViewLatestTransformer<Long> transformer =
-                new WaitViewLatestTransformer<>(view.delay(EMIT_DELAY_IN_SECONDS, TimeUnit.SECONDS, testScheduler));
-        TestObserver<Long> testObserver =
-                Observable.interval(0, 100, TimeUnit.SECONDS, testScheduler)
+        transformer = new WaitViewLatestTransformer<>(view.delay(DELAY_IN_SECONDS, TimeUnit.SECONDS, scheduler));
+        TestObserver<Integer> testObserver =
+                Observable.interval(0, 100, TimeUnit.SECONDS, scheduler)
+                        .map(Long::intValue)
                         .compose(transformer)
                         .test();
-        testScheduler.advanceTimeBy(500, TimeUnit.SECONDS);
+        scheduler.advanceTimeBy(DELAY_IN_SECONDS, TimeUnit.SECONDS);
         testObserver.assertNotComplete();
         assertThat(testObserver.getEvents()).isNotEmpty();
     }
 
     @Test
     public void shouldEmitLatestValueFromEndlessAfterViewIsAttached() {
-        TestScheduler testScheduler = new TestScheduler();
-        BehaviorSubject<Boolean> view = BehaviorSubject.create();
         view.onNext(true);
-        WaitViewLatestTransformer<Integer> transformer =
-                new WaitViewLatestTransformer<>(view.delay(EMIT_DELAY_IN_SECONDS, TimeUnit.SECONDS, testScheduler));
+        transformer = new WaitViewLatestTransformer<>(view.delay(DELAY_IN_SECONDS, TimeUnit.SECONDS, scheduler));
 
         BehaviorSubject<Integer> subject = BehaviorSubject.create();
         subject.onNext(1);
         TestObserver<Integer> testObserver = subject
                 .compose(transformer)
                 .test();
-        testScheduler.advanceTimeBy(EMIT_DELAY_IN_SECONDS, TimeUnit.SECONDS);
+        scheduler.advanceTimeBy(DELAY_IN_SECONDS, TimeUnit.SECONDS);
         testObserver.assertValue(1);
         testObserver.assertNotComplete();
     }
 
     @Test
-    public void shouldAgainEmitLatestValueFromEndlessAfterViewIsAttached() {
-        TestScheduler testScheduler = new TestScheduler();
-        BehaviorSubject<Boolean> view = BehaviorSubject.create();
+    public void shouldEmitSameLatestValueFromEndlessAfterViewIsAttachedAgain() {
         view.onNext(true);
-        WaitViewLatestTransformer<Integer> transformer =
-                new WaitViewLatestTransformer<>(view.delay(EMIT_DELAY_IN_SECONDS, TimeUnit.SECONDS, testScheduler));
+        transformer = new WaitViewLatestTransformer<>(view.delay(DELAY_IN_SECONDS, TimeUnit.SECONDS, scheduler));
 
         BehaviorSubject<Integer> subject = BehaviorSubject.create();
         subject.onNext(1);
         TestObserver<Integer> testObserver = subject.compose(transformer)
                 .test();
-        testScheduler.advanceTimeBy(EMIT_DELAY_IN_SECONDS, TimeUnit.SECONDS);
+        scheduler.advanceTimeBy(DELAY_IN_SECONDS, TimeUnit.SECONDS);
         testObserver.assertValue(1);
         testObserver.assertNotComplete();
         view.onNext(false);
         view.onNext(true);
-        testScheduler.advanceTimeBy(EMIT_DELAY_IN_SECONDS, TimeUnit.SECONDS);
+        scheduler.advanceTimeBy(DELAY_IN_SECONDS, TimeUnit.SECONDS);
         testObserver.assertValues(1, 1);
         testObserver.assertNotComplete();
     }
