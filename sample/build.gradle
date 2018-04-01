@@ -52,6 +52,4 @@ dependencies {
     // RxJava
     compile libraries.rxjava
     compile libraries.rxandroid
-
-    testCompile libraries.junit
 }

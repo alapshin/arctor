@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: "de.mannodermaus.android-junit5"
 
 ext {
     bintrayRepo = 'maven'
@@ -49,8 +50,9 @@ dependencies {
     implementation libraries.arctor
     implementation libraries.rxjava
 
+    testCompileOnly junit5.unitTestsRuntime()
+    testImplementation junit5.unitTests()
     testImplementation libraries.assertj
-    testImplementation libraries.junit
 }
 
 if (!rootProject.hasProperty('ciBuild')) {

@@ -10,6 +10,7 @@ buildscript {
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.17.0'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.0'
+        classpath 'de.mannodermaus.gradle.plugins:android-junit5:1.0.31'
     }
 }
 
@@ -82,7 +83,6 @@ ext {
             rxandroid2: 'io.reactivex.rxjava2:rxandroid:2.0.1',
             rxrelay2: 'com.jakewharton.rxrelay2:rxrelay:2.0.0',
 
-            junit: 'junit:junit:4.12',
             mockito: 'org.mockito:mockito-core:2.17.0',
             assertj: 'org.assertj:assertj-core:2.8.0',
             assertjandroid: 'com.squareup.assertj:assertj-android:1.0.0',

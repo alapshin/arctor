@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.jfrog.bintray'
+apply plugin: "de.mannodermaus.android-junit5"
 
 archivesBaseName = 'arctor'
 
@@ -57,7 +58,8 @@ dependencies {
     // JSR-330
     compileOnly libraries.jsr330
 
-    testImplementation libraries.junit
+    testCompileOnly junit5.unitTestsRuntime()
+    testImplementation junit5.unitTests()
     testImplementation libraries.assertj
     testImplementation libraries.mockito
     testImplementation libraries.robolectric
