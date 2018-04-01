@@ -5,7 +5,6 @@ import io.reactivex.functions.Function;
 import io.reactivex.functions.Predicate;
 import java.util.NoSuchElementException;
 
-
 public final class Optional<T> {
     private static final Optional<?> EMPTY = new Optional<Object>();
 

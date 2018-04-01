@@ -1,6 +1,5 @@
 package com.alapshin.arctor.presenter.rx;
 
-
 import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
 

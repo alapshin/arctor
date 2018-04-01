@@ -1,6 +1,5 @@
 package com.alapshin.arctor.presenter.rxjava2;
 
-
 import android.support.annotation.CallSuper;
 
 import com.alapshin.arctor.presenter.BasePresenter;
