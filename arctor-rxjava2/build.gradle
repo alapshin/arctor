@@ -49,7 +49,6 @@ dependencies {
     compileOnly libraries.supportannotations
     implementation libraries.arctor
     implementation libraries.rxjava2
-    implementation libraries.rxrelay2
 
     testImplementation libraries.junit
     testImplementation libraries.assertj
