@@ -51,18 +51,18 @@ android {
 
 
 dependencies {
-    compile libraries.supportannotations
-    compile libraries.supportappcompat
+    compileOnly libraries.supportannotations
+    implementation libraries.supportappcompat
 
     // JSR-330
-    provided libraries.jsr330
+    compileOnly libraries.jsr330
 
-    testCompile libraries.junit
-    testCompile libraries.assertj
-    testCompile libraries.mockito
-    testCompile libraries.robolectric
-    testCompile libraries.robolectricsupport
-    testCompile 'org.khronos:opengl-api:gl1.1-android-2.1_r1'
+    testImplementation libraries.junit
+    testImplementation libraries.assertj
+    testImplementation libraries.mockito
+    testImplementation libraries.robolectric
+    testImplementation libraries.robolectricsupport
+    testImplementation 'org.khronos:opengl-api:gl1.1-android-2.1_r1'
 }
 
 if (!rootProject.hasProperty('ciBuild')) {

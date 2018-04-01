@@ -45,11 +45,12 @@ android {
 }
 
 dependencies {
-    compile libraries.arctor
-    compile libraries.rxjava
+    compileOnly libraries.supportannotations
+    implementation libraries.arctor
+    implementation libraries.rxjava
 
-    testCompile libraries.assertj
-    testCompile libraries.junit
+    testImplementation libraries.assertj
+    testImplementation libraries.junit
 }
 
 if (!rootProject.hasProperty('ciBuild')) {

@@ -13,12 +13,12 @@ ext {
 }
 
 dependencies {
-    compile project(':arctor-annotation')
+    implementation project(':arctor-annotation')
 
-    compile libraries.javapoet
-    compile libraries.autovalue
-    compile libraries.autoservice
-    compile libraries.guava
+    implementation libraries.javapoet
+    implementation libraries.autovalue
+    implementation libraries.autoservice
+    implementation libraries.guava
 }
 
 if (!rootProject.hasProperty('ciBuild')) {
