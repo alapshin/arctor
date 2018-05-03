@@ -13,7 +13,6 @@ import io.reactivex.ObservableTransformer;
 import io.reactivex.Single;
 import io.reactivex.SingleSource;
 import io.reactivex.SingleTransformer;
-import io.reactivex.functions.Function;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.subjects.ReplaySubject;
 
@@ -66,7 +65,7 @@ public class WaitViewReplayTransformer<T> implements
                 });
 
         return view
-                .switchMap((Function<Boolean, Observable<Notification<T>>>) flag -> {
+                .switchMap(flag -> {
                     if (flag) {
                         return subject;
                     } else {

@@ -3,7 +3,6 @@ package com.alapshin.arctor.presenter.rx;
 import rx.Notification;
 import rx.Observable;
 import rx.Subscription;
-import rx.functions.Func1;
 import rx.subjects.ReplaySubject;
 
 public class WaitViewReplayTransformer<T> implements Observable.Transformer<T, T> {
@@ -14,12 +13,11 @@ public class WaitViewReplayTransformer<T> implements Observable.Transformer<T, T
     }
 
     @Override
-    public Observable<T> call(final Observable<T> observable) {
-        final ReplaySubject<Notification<T>>
-                subject = ReplaySubject.create();
-        final Subscription subscription = observable.materialize().subscribe(subject);
+    public Observable<T> call(final Observable<T> source) {
+        final ReplaySubject<Notification<T>> subject = ReplaySubject.create();
+        final Subscription subscription = source.materialize().subscribe(subject);
         return view
-                .switchMap((Func1<Boolean, Observable<Notification<T>>>) flag -> {
+                .switchMap(flag -> {
                     if (flag) {
                         return subject;
                     } else {
