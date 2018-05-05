@@ -6,6 +6,8 @@ import com.alapshin.arctor.presenter.BasePresenter;
 import com.alapshin.arctor.presenter.PresenterBundle;
 import com.alapshin.arctor.view.MvpView;
 
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.subjects.BehaviorSubject;
@@ -56,11 +58,40 @@ public class RxPresenter<V extends MvpView> extends BasePresenter<V> {
         disposables.clear();
     }
 
-    public <T> WaitViewLatestTransformer<T> waitViewLatest() {
-        return new WaitViewLatestTransformer<>(viewSubject);
+    /**
+     * Returns an {@link io.reactivex.Observable} that emits current status of a view.
+     *
+     * @return an {@link io.reactivex.Observable} that emits true when view attached and false when view detached.
+     */
+    public Observable<Boolean> viewStatus() {
+        // Return view status as observable.
+        // This mechanism allows us to ensure that `viewSubject` is always subscribed
+        // on the main thread.
+        // See https://github.com/trello/RxLifecycle/pull/105 for similar discussion
+        return Observable.defer(() -> viewSubject.subscribeOn(AndroidSchedulers.mainThread()));
     }
 
+    /**
+     * Returns an {@link io.reactivex.ObservableTransformer} that delays emission from the source
+     * {@link Observable}.
+     *
+     * Delivers latest onNext value that has been emitted by the source observable.
+     *
+     * @param <T> the type of source observable emissions
+     */
+    public <T> WaitViewLatestTransformer<T> waitViewLatest() {
+        return new WaitViewLatestTransformer<>(viewStatus());
+    }
+
+    /**
+     * Returns an {@link io.reactivex.ObservableTransformer} that delays emission from the source
+     * {@link Observable}.
+     *
+     * Keeps all onNext values and emits them each time a view gets attached.
+     *
+     * @param <T> the type of source observable emissions
+     */
     public <T> WaitViewReplayTransformer<T> waitViewReplay() {
-        return new WaitViewReplayTransformer<>(viewSubject);
+        return new WaitViewReplayTransformer<>(viewStatus());
     }
 }

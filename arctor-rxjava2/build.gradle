@@ -50,6 +50,7 @@ dependencies {
     compileOnly libraries.supportannotations
     implementation libraries.arctor
     implementation libraries.rxjava2
+    implementation libraries.rxandroid2
 
     testCompileOnly junit5.unitTestsRuntime()
     testImplementation junit5.unitTests()

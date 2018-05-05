@@ -9,6 +9,7 @@ import com.alapshin.arctor.view.MvpView;
 
 import rx.Observable;
 import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.subjects.BehaviorSubject;
 import rx.subscriptions.CompositeSubscription;
 
@@ -19,15 +20,6 @@ import rx.subscriptions.CompositeSubscription;
 public class RxPresenter<V extends MvpView> extends BasePresenter<V> {
     private CompositeSubscription subscriptions = new CompositeSubscription();
     private BehaviorSubject<Boolean> viewSubject = BehaviorSubject.create();
-
-    /**
-     * Returns an {@link rx.Observable} that emits current status of a view.
-     *
-     * @return an {@link rx.Observable} that emits true when view attached and false when view detached.
-     */
-    public Observable<Boolean> viewStatus() {
-        return viewSubject;
-    }
 
     @Override
     public void onCreate(@Nullable PresenterBundle bundle) {
@@ -95,6 +87,19 @@ public class RxPresenter<V extends MvpView> extends BasePresenter<V> {
     }
 
     /**
+     * Returns an {@link rx.Observable} that emits current status of a view.
+     *
+     * @return an {@link rx.Observable} that emits true when view attached and false when view detached.
+     */
+    public Observable<Boolean> viewStatus() {
+        // Return view status as observable.
+        // This mechanism allows us to ensure that `viewSubject` is always subscribed
+        // on the main thread.
+        // See https://github.com/trello/RxLifecycle/pull/105 for similar discussion
+        return Observable.defer(() -> viewSubject.subscribeOn(AndroidSchedulers.mainThread()));
+    }
+
+    /**
      * Returns an {@link rx.Observable.Transformer} that delays emission from the source
      * {@link rx.Observable}.
      *
@@ -110,7 +115,7 @@ public class RxPresenter<V extends MvpView> extends BasePresenter<V> {
      * Returns an {@link rx.Observable.Transformer} that delays emission from the source
      * {@link rx.Observable}.
      *
-     * Keeps all onNext values and emits them each time a new view gets attached.
+     * Keeps all onNext values and emits them each time a view gets attached.
      *
      * @param <T> the type of source observable emissions
      */
