@@ -1,6 +1,5 @@
 package com.alapshin.arctor.annotation;
 
-
 import com.google.auto.value.AutoValue;
 import com.google.common.base.CaseFormat;
 import com.squareup.javapoet.ClassName;

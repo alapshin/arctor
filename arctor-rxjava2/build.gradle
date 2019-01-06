@@ -12,8 +12,6 @@ ext {
 
 android {
     compileSdkVersion versions.compileSdk
-    buildToolsVersion versions.buildTools
-
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -52,8 +50,10 @@ dependencies {
     implementation libraries.rxjava2
     implementation libraries.rxandroid2
 
-    testCompileOnly junit5.unitTestsRuntime()
-    testImplementation junit5.unitTests()
+    testImplementation libraries.junit
+    testRuntimeOnly libraries.jupiterengine
+    testImplementation libraries.jupiterapi
+    testRuntimeOnly libraries.jupitervintage
     testImplementation libraries.assertj
 }
 
