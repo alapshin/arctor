@@ -16,7 +16,7 @@ dependencies {
     implementation project(':arctor-annotation')
 
     implementation libraries.javapoet
-    implementation libraries.autovalue
+    implementation libraries.autovalueannotations
     implementation libraries.autoservice
     implementation libraries.guava
 }

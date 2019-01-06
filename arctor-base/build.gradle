@@ -15,7 +15,6 @@ ext {
 
 android {
     compileSdkVersion versions.compileSdk
-    buildToolsVersion versions.buildTools
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -58,8 +57,10 @@ dependencies {
     // JSR-330
     compileOnly libraries.jsr330
 
-    testCompileOnly junit5.unitTestsRuntime()
-    testImplementation junit5.unitTests()
+    testImplementation libraries.junit
+    testRuntimeOnly libraries.jupiterengine
+    testRuntimeOnly libraries.jupitervintage
+    testImplementation libraries.jupiterapi
     testImplementation libraries.assertj
     testImplementation libraries.mockito
     testImplementation libraries.robolectric
