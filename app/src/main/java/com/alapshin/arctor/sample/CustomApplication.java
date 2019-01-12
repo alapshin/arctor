@@ -1,21 +1,20 @@
 package com.alapshin.arctor.sample;
 
+import android.app.Activity;
 import android.app.Application;
 import android.os.StrictMode;
 
-import com.alapshin.arctor.sample.di.HasComponent;
-import com.alapshin.arctor.sample.di.components.ApplicationComponent;
+import com.alapshin.arctor.sample.di.components.DaggerApplicationComponent;
 
-public class CustomApplication extends Application implements HasComponent<ApplicationComponent> {
-    private ApplicationComponent component;
+import javax.inject.Inject;
 
-    @Override
-    public ApplicationComponent component() {
-        if (component == null) {
-            component = ApplicationComponent.Builder.build(this);
-        }
-        return component;
-    }
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasActivityInjector;
+
+public class CustomApplication extends Application implements HasActivityInjector {
+    @Inject
+    DispatchingAndroidInjector<Activity> activityInjector;
 
     @Override
     public void onCreate() {
@@ -27,8 +26,13 @@ public class CustomApplication extends Application implements HasComponent<Appli
         }
     }
 
+    @Override
+    public AndroidInjector<Activity> activityInjector() {
+        return activityInjector;
+    }
+
     protected void setupDagger() {
-        component().inject(this);
+        DaggerApplicationComponent.create().inject(this);
     }
 
     protected void setupStrictMode() {

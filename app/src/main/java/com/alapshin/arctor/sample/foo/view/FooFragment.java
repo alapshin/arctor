@@ -7,12 +7,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.alapshin.arctor.sample.R;
-import com.alapshin.arctor.sample.di.HasComponent;
-import com.alapshin.arctor.sample.di.components.ActivityComponent;
 import com.alapshin.arctor.sample.foo.presenter.FooPresenter;
 import com.alapshin.mvp.view.BaseFragment;
 
 import butterknife.BindView;
+import dagger.android.support.AndroidSupportInjection;
 
 public class FooFragment extends BaseFragment<FooView, FooPresenter>
         implements FooView {
@@ -42,6 +41,6 @@ public class FooFragment extends BaseFragment<FooView, FooPresenter>
 
     @Override
     protected void injectDependencies() {
-        ((HasComponent<ActivityComponent>) getActivity()).component().inject(this);
+        AndroidSupportInjection.inject(this);
     }
 }

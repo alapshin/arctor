@@ -41,7 +41,10 @@ dependencies {
 
     // Dagger
     implementation libraries.dagger
+    implementation libraries.daggerandroid
+    implementation libraries.daggerandroidsupport
     annotationProcessor libraries.daggercompiler
+    annotationProcessor libraries.daggerandroidprocessor
     implementation libraries.kotlinstdlib
     // RxJava
     implementation libraries.rxjava
