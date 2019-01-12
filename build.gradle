@@ -11,6 +11,7 @@ buildscript {
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
         classpath 'de.mannodermaus.gradle.plugins:android-junit5:1.3.2.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.11"
     }
 }
 
@@ -45,6 +46,7 @@ ext {
             butterknife: '9.0.0',
             dagger: '2.20',
             jupiter: '5.3.2',
+            kotlin: '1.3.11',
             robolectric: '4.1',
             support: '28.0.0',
             supporttest: '1.0'
@@ -67,6 +69,7 @@ ext {
             dagger: "com.google.dagger:dagger:$versions.dagger",
             daggercompiler: "com.google.dagger:dagger-compiler:$versions.dagger",
             jsr330: 'javax.inject:javax.inject:1',
+            kotlinstdlib: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin",
             rxjava: 'io.reactivex:rxjava:1.3.8',
             rxjava2: 'io.reactivex.rxjava2:rxjava:2.2.5',
             rxjava2interop: 'com.github.akarnokd:rxjava2-interop:0.6.1',
