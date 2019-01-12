@@ -18,12 +18,12 @@ android {
 }
 
 dependencies {
-    compile libraries.butterknife
+    implementation libraries.butterknife
 
-    compile libraries.arctor
+    implementation libraries.arctor
 
-    compile libraries.rxjava
-    compile libraries.rxandroid
-    compile libraries.supportappcompat
-    compile libraries.supportannotations
+    implementation libraries.rxjava
+    implementation libraries.rxandroid
+    implementation libraries.supportappcompat
+    implementation libraries.supportannotations
 }
