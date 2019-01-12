@@ -19,8 +19,8 @@ public class FooFragment extends BaseFragment<FooView, FooPresenter>
 
     private static final String TAG = FooFragment.class.getSimpleName();
 
-    @BindView(R.id.fragment_foo_textview) TextView textView;
-    @BindView(R.id.fragment_foo_progressbar) ProgressBar progressBar;
+    @BindView(R.id.foo_textview) TextView textView;
+    @BindView(R.id.foo_progressbar) ProgressBar progressBar;
 
     @Override
     public void showProgress() {
@@ -37,7 +37,7 @@ public class FooFragment extends BaseFragment<FooView, FooPresenter>
     @LayoutRes
     @Override
     protected int getLayoutRes() {
-        return R.layout.fragment_foo;
+        return R.layout.foo_fragment;
     }
 
     @Override

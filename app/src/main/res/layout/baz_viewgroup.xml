@@ -5,12 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/holo_blue_light">
-
     <TextView
-        android:id="@+id/viewgroup_baz_textview"
+        android:id="@+id/baz_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textAppearance="@android:style/TextAppearance.Large"/>
-
 </FrameLayout>

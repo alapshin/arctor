@@ -27,9 +27,9 @@ public class MainActivity extends BaseActivity<MainView, MainPresenter>
     @Inject
     ActivityComponent component;
 
-    @BindView(R.id.activity_main_toolbar) Toolbar toolbar;
+    @BindView(R.id.main_toolbar) Toolbar toolbar;
     @BindView(R.id.activity_main_drawer_layout) DrawerLayout drawerLayout;
-    @BindView(R.id.activity_main_navigation_view) NavigationView navigationView;
+    @BindView(R.id.main_navigation_view) NavigationView navigationView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,7 +49,7 @@ public class MainActivity extends BaseActivity<MainView, MainPresenter>
             }
             if (fragment != null) {
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.activity_main_fragment_container, fragment)
+                        .replace(R.id.main_fragment_container, fragment)
                         .commit();
             }
             drawerLayout.closeDrawers();
@@ -87,6 +87,6 @@ public class MainActivity extends BaseActivity<MainView, MainPresenter>
     @Override
     @LayoutRes
     protected int getLayoutRes() {
-        return R.layout.activity_main;
+        return R.layout.main_activity;
     }
 }
