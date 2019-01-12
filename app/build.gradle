@@ -26,23 +26,23 @@ android {
 
 dependencies {
     // MVP
-    compile libraries.appbase
-    compile libraries.arctor
-    compile libraries.arctorrxjava
+    implementation libraries.appbase
+    implementation libraries.arctor
+    implementation libraries.arctorrxjava
 
-    compile libraries.supportappcompat
-    compile libraries.supportannotations
-    compile libraries.supportdesign
-    compile libraries.supportv13
+    implementation libraries.supportappcompat
+    implementation libraries.supportannotations
+    implementation libraries.supportdesign
+    implementation libraries.supportv13
 
     // Butterknife
-    compile libraries.butterknife
+    implementation libraries.butterknife
     annotationProcessor libraries.butterknifecompiler
 
     // Dagger
-    compile libraries.dagger
+    implementation libraries.dagger
     annotationProcessor libraries.daggercompiler
     // RxJava
-    compile libraries.rxjava
-    compile libraries.rxandroid
+    implementation libraries.rxjava
+    implementation libraries.rxandroid
 }
