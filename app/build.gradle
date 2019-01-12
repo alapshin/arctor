@@ -35,10 +35,6 @@ dependencies {
     compile libraries.supportdesign
     compile libraries.supportv13
 
-    // AutoValue
-    provided libraries.autovalue
-    annotationProcessor libraries.autovalue
-
     // Butterknife
     compile libraries.butterknife
     annotationProcessor libraries.butterknifecompiler
