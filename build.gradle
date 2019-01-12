@@ -20,6 +20,12 @@ allprojects {
         google()
         jcenter()
     }
+
+    afterEvaluate {
+        tasks.withType(JavaCompile.class) {
+            options.compilerArgs << "-Xmaxerrs" << "500"
+        }
+    }
 }
 
 subprojects {
@@ -67,7 +73,10 @@ ext {
             butterknife: "com.jakewharton:butterknife:$versions.butterknife",
             butterknifecompiler: "com.jakewharton:butterknife-compiler:$versions.butterknife",
             dagger: "com.google.dagger:dagger:$versions.dagger",
+            daggerandroid: "com.google.dagger:dagger-android:$versions.dagger",
+            daggerandroidsupport: "com.google.dagger:dagger-android-support:$versions.dagger",
             daggercompiler: "com.google.dagger:dagger-compiler:$versions.dagger",
+            daggerandroidprocessor: "com.google.dagger:dagger-android-processor:$versions.dagger",
             jsr330: 'javax.inject:javax.inject:1',
             kotlinstdlib: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin",
             rxjava: 'io.reactivex:rxjava:1.3.8',

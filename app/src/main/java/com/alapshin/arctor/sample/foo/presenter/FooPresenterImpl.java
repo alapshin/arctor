@@ -8,12 +8,18 @@ import com.alapshin.arctor.sample.foo.view.FooView;
 
 import java.util.concurrent.TimeUnit;
 
+import javax.inject.Inject;
+
 import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 public class FooPresenterImpl extends RxPresenter<FooView> implements FooPresenter {
+    @Inject
+    public FooPresenterImpl() {
+    }
+
     @Override
     public void onCreate(@Nullable PresenterBundle bundle) {
         super.onCreate(bundle);

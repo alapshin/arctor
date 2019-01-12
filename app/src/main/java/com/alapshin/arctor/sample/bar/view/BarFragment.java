@@ -4,9 +4,9 @@ import android.support.annotation.LayoutRes;
 
 import com.alapshin.arctor.sample.R;
 import com.alapshin.arctor.sample.bar.presenter.BarPresenter;
-import com.alapshin.arctor.sample.di.HasComponent;
-import com.alapshin.arctor.sample.di.components.ActivityComponent;
 import com.alapshin.mvp.view.BaseFragment;
+
+import dagger.android.support.AndroidSupportInjection;
 
 public class BarFragment extends BaseFragment<BarView, BarPresenter> implements BarView {
     @LayoutRes
@@ -17,6 +17,6 @@ public class BarFragment extends BaseFragment<BarView, BarPresenter> implements 
 
     @Override
     protected void injectDependencies() {
-        ((HasComponent<ActivityComponent>) getActivity()).component().inject(this);
+        AndroidSupportInjection.inject(this);
     }
 }
