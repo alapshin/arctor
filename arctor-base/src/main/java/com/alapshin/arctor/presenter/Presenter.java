@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 
 import com.alapshin.arctor.view.MvpView;
 
-
 /**
  * Presenter interface
  */

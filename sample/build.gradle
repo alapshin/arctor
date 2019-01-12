@@ -32,8 +32,6 @@ dependencies {
 
     // MVP
     compile libraries.arctor
-    compile libraries.arctorannotation
-    annotationProcessor libraries.arctorprocessor
     compile libraries.arctorrxjava
     compile libraries.samplebase
 
