@@ -25,15 +25,15 @@ android {
 }
 
 dependencies {
+    // MVP
+    compile libraries.appbase
+    compile libraries.arctor
+    compile libraries.arctorrxjava
+
     compile libraries.supportappcompat
     compile libraries.supportannotations
     compile libraries.supportdesign
     compile libraries.supportv13
-
-    // MVP
-    compile libraries.arctor
-    compile libraries.arctorrxjava
-    compile libraries.samplebase
 
     // AutoValue
     provided libraries.autovalue
