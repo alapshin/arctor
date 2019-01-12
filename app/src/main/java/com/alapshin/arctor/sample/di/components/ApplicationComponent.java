@@ -7,7 +7,6 @@ import com.alapshin.arctor.sample.di.scopes.ScopeIn;
 
 import dagger.Component;
 
-
 @Component(modules = {
         ApplicationModule.class,
 })
