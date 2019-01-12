@@ -33,7 +33,6 @@ dependencies {
     implementation libraries.supportappcompat
     implementation libraries.supportannotations
     implementation libraries.supportdesign
-    implementation libraries.supportv13
 
     // Butterknife
     implementation libraries.butterknife
