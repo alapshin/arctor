@@ -34,14 +34,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-    testOptions.unitTests.all {
-        testLogging {
-            events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
-            exceptionFormat 'full'
-            showStandardStreams = true
-        }
-    }
 }
 
 dependencies {
