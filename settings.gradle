@@ -1,6 +1,4 @@
-include ':arctor-annotation',
-        ':arctor-base',
-        ':arctor-processor',
+include ':arctor-base',
         ':arctor-rxjava',
         ':arctor-rxjava2',
         ':sample-base', ':sample'

@@ -5,8 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.alapshin.arctor.view.MvpView;
-import com.alapshin.arctor.viewstate.ViewStateCommand;
-import com.alapshin.arctor.viewstate.ViewStateCommandQueue;
 
 import java.lang.ref.WeakReference;
 
@@ -17,30 +15,6 @@ import java.lang.ref.WeakReference;
  * @since 2015-04-18
  */
 public class BasePresenter<V extends MvpView> implements Presenter<V> {
-    private static final String VIEW_STATE_COMMAND_QUEUE_KEY = "view_state_command_queue";
-
-    /**
-     * How to store command into the queue after execution
-     */
-    public enum CommandStoreStrategy {
-        /**
-         * Add command to the end of the queue
-         */
-        ADD,
-        /**
-         * Clear the queue and add command the end of queue
-         */
-        CLEAR,
-        /**
-         * Add command to the end of the queue but remove previous commands of the same type from the queue
-         */
-        REPLACE,
-        /**
-         * Don't add command to the queue
-         */
-        SKIP
-    }
-
     private boolean orientationChanged = false;
     private boolean viewOnCreateCalled = false;
     /**
@@ -49,7 +23,6 @@ public class BasePresenter<V extends MvpView> implements Presenter<V> {
      * Before calling any view methods check that view is attached with isViewAttached
      */
     protected WeakReference<V> viewRef;
-    protected ViewStateCommandQueue<V> viewStateCommandQueue = new ViewStateCommandQueue<>();
 
     @Override
     @CallSuper
@@ -69,11 +42,6 @@ public class BasePresenter<V extends MvpView> implements Presenter<V> {
         } else {
             viewOnCreateCalled = true;
             orientationChanged = false;
-        }
-
-        if (savedInstanceState != null) {
-            viewStateCommandQueue = (ViewStateCommandQueue<V>) savedInstanceState.getSerializable(
-                    VIEW_STATE_COMMAND_QUEUE_KEY);
         }
     }
 
@@ -95,7 +63,6 @@ public class BasePresenter<V extends MvpView> implements Presenter<V> {
     @Override
     @CallSuper
     public void onSaveInstanceState(@NonNull PresenterBundle outState) {
-        outState.putSerializable(VIEW_STATE_COMMAND_QUEUE_KEY, viewStateCommandQueue);
     }
 
     @Override
@@ -106,18 +73,12 @@ public class BasePresenter<V extends MvpView> implements Presenter<V> {
     @Override
     @CallSuper
     public void onDestroy() {
-        viewStateCommandQueue.clear();
     }
 
     @Override
     @CallSuper
     public void attachView(V view) {
         this.viewRef = new WeakReference<V>(view);
-        if (viewStateCommandQueue != null) {
-            for (ViewStateCommand<V> command: viewStateCommandQueue) {
-                command.execute(view);
-            }
-        }
     }
 
     @Override
@@ -143,28 +104,5 @@ public class BasePresenter<V extends MvpView> implements Presenter<V> {
 
     public boolean isOrientationChanged() {
         return orientationChanged;
-    }
-
-    /**
-     * Execute command against view and store command into the queue
-     * @param command command to execute
-     * @param strategy store strategy
-     */
-    public void executeCommand(ViewStateCommand<V> command, CommandStoreStrategy strategy) {
-        command.execute(getView());
-        switch (strategy) {
-            case ADD:
-                viewStateCommandQueue.add(command);
-                break;
-            case CLEAR:
-                viewStateCommandQueue.addWithClear(command);
-            case REPLACE:
-                viewStateCommandQueue.addWithReplace(command);
-                break;
-            case SKIP:
-                break;
-            default:
-                break;
-        }
     }
 }
