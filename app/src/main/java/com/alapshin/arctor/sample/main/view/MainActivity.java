@@ -3,19 +3,18 @@ package com.alapshin.arctor.sample.main.view;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 
 import com.alapshin.arctor.sample.R;
-import com.alapshin.arctor.sample.bar.BarScreen;
-import com.alapshin.arctor.sample.baz.BazScreen;
+import com.alapshin.arctor.sample.bar.view.BarFragment;
 import com.alapshin.arctor.sample.di.HasComponent;
 import com.alapshin.arctor.sample.di.components.ActivityComponent;
 import com.alapshin.arctor.sample.di.components.ApplicationComponent;
 import com.alapshin.arctor.sample.di.modules.ActivityModule;
-import com.alapshin.arctor.sample.foo.FooScreen;
+import com.alapshin.arctor.sample.foo.view.FooFragment;
 import com.alapshin.arctor.sample.main.presenter.MainPresenter;
-import com.alapshin.arctor.sample.navigation.Navigator;
 import com.alapshin.mvp.view.BaseActivity;
 
 import javax.inject.Inject;
@@ -24,9 +23,6 @@ import butterknife.BindView;
 
 public class MainActivity extends BaseActivity<MainView, MainPresenter>
         implements MainView, HasComponent<ActivityComponent> {
-
-    @Inject
-    Navigator navigator;
 
     @Inject
     ActivityComponent component;
@@ -40,34 +36,25 @@ public class MainActivity extends BaseActivity<MainView, MainPresenter>
         super.onCreate(savedInstanceState);
         setSupportActionBar(toolbar);
         navigationView.setNavigationItemSelectedListener(item -> {
+            Fragment fragment = null;
             switch (item.getItemId()) {
-                case R.id.menu_bar:
-                    navigator.set(BarScreen.create(), false);
-                    break;
-                case R.id.menu_baz:
-                    navigator.set(BazScreen.create(), false);
-                    break;
                 case R.id.menu_foo:
-                    navigator.set(FooScreen.create(), false);
+                    fragment = new FooFragment();
+                    break;
+                case R.id.menu_bar:
+                    fragment = new BarFragment();
                     break;
                 default:
                     break;
             }
+            if (fragment != null) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.activity_main_fragment_container, fragment)
+                        .commit();
+            }
             drawerLayout.closeDrawers();
             return true;
         });
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        navigator.attach(this);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        navigator.detach();
     }
 
     @Override
