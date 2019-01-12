@@ -53,11 +53,10 @@ ext {
     ]
 
     libraries = [
+            appbase: project(':app-base'),
             arctor: project(':arctor-base'),
             arctorrxjava: project(':arctor-rxjava'),
             arctorrxjava2: project(':arctor-rxjava'),
-
-            samplebase: project(':sample-base'),
 
             supportv13: "com.android.support:support-v13:$versions.support",
             supportappcompat: "com.android.support:appcompat-v7:$versions.support",

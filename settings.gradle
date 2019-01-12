@@ -1,4 +1,5 @@
-include ':arctor-base',
+include ':app',
+        ':app-base',
+        ':arctor-base',
         ':arctor-rxjava',
-        ':arctor-rxjava2',
-        ':sample-base', ':sample'
+        ':arctor-rxjava2'
