@@ -4,22 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/holo_green_light">
-
+    <TextView
+        android:id="@+id/foo_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAppearance="@android:style/TextAppearance.Large"/>
     <ProgressBar
-        android:id="@+id/fragment_foo_progressbar"
+        android:id="@+id/foo_progressbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:indeterminate="true"
         android:indeterminateOnly="true"
         android:visibility="gone"/>
-
-    <TextView
-        android:id="@+id/fragment_foo_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:textAppearance="@android:style/TextAppearance.Large"/>
-
 </FrameLayout>

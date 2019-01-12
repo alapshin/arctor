@@ -17,7 +17,7 @@ public class BazViewGroup extends BaseFrameLayout<BazView, BazPresenter> impleme
 
     private static final String TAG = BazViewGroup.class.getSimpleName();
 
-    @BindView(R.id.viewgroup_baz_textview) TextView textView;
+    @BindView(R.id.baz_textview) TextView textView;
 
     public BazViewGroup(Context context) {
         super(context);
@@ -32,7 +32,7 @@ public class BazViewGroup extends BaseFrameLayout<BazView, BazPresenter> impleme
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.viewgroup_baz;
+        return R.layout.baz_viewgroup;
     }
 
     @Override

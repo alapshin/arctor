@@ -12,7 +12,7 @@ public class BarFragment extends BaseFragment<BarView, BarPresenter> implements 
     @LayoutRes
     @Override
     protected int getLayoutRes() {
-        return R.layout.fragment_bar;
+        return R.layout.bar_fragment;
     }
 
     @Override
