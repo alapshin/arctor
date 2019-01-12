@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.jetbrains.kotlin.android'
 
 android {
     compileSdkVersion versions.compileSdk
@@ -41,6 +42,7 @@ dependencies {
     // Dagger
     implementation libraries.dagger
     annotationProcessor libraries.daggercompiler
+    implementation libraries.kotlinstdlib
     // RxJava
     implementation libraries.rxjava
     implementation libraries.rxandroid
