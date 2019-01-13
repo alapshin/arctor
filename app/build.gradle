@@ -29,7 +29,7 @@ dependencies {
     // MVP
     implementation libraries.appbase
     implementation libraries.arctor
-    implementation libraries.arctorrxjava
+    implementation libraries.arctorrxjava2
 
     implementation libraries.supportappcompat
     implementation libraries.supportannotations
@@ -47,6 +47,6 @@ dependencies {
     annotationProcessor libraries.daggerandroidprocessor
     implementation libraries.kotlinstdlib
     // RxJava
-    implementation libraries.rxjava
-    implementation libraries.rxandroid
+    implementation libraries.rxjava2
+    implementation libraries.rxandroid2
 }
