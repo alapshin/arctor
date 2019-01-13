@@ -62,7 +62,7 @@ ext {
             appbase: project(':app-base'),
             arctor: project(':arctor-base'),
             arctorrxjava: project(':arctor-rxjava'),
-            arctorrxjava2: project(':arctor-rxjava'),
+            arctorrxjava2: project(':arctor-rxjava2'),
 
             supportappcompat: "com.android.support:appcompat-v7:$versions.support",
             supportannotations: "com.android.support:support-annotations:$versions.support",
