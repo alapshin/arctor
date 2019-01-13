@@ -65,8 +65,16 @@ public class MainActivity extends BaseActivity<MainView, MainPresenter>
     }
 
     @Override
-    public void setData(long data) {
+    public void onData(long data) {
         toolbar.setTitle("Data " + data);
+    }
+
+    @Override
+    public void onError(Throwable error) {
+    }
+
+    @Override
+    public void onProgress() {
     }
 
     @Override
