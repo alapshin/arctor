@@ -22,19 +22,23 @@ public class FooFragment extends BaseFragment<FooView, FooPresenter>
     @BindView(R.id.foo_progressbar) ProgressBar progressBar;
 
     @Override
-    public void showProgress() {
+    public void onProgress() {
         progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void setData(long data) {
-        Log.d(TAG, "setData " + data);
+    public void onData(long data) {
+        Log.d(TAG, "onData " + data);
         textView.setText(String.format(getString(R.string.all_data), data));
         progressBar.setVisibility(View.GONE);
     }
 
-    @LayoutRes
     @Override
+    public void onError(Throwable error) {
+    }
+
+    @Override
+    @LayoutRes
     protected int getLayoutRes() {
         return R.layout.foo_fragment;
     }
