@@ -1,0 +1,19 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: alapshin/android-build-env
+    steps:
+      - checkout
+      - restore_cache:
+          key: jars-{{ checksum "build.gradle.kts" }}-{{ checksum  "app/build.gradle.kts" }}
+      - run:
+          name: Build artifacts
+          command: ci/build.sh
+      - save_cache:
+          paths:
+            - ~/.gradle
+            - ~/.gradle/wrapper/
+            - ~/.android/build-cache
+          key: jars-{{ checksum "build.gradle.kts" }}-{{ checksum  "app/build.gradle.kts" }}
