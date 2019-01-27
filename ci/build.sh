@@ -2,4 +2,4 @@
 
 set -euo pipefail
 
-./gradlew clean build
+./gradlew --no-daemon -PciBuild clean build
