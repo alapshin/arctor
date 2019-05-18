@@ -49,6 +49,9 @@ dependencies {
 
     // JSR-330
     compileOnly libraries.jsr330
+    // Workaround for AGP not merging test manifest
+    // See https://github.com/robolectric/robolectric/pull/4736
+    testImplementation libraries.arctortest
 
     testImplementation libraries.junit
     testRuntimeOnly libraries.jupiterengine
@@ -58,6 +61,13 @@ dependencies {
     testImplementation libraries.mockito
     testImplementation libraries.robolectric
     testImplementation libraries.robolectricsupport
+    testImplementation libraries.androidxtest
+    testImplementation libraries.androidxtestrunner
+    testImplementation libraries.androidxtesttruth
+    testImplementation libraries.androidxtestextjunit
+    testImplementation libraries.androidxtestfragment
+    testImplementation libraries.androidxtestespresso
+
 }
 
 if (!rootProject.hasProperty('ciBuild')) {

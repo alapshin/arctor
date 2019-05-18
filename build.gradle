@@ -6,7 +6,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.1'
+        classpath 'com.android.tools.build:gradle:3.5.0-beta01'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.21.0'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
@@ -60,6 +60,7 @@ ext {
     libraries = [
             appbase: project(':app-base'),
             arctor: project(':arctor-base'),
+            arctortest: project(':arctor-base-test'),
             arctorrxjava: project(':arctor-rxjava'),
             arctorrxjava2: project(':arctor-rxjava2'),
 
@@ -94,5 +95,12 @@ ext {
             assertjandroid: 'com.squareup.assertj:assertj-android:1.0.0',
             robolectric: "org.robolectric:robolectric:$versions.robolectric",
             robolectricsupport: "org.robolectric:shadows-supportv4:$versions.robolectric",
+
+            androidxtest: 'androidx.test:core:1.0.0',
+            androidxtestrunner: 'androidx.test:runner:1.1.0',
+            androidxtesttruth: 'androidx.test.ext:truth:1.0.0',
+            androidxtestespresso: 'androidx.test.espresso:espresso-core:3.1.1',
+            androidxtestextjunit: 'androidx.test.ext:junit:1.1.0',
+            androidxtestfragment: 'androidx.fragment:fragment-testing:1.1.0-alpha01',
     ]
 }

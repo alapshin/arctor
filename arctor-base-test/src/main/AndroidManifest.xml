@@ -1,0 +1,8 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.alapshin.arctor">
+    <application>
+        <activity
+            android:name=".view.TestActivity"
+            android:theme="@style/Theme.AppCompat"/>
+    </application>
+</manifest>
