@@ -1,6 +1,6 @@
 package com.alapshin.arctor.sample.bar.view;
 
-import android.support.annotation.LayoutRes;
+import androidx.annotation.LayoutRes;
 
 import com.alapshin.arctor.sample.R;
 import com.alapshin.arctor.sample.bar.presenter.BarPresenter;

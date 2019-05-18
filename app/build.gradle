@@ -31,9 +31,9 @@ dependencies {
     implementation libraries.arctor
     implementation libraries.arctorrxjava2
 
-    implementation libraries.supportappcompat
-    implementation libraries.supportannotations
-    implementation libraries.supportdesign
+    implementation libraries.androidxappcompat
+    implementation libraries.androidxannotations
+    implementation libraries.androidxdesign
 
     // Butterknife
     implementation libraries.butterknife

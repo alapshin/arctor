@@ -1,9 +1,10 @@
 package com.alapshin.arctor.view;
 
 import android.os.Bundle;
-import android.support.annotation.CallSuper;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import androidx.annotation.CallSuper;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import android.view.View;
 
 import com.alapshin.arctor.delegate.FragmentMvpDelegate;
@@ -39,7 +40,7 @@ public abstract class MvpFragment<V extends MvpView, P extends Presenter<V>>
 
     @Override
     @CallSuper
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mvpDelegate.onViewCreated(savedInstanceState);
     }
@@ -67,7 +68,7 @@ public abstract class MvpFragment<V extends MvpView, P extends Presenter<V>>
 
     @Override
     @CallSuper
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         mvpDelegate.onSaveInstanceState(outState);
         super.onSaveInstanceState(outState);
     }

@@ -1,7 +1,7 @@
 package com.alapshin.arctor.presenter.rx;
 
-import android.support.annotation.CallSuper;
-import android.support.annotation.Nullable;
+import androidx.annotation.CallSuper;
+import androidx.annotation.Nullable;
 
 import com.alapshin.arctor.presenter.BasePresenter;
 import com.alapshin.arctor.presenter.PresenterBundle;

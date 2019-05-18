@@ -27,7 +27,7 @@ android {
         versionCode 1
         versionName version
 
-        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
 
     buildTypes {
@@ -44,8 +44,8 @@ android {
 
 
 dependencies {
-    compileOnly libraries.supportannotations
-    implementation libraries.supportappcompat
+    compileOnly libraries.androidxannotations
+    implementation libraries.androidxappcompat
 
     // JSR-330
     compileOnly libraries.jsr330
@@ -58,7 +58,6 @@ dependencies {
     testImplementation libraries.mockito
     testImplementation libraries.robolectric
     testImplementation libraries.robolectricsupport
-    testImplementation 'org.khronos:opengl-api:gl1.1-android-2.1_r1'
 }
 
 if (!rootProject.hasProperty('ciBuild')) {

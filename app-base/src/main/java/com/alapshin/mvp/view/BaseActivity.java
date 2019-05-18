@@ -1,8 +1,8 @@
 package com.alapshin.mvp.view;
 
 import android.os.Bundle;
-import android.support.annotation.CallSuper;
-import android.support.annotation.LayoutRes;
+import androidx.annotation.CallSuper;
+import androidx.annotation.LayoutRes;
 
 import com.alapshin.arctor.presenter.Presenter;
 import com.alapshin.arctor.view.MvpActivity;
