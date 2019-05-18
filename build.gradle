@@ -6,12 +6,12 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.3.0'
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.20.0'
+        classpath 'com.android.tools.build:gradle:3.4.1'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.21.0'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
-        classpath 'de.mannodermaus.gradle.plugins:android-junit5:1.3.2.0'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.11"
+        classpath 'de.mannodermaus.gradle.plugins:android-junit5:1.4.2.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.31"
     }
 }
 
@@ -50,10 +50,10 @@ ext {
 
             autovalue: '1.6.3',
             butterknife: '9.0.0',
-            dagger: '2.20',
+            dagger: '2.22.1',
             jupiter: '5.3.2',
-            kotlin: '1.3.11',
-            robolectric: '4.1',
+            kotlin: '1.3.31',
+            robolectric: '4.3-beta-1',
             support: '28.0.0',
             supporttest: '1.0'
     ]
@@ -80,10 +80,10 @@ ext {
             jsr330: 'javax.inject:javax.inject:1',
             kotlinstdlib: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin",
             rxjava: 'io.reactivex:rxjava:1.3.8',
-            rxjava2: 'io.reactivex.rxjava2:rxjava:2.2.5',
+            rxjava2: 'io.reactivex.rxjava2:rxjava:2.2.8',
             rxjava2interop: 'com.github.akarnokd:rxjava2-interop:0.6.1',
             rxandroid: 'io.reactivex:rxandroid:1.2.1',
-            rxandroid2: 'io.reactivex.rxjava2:rxandroid:2.1.0',
+            rxandroid2: 'io.reactivex.rxjava2:rxandroid:2.1.1',
             rxrelay2: 'com.jakewharton.rxrelay2:rxrelay:2.0.0',
 
             junit: "junit:junit:4.12",
