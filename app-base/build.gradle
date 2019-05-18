@@ -22,6 +22,6 @@ dependencies {
 
     implementation libraries.arctor
 
-    implementation libraries.supportappcompat
-    implementation libraries.supportannotations
+    implementation libraries.androidxappcompat
+    implementation libraries.androidxannotations
 }

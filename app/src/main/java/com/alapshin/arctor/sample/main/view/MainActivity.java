@@ -1,11 +1,11 @@
 package com.alapshin.arctor.sample.main.view;
 
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.LayoutRes;
+import com.google.android.material.navigation.NavigationView;
+import androidx.fragment.app.Fragment;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.widget.Toolbar;
 
 import com.alapshin.arctor.sample.R;
 import com.alapshin.arctor.sample.bar.view.BarFragment;
